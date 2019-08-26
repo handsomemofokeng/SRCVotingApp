@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ethnicity">
+        <item>-- Select Ethnic Group --</item>
+        <item>African</item>
+        <item>Indian</item>
+        <item>Coloured</item>
+        <item>White</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="course">
+        <item>-- Select enrolled Course --</item>
+        <item>Information Technology</item>
+        <item>Civil Engineering</item>
+        <item>Electrical Engineering</item>
+        <item>Radiography</item>
+        <item>Education</item>
+        <item>Hospitality</item>
+    </string-array>
+
+</resources>
