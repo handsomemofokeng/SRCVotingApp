@@ -3,6 +3,7 @@ package com.example.srcvotingapp;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.SearchRecentSuggestionsProvider;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.backendless.BackendlessUser;
 import com.google.zxing.integration.android.IntentIntegrator;
 
@@ -22,11 +24,22 @@ import java.util.List;
 
 public class ApplicationClass extends Application {
 
+    public static final String APPLICATION_ID = "YOUR_APP_ID";
+    public static final String API_KEY = "YOUR_API_KEY";
+    public static final String SERVER_URL = "https://api.backendless.com",
+            MY_SHARED_PREFERENCES_NAME = "com.example.srcvotingapp";
+    public static final int REQUEST_PHONE = 123;
+
     @Override
     public void onCreate() {
         super.onCreate();
     }
 
+    /**
+     * This method reuses the Scan Barcode Activity
+     *
+     * @param activity in which the scan results will be returned.
+     */
     public static void scanStudentCard(Activity activity) {
         IntentIntegrator integrator = new IntentIntegrator(activity);
         integrator.setCaptureActivity(Portrait.class);
@@ -36,6 +49,26 @@ public class ApplicationClass extends Application {
         integrator.initiateScan();
     }
 
+    /**
+     * This method resets the Radio Group
+     *
+     * @param radioGroup to be reset
+     */
+    public static void clearRadioGroup(RadioGroup radioGroup) {
+        radioGroup.clearCheck();
+    }
+
+    public static String getSelectedRadio(RadioButton... radioButtons) {
+        String selectedRadio = "";
+        for (RadioButton radioButton : radioButtons) {
+            if (radioButton.isChecked()){
+                selectedRadio = radioButton.getText().toString();
+                break;
+            }
+        }
+
+        return selectedRadio;
+    }
 
     /**
      * This method clears text fields
@@ -103,6 +136,7 @@ public class ApplicationClass extends Application {
         boolean isValid = true;
         for (EditText field : fields) {
             if (field.getText().toString().trim().isEmpty()) {
+                field.hasFocus();
                 field.setError("This field is required!");
                 isValid = false;
             }
@@ -122,6 +156,7 @@ public class ApplicationClass extends Application {
         if (!isMatching) {
             etPassword.setError("Passwords must match!");
             etConfirm.setError("Passwords must match!");
+            etConfirm.hasFocus();
         } else {
             etPassword.setError(null);
             etConfirm.setError(null);
@@ -218,5 +253,33 @@ public class ApplicationClass extends Application {
         spinner.setAdapter((new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, list)));
         spinner.setGravity(View.TEXT_ALIGNMENT_CENTER);
     }
+
+    /**
+     * This method sets the text of an editText to a selected spinner value
+     *
+     * @param spinner  to extract a prefix text
+     * @param editText to be prefixed with the spinner value
+     */
+    public static void getSpinnerValue(Spinner spinner, EditText editText) {
+        editText.setText(spinner.getSelectedItem().toString());
+    }
+
+    public static boolean isValidSpinner(Spinner... spinners) {
+        boolean isValid = true;
+        for (Spinner spn : spinners) {
+            if (spn.getSelectedItemPosition() <= 0) {
+
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    public static void clearSpinners(Spinner... spinners) {
+        for (Spinner spinner : spinners) {
+            spinner.setSelection(0);
+        }
+    }
+
 
 }

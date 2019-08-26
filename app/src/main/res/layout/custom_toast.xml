@@ -18,8 +18,6 @@
             android:layout_height="@android:dimen/app_icon_size"
             android:layout_margin="5dp"
             android:layout_weight="1"
-
-            android:background="@drawable/button"
             android:src="@mipmap/ic_launcher" />
 
         <TextView

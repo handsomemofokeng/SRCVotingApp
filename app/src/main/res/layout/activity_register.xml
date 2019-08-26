@@ -96,103 +96,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <RadioGroup
-                android:id="@+id/rgGender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:passwordToggleEnabled="true">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etGenderReg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_person"
-                        android:drawablePadding="5dp"
-                        android:enabled="false"
-                        android:hint="@string/prompt_gender"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="textPersonName"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <RadioButton
-                    android:id="@+id/rbMale"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:text="@string/male" />
-
-                <RadioButton
-                    android:id="@+id/rbFemale"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:text="@string/female" />
-
-            </RadioGroup>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="2.5dp"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="3dp"
-                    android:drawableStart="@drawable/ic_group" />
-
-                <Spinner
-                    android:id="@+id/spnEthnicity"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:entries="@array/ethnicity"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="2.5dp"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvCourse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="3dp"
-                    android:drawableStart="@drawable/ic_school" />
-
-                <Spinner
-                    android:id="@+id/spnCourse"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:entries="@array/course"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -235,6 +138,107 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <RadioGroup
+                android:id="@+id/rgGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etGenderReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:hint="@string/prompt_gender"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@android:color/black" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <RadioButton
+                    android:id="@+id/rbMale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:text="@string/male" />
+
+                <RadioButton
+                    android:id="@+id/rbFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:text="@string/female" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginBottom="2.5dp"
+                android:background="@drawable/spinner"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvEthnicity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="3dp"
+                    android:drawableStart="@drawable/ic_group"
+                    android:focusable="true" />
+
+                <Spinner
+                    android:id="@+id/spnEthnicityReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:entries="@array/ethnicity"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginBottom="2.5dp"
+                android:background="@drawable/spinner"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="3dp"
+                    android:drawableStart="@drawable/ic_school"
+                    android:focusable="true" />
+
+                <Spinner
+                    android:id="@+id/spnCourseReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:entries="@array/course"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btnRegisterUser"
                 android:layout_width="match_parent"
@@ -242,10 +246,10 @@
                 android:layout_marginStart="2.5dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/button"
+                android:onClick="onClick_RegisterUser"
                 android:text="@string/action_register"
                 android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                android:onClick="onClick_RegisterUser"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 

@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         scanStudentCard(this);
         showCustomToast(getApplicationContext(), toastView, "Scan Student Card");
+
     }
 
     @Override
@@ -134,4 +135,5 @@ public class MainActivity extends AppCompatActivity {
     public void onClick_RegisterUser(View view) {
         startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
     }
+
 }
