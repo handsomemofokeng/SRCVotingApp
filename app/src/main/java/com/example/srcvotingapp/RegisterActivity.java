@@ -1,6 +1,5 @@
 package com.example.srcvotingapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -21,7 +20,6 @@ import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
-import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
@@ -116,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                 tvEthnicity.setError(null);
                 if (isPasswordsMatching(etPassword, etConfirm)) {
 
-                    //Register
+                    // TODO: 2019/08/26 Implement Register Code
 
                     //Then reset form
                     clearFields(etEmail, etName, etSurname, etGender, etPassword, etConfirm);
@@ -133,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                             "Please make sure passwords match");
 
                 }
+
             } else {
                 if (!isValidSpinner(spnEthnicity)) {
                     tvEthnicity.setError("Please select Ethnicity on the dropdown list");
