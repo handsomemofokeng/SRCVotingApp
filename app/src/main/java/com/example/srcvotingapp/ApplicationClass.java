@@ -1,5 +1,6 @@
 package com.example.srcvotingapp;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -15,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.backendless.BackendlessUser;
+import com.google.zxing.integration.android.IntentIntegrator;
+
 import java.util.List;
 
 public class ApplicationClass extends Application {
@@ -23,6 +26,16 @@ public class ApplicationClass extends Application {
     public void onCreate() {
         super.onCreate();
     }
+
+    public static void scanStudentCard(Activity activity) {
+        IntentIntegrator integrator = new IntentIntegrator(activity);
+        integrator.setCaptureActivity(Portrait.class);
+        integrator.setOrientationLocked(false);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scan your student card...");
+        integrator.initiateScan();
+    }
+
 
     /**
      * This method clears text fields

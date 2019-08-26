@@ -1,5 +1,6 @@
 package com.example.srcvotingapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
@@ -58,17 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClick_ScanCard(View view) {
-        scanStudentCard();
-    }
-
-
-    private void scanStudentCard() {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(Portrait.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scan your student card...");
-        integrator.initiateScan();
+        scanStudentCard(this);
     }
 
     @Override
@@ -87,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClick_RegisterUser(View view) {
-
 
     }
 }

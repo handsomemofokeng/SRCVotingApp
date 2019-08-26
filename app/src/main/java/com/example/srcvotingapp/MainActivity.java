@@ -22,6 +22,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
@@ -67,17 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick_ScanCard(View view) {
 
-        scanStudentCard();
+        scanStudentCard(this);
         showCustomToast(getApplicationContext(), toastView, "Scan Student Card");
-    }
-
-    private void scanStudentCard() {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(Portrait.class);
-        integrator.setOrientationLocked(false);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scan your student card...");
-        integrator.initiateScan();
     }
 
     @Override
