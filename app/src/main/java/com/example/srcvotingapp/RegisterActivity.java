@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private View toastView;
     private TextView tvCourse, tvRace;
     private Spinner spnEthnicity, spnCourse;
+    private RadioGroup rgGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
         etEmail = findViewById(R.id.etEmailReg);
@@ -49,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
         spnCourse = findViewById(R.id.spnCourse);
         spnEthnicity = findViewById(R.id.spnEthnicity);
         tvCourse = findViewById(R.id.tvCourse);
+        rgGender = findViewById(R.id.rgGender);
+
     }
 
     public void onClick_ScanCard(View view) {

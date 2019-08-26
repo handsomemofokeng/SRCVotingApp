@@ -9,6 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -201,6 +203,7 @@ public class ApplicationClass extends Application {
      */
     public static void loadSpinnerValues(Context context, Spinner spinner, List<String> list) {
         spinner.setAdapter((new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, list)));
+        spinner.setGravity(View.TEXT_ALIGNMENT_CENTER);
     }
 
 }

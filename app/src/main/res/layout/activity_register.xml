@@ -97,6 +97,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <RadioGroup
+                android:id="@+id/rgGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -124,6 +125,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <RadioButton
+                    android:id="@+id/rbMale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -131,6 +133,7 @@
                     android:text="@string/male" />
 
                 <RadioButton
+                    android:id="@+id/rbFemale"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -187,6 +190,7 @@
                     android:layout_gravity="center"
                     android:entries="@array/course"
                     android:textAlignment="center" />
+
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
