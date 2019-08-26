@@ -24,5 +24,6 @@
     <string name="prompt_race">Race</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="asterisk">*</string>
 
 </resources>

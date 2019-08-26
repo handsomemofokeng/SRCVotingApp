@@ -21,6 +21,7 @@ import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
+import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
@@ -57,6 +58,13 @@ public class RegisterActivity extends AppCompatActivity {
         if (actionBar != null)
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Register User");
+
+        etConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                isPasswordsMatching(etPassword,etConfirm);
+            }
+        });
 
     }
 
@@ -107,12 +115,14 @@ public class RegisterActivity extends AppCompatActivity {
                 tvCourse.setError(null);
                 tvEthnicity.setError(null);
                 if (isPasswordsMatching(etPassword, etConfirm)) {
+
                     //Register
 
                     //Then reset form
                     clearFields(etEmail, etName, etSurname, etGender, etPassword, etConfirm);
                     clearRadioGroup(rgGender);
-                    clearSpinners(spnCourse,spnEthnicity);
+                    clearSpinners(spnCourse, spnEthnicity);
+                    etEmail.hasFocus();
 
                     showCustomToast(getApplicationContext(), toastView,
                             "User successfully registered");
@@ -126,9 +136,13 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 if (!isValidSpinner(spnEthnicity)) {
                     tvEthnicity.setError("Please select Ethnicity on the dropdown list");
-                }
-                if (!isValidSpinner(spnCourse)) {
-                    tvCourse.setError("Please select Course on the dropdown list");
+                } else {
+                    tvEthnicity.setError(null);
+                    if (!isValidSpinner(spnCourse)) {
+                        tvCourse.setError("Please select Course on the dropdown list");
+                    } else {
+                        tvCourse.setError(null);
+                    }
                 }
             }
 
@@ -136,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             showCustomToast(getApplicationContext(), toastView,
                     "Please enter required fields");
+
         }
 
     }
