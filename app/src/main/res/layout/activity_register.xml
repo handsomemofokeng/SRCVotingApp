@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="12dp"
     tools:context=".RegisterActivity">
 
     <ScrollView
@@ -16,6 +16,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_details"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+
+            <!--Divider-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,6 +155,24 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/statistic_details"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
+
+            <!--Divider-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorPrimary" />
+
             <RadioGroup
                 android:id="@+id/rgGender"
                 android:layout_width="match_parent"
@@ -199,10 +234,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="3dp"
-                    android:text="@string/asterisk"
-                    android:textColor="@color/colorAccent"
                     android:drawableStart="@drawable/ic_group"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:text="@string/asterisk"
+                    android:textColor="@color/colorAccent" />
 
                 <Spinner
                     android:id="@+id/spnEthnicityReg"
@@ -228,10 +263,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="3dp"
-                    android:text="@string/asterisk"
-                    android:textColor="@color/colorAccent"
                     android:drawableStart="@drawable/ic_school"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:text="@string/asterisk"
+                    android:textColor="@color/colorAccent" />
 
                 <Spinner
                     android:id="@+id/spnCourseReg"

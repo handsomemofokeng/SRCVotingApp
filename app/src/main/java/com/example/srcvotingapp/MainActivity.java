@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 etEmail.hasFocus();
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
-                etPassword.hasFocus();
+                etPassword.isFocused();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SendResetLink(View view) {
+        showCustomToast(getApplicationContext(), toastView,
+                "Reset  link sent to "+ etEmail.getText().toString().trim());
         showLoginForm();
     }
 

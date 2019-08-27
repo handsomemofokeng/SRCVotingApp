@@ -25,5 +25,7 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="asterisk">*</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="statistic_details">Statistical Details</string>
 
 </resources>

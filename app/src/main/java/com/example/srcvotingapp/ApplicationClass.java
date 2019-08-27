@@ -258,10 +258,9 @@ public class ApplicationClass extends Application {
      * This method sets the text of an editText to a selected spinner value
      *
      * @param spinner  to extract a prefix text
-     * @param editText to be prefixed with the spinner value
      */
-    public static void getSpinnerValue(Spinner spinner, EditText editText) {
-        editText.setText(spinner.getSelectedItem().toString());
+    public static String getSpinnerValue(Spinner spinner) {
+        return spinner.getSelectedItem().toString();
     }
 
     public static boolean isValidSpinner(Spinner... spinners) {

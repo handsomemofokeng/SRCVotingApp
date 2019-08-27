@@ -13,6 +13,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -37,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
 
+    BackendlessUser newUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                isPasswordsMatching(etPassword,etConfirm);
+                isPasswordsMatching(etPassword, etConfirm);
             }
         });
 
@@ -99,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                 etEmail.hasFocus();
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
+                etName.isFocused();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -114,9 +121,31 @@ public class RegisterActivity extends AppCompatActivity {
                 tvEthnicity.setError(null);
                 if (isPasswordsMatching(etPassword, etConfirm)) {
 
+
+                    newUser = new BackendlessUser();
+                    newUser.setEmail(etEmail.getText().toString().trim());
+                    newUser.setProperty("name", etName.getText().toString().trim());
+                    newUser.setProperty("surname", etSurname.getText().toString().trim());
+                    newUser.setProperty("gender", etGender.getText().toString().trim());
+                    newUser.setProperty("hasVoted", false);
+
                     // TODO: 2019/08/26 Implement Register Code
 
+//                    Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
+//                        @Override
+//                        public void handleResponse(BackendlessUser response) {
+//
+//                        }
+//
+//                        @Override
+//                        public void handleFault(BackendlessFault fault) {
+//
+//                        }
+//                    });
+
+
                     //Then reset form
+
                     clearFields(etEmail, etName, etSurname, etGender, etPassword, etConfirm);
                     clearRadioGroup(rgGender);
                     clearSpinners(spnCourse, spnEthnicity);
