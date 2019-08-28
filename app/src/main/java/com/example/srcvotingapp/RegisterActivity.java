@@ -34,9 +34,9 @@ import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 public class RegisterActivity extends AppCompatActivity {
 
     // UI references.
-    private EditText etEmail, etName, etSurname, etGender, etPassword, etConfirm;
+    private EditText etEmail, etName, etSurname, etPassword, etConfirm;
     private View toastView;
-    private TextView tvCourse, tvEthnicity;
+    private TextView tvCourse, tvEthnicity, tvGender;
     private Spinner spnEthnicity, spnCourse;
     private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
@@ -53,8 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         rgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                etGender.setText(getSelectedRadio(rbMale, rbFemale));
-                etGender.setError(null);
+                // TODO: 2019/08/28
             }
         });
 
@@ -79,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmailReg);
         etName = findViewById(R.id.etNameReg);
         etSurname = findViewById(R.id.etSurnameReg);
-        etGender = findViewById(R.id.etGenderReg);
+        tvGender = findViewById(R.id.tvGenderReg);
         etPassword = findViewById(R.id.etPasswordReg);
         etConfirm = findViewById(R.id.etConfirmPassword);
         spnCourse = findViewById(R.id.spnCourseReg);
@@ -105,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                 etEmail.hasFocus();
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
-                etName.isFocused();
+                etName.findFocus();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -114,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void onClick_RegisterUser(View view) {
 
-        if (isValidFields(etEmail, etName, etSurname, etGender, etPassword, etConfirm)) {
+        if (isValidFields(etEmail, etName, etSurname, etPassword, etConfirm)) {
 
             if (isValidSpinner(spnCourse, spnEthnicity)) {
                 tvCourse.setError(null);
@@ -126,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                     newUser.setEmail(etEmail.getText().toString().trim());
                     newUser.setProperty("name", etName.getText().toString().trim());
                     newUser.setProperty("surname", etSurname.getText().toString().trim());
-                    newUser.setProperty("gender", etGender.getText().toString().trim());
+                    newUser.setProperty("gender", getSelectedRadio(rbFemale, rbMale));
                     newUser.setProperty("hasVoted", false);
 
                     // TODO: 2019/08/26 Implement Register Code
@@ -146,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     //Then reset form
 
-                    clearFields(etEmail, etName, etSurname, etGender, etPassword, etConfirm);
+                    clearFields(etEmail, etName, etSurname, etPassword, etConfirm);
                     clearRadioGroup(rgGender);
                     clearSpinners(spnCourse, spnEthnicity);
                     etEmail.hasFocus();

@@ -136,7 +136,7 @@ public class ApplicationClass extends Application {
         boolean isValid = true;
         for (EditText field : fields) {
             if (field.getText().toString().trim().isEmpty()) {
-                field.hasFocus();
+                field.findFocus();
                 field.setError("This field is required!");
                 isValid = false;
             }
@@ -156,7 +156,7 @@ public class ApplicationClass extends Application {
         if (!isMatching) {
             etPassword.setError("Passwords must match!");
             etConfirm.setError("Passwords must match!");
-            etConfirm.hasFocus();
+            etConfirm.findFocus();
         } else {
             etPassword.setError(null);
             etConfirm.setError(null);

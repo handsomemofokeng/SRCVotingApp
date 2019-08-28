@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="12dp"
+    android:padding="16dp"
     tools:context=".RegisterActivity">
 
     <ScrollView
@@ -22,9 +22,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/personal_details"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!--Divider-->
             <View
@@ -161,9 +161,9 @@
                 android:layout_marginTop="3dp"
                 android:text="@string/statistic_details"
                 android:textAlignment="center"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!--Divider-->
             <View
@@ -176,31 +176,27 @@
             <RadioGroup
                 android:id="@+id/rgGender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/spinner_height"
                 android:layout_gravity="center"
+                android:background="@drawable/spinner"
                 android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputLayout
+
+                <TextView
+                    android:id="@+id/tvGenderReg"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:passwordToggleEnabled="true">
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="0.5"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="5dp"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/prompt_gender"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size" />
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etGenderReg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_person"
-                        android:drawablePadding="5dp"
-                        android:enabled="false"
-                        android:hint="@string/prompt_gender"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="textPersonName"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@android:color/black" />
-
-                </android.support.design.widget.TextInputLayout>
 
                 <RadioButton
                     android:id="@+id/rbMale"
@@ -222,7 +218,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="@dimen/spinner_height"
                 android:layout_marginTop="2.5dp"
                 android:layout_marginBottom="2.5dp"
                 android:background="@drawable/spinner"
@@ -251,7 +247,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="@dimen/spinner_height"
                 android:layout_marginTop="2.5dp"
                 android:layout_marginBottom="2.5dp"
                 android:background="@drawable/spinner"

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
@@ -22,6 +23,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
+import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private View toastView;
+    TextView tvResetLink;
     private CheckBox chkRememberMe;
     private ImageView ivScanCard, ivSendResetLink;
     private Button btnSignIn, btnResetPassword, btnRegister;
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
         chkRememberMe = findViewById(R.id.chkRememberMe);
+        tvResetLink = findViewById(R.id.tvResetLink);
         btnSignIn = findViewById(R.id.btn_sign_in);
         btnRegister = findViewById(R.id.btn_register);
         btnResetPassword = findViewById(R.id.btn_reset);
@@ -79,10 +84,10 @@ public class MainActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 showCustomToast(getApplicationContext(), toastView, "Result not found");
-                etEmail.hasFocus();
+                etEmail.findFocus();
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
-                etPassword.isFocused();
+                etPassword.findFocus();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -90,21 +95,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SendResetLink(View view) {
-        showCustomToast(getApplicationContext(), toastView,
-                "Reset  link sent to "+ etEmail.getText().toString().trim());
-        showLoginForm();
+
+        if (isValidFields(etEmail)) {
+
+            if (isEmailValid(etEmail)) {
+                // TODO: 2019/08/27 Send Reset link
+                showCustomToast(getApplicationContext(), toastView,
+                        "Reset  link sent to " + etEmail.getText().toString().trim());
+                showLoginForm();
+            }else {
+                showCustomToast(getApplicationContext(), toastView,
+                        "Please enter valid email");
+            }
+        }
     }
 
     public void showLoginForm() {
         btnResetPassword.setText(R.string.action_reset_password);
         showViews(ivScanCard, tilPassword, chkRememberMe, btnSignIn);
-        hideViews(ivSendResetLink);
+        hideViews(ivSendResetLink, tvResetLink);
     }
 
     public void showResetPasswordForm() {
         btnResetPassword.setText(R.string.action_go_back);
         hideViews(ivScanCard, tilPassword, chkRememberMe, btnSignIn);
-        showViews(ivSendResetLink);
+        showViews(ivSendResetLink, tvResetLink);
     }
 
     public void onClick_ResetPassword(View view) {
