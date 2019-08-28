@@ -110,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showLoginForm() {
+    private void showLoginForm() {
         btnResetPassword.setText(R.string.action_reset_password);
         showViews(ivScanCard, tilPassword, chkRememberMe, btnSignIn);
         hideViews(ivSendResetLink, tvResetLink);
     }
 
-    public void showResetPasswordForm() {
+    private void showResetPasswordForm() {
         btnResetPassword.setText(R.string.action_go_back);
         hideViews(ivScanCard, tilPassword, chkRememberMe, btnSignIn);
         showViews(ivSendResetLink, tvResetLink);

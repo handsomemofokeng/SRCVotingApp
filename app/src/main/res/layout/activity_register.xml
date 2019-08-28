@@ -17,274 +17,313 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/personal_details"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <!--Divider-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/colorPrimary" />
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/frmPersonalDetails"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!--Divider-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="2.5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etEmailReg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9"
+                            android:drawableStart="@drawable/ic_email"
+                            android:drawablePadding="5dp"
+                            android:hint="@string/prompt_email"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivScanCard"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:contentDescription="@string/prompt_email"
+                        android:onClick="onClick_ScanCard"
+                        android:padding="5sp"
+                        android:src="@drawable/ic_card" />
+
+                </LinearLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7">
+                    app:passwordToggleEnabled="true">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etEmailReg"
+                        android:id="@+id/etNameReg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="9"
-                        android:drawableStart="@drawable/ic_email"
+                        android:drawableStart="@drawable/ic_person"
                         android:drawablePadding="5dp"
-                        android:hint="@string/prompt_email"
-                        android:inputType="textEmailAddress"
+                        android:hint="@string/prompt_name"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPersonName"
                         android:maxLines="1"
                         android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
-                <ImageView
-                    android:id="@+id/ivScanCard"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etSurnameReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_surname"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etPasswordReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_password"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_password_confirm"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/frmStatisticalDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/statistic_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!--Divider-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:id="@+id/rgGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_gravity="center"
+                    android:background="@drawable/spinner"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvGenderReg"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="0.5"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/prompt_gender"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/text_size" />
+
+
+                    <RadioButton
+                        android:id="@+id/rbMale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:text="@string/male" />
+
+                    <RadioButton
+                        android:id="@+id/rbFemale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:text="@string/female" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/spinner"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvEthnicity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="3dp"
+                        android:drawableStart="@drawable/ic_group"
+                        android:focusable="true"
+                        android:text="@string/asterisk"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/spnEthnicityReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:entries="@array/ethnicity"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/spinner"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvCourse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="3dp"
+                        android:drawableStart="@drawable/ic_school"
+                        android:focusable="true"
+                        android:text="@string/asterisk"
+                        android:textColor="@color/colorAccent" />
+
+                    <Spinner
+                        android:id="@+id/spnCourseReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:entries="@array/course"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnNavigate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
                     android:layout_weight="1"
                     android:background="@drawable/button"
-                    android:contentDescription="@string/prompt_email"
-                    android:onClick="onClick_ScanCard"
-                    android:padding="5sp"
-                    android:src="@drawable/ic_card" />
+                    android:text="@string/action_next"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnRegisterUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:onClick="onClick_RegisterUser"
+                    android:text="@string/action_register"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
             </LinearLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etNameReg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_person"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/prompt_name"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etSurnameReg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_person"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/prompt_surname"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etPasswordReg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_lock"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/prompt_password"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etConfirmPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_lock"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/prompt_password_confirm"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="@string/statistic_details"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <!--Divider-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/colorPrimary" />
-
-            <RadioGroup
-                android:id="@+id/rgGender"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height"
-                android:layout_gravity="center"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:id="@+id/tvGenderReg"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="3dp"
-                    android:layout_weight="0.5"
-                    android:drawableStart="@drawable/ic_person"
-                    android:drawablePadding="5dp"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/prompt_gender"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/text_size" />
-
-
-                <RadioButton
-                    android:id="@+id/rbMale"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:text="@string/male" />
-
-                <RadioButton
-                    android:id="@+id/rbFemale"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:text="@string/female" />
-
-            </RadioGroup>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="2.5dp"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvEthnicity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="3dp"
-                    android:drawableStart="@drawable/ic_group"
-                    android:focusable="true"
-                    android:text="@string/asterisk"
-                    android:textColor="@color/colorAccent" />
-
-                <Spinner
-                    android:id="@+id/spnEthnicityReg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:entries="@array/ethnicity"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="2.5dp"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvCourse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="3dp"
-                    android:drawableStart="@drawable/ic_school"
-                    android:focusable="true"
-                    android:text="@string/asterisk"
-                    android:textColor="@color/colorAccent" />
-
-                <Spinner
-                    android:id="@+id/spnCourseReg"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:entries="@array/course"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnRegisterUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2.5dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/button"
-                android:onClick="onClick_RegisterUser"
-                android:text="@string/action_register"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
 
         </LinearLayout>
 

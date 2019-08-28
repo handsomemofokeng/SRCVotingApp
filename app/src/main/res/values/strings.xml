@@ -28,5 +28,6 @@
     <string name="personal_details">Personal Details</string>
     <string name="statistic_details">Statistical Details</string>
     <string name="action_send_link">Send reset link to Email</string>
+    <string name="action_next">Next</string>
 
 </resources>

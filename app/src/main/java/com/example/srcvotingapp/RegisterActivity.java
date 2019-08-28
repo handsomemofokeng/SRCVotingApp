@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -24,12 +27,15 @@ import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
+import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
+import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showViews;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -40,6 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner spnEthnicity, spnCourse;
     private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
+    private Button btnNavigate, btnRegister;
+    private LinearLayout frmPersonalDetails, frmStatisticalDetails;
 
     BackendlessUser newUser;
 
@@ -54,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // TODO: 2019/08/28
+                tvGender.setError(null);
             }
         });
 
@@ -65,7 +74,41 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                isPasswordsMatching(etPassword, etConfirm);
+
+                if(isValidFields(etPassword, etConfirm) && isPasswordsMatching(etPassword, etConfirm)){
+                    etPassword.setError(null);
+                    etConfirm.setError(null);
+                }
+            }
+        });
+
+
+        btnNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (btnNavigate.getText().toString().equals(getString(R.string.action_next))) {
+
+                    if (isValidFields(etEmail, etName, etSurname, etPassword, etConfirm)
+                            && isPasswordsMatching(etPassword, etConfirm)) {
+
+                        btnNavigate.setText(R.string.action_go_back);
+                        showViews(frmStatisticalDetails, btnRegister);
+                        hideViews(frmPersonalDetails);
+
+                    } else {
+
+                        showCustomToast(getApplicationContext(), toastView,
+                                "Please enter required fields");
+                    }
+
+                } else {
+
+                    btnNavigate.setText(R.string.action_next);
+                    hideViews(frmStatisticalDetails,btnRegister);
+                    showViews(frmPersonalDetails);
+
+                }
             }
         });
 
@@ -88,6 +131,10 @@ public class RegisterActivity extends AppCompatActivity {
         rgGender = findViewById(R.id.rgGender);
         rbMale = findViewById(R.id.rbMale);
         rbFemale = findViewById(R.id.rbFemale);
+        btnNavigate = findViewById(R.id.btnNavigate);
+        btnRegister = findViewById(R.id.btnRegisterUser);
+        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
+        frmStatisticalDetails = findViewById(R.id.frmStatisticalDetails);
 
     }
 
@@ -101,10 +148,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 showCustomToast(getApplicationContext(), toastView, "Result not found");
-                etEmail.hasFocus();
+
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
-                etName.findFocus();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -113,7 +159,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void onClick_RegisterUser(View view) {
 
-        if (isValidFields(etEmail, etName, etSurname, etPassword, etConfirm)) {
+
+        if (isRadioChecked(rbFemale, rbMale)) {
+
+            tvGender.setError(null);
 
             if (isValidSpinner(spnCourse, spnEthnicity)) {
                 tvCourse.setError(null);
@@ -174,11 +223,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
         } else {
-
-            showCustomToast(getApplicationContext(), toastView,
-                    "Please enter required fields");
-
+            tvGender.setError("Please specify gender");
         }
+
 
     }
 }

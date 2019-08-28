@@ -58,13 +58,35 @@ public class ApplicationClass extends Application {
         radioGroup.clearCheck();
     }
 
+    /**
+     * This method determines if a RadioButton is checked in a RadioGroup
+     *
+     * @param radioGroup to be checked
+     * @return -1 if nothing was selected, or the ID of the RadioButton checked
+     */
+    public static boolean isRadioChecked(RadioButton... radioGroup) {
+
+        boolean isChecked = false;
+
+        for (RadioButton radioButton : radioGroup) {
+            if (radioButton.isChecked()) {
+                isChecked = true;
+                break;
+            }
+        }
+
+        return isChecked;
+    }
+
+
     public static String getSelectedRadio(RadioButton... radioButtons) {
         String selectedRadio = "";
         for (RadioButton radioButton : radioButtons) {
-            if (radioButton.isChecked()){
+            if (radioButton.isChecked()) {
                 selectedRadio = radioButton.getText().toString();
                 break;
             }
+
         }
 
         return selectedRadio;
@@ -257,7 +279,7 @@ public class ApplicationClass extends Application {
     /**
      * This method sets the text of an editText to a selected spinner value
      *
-     * @param spinner  to extract a prefix text
+     * @param spinner to extract a prefix text
      */
     public static String getSpinnerValue(Spinner spinner) {
         return spinner.getSelectedItem().toString();

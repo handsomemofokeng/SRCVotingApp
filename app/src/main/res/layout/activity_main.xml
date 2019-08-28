@@ -172,19 +172,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btn_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="2.5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button"
-                    android:text="@string/action_register"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:onClick="onClick_RegisterUser"/>
-
-                <Button
                     android:id="@+id/btn_reset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -196,6 +183,19 @@
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold"
                     android:onClick="onClick_ResetPassword"/>
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:onClick="onClick_RegisterUser"
+                    android:text="@string/action_register"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
