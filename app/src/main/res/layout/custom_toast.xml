@@ -18,7 +18,8 @@
             android:layout_height="@android:dimen/app_icon_size"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:id="@+id/tv_toast"

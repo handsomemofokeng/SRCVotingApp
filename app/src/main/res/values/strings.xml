@@ -18,7 +18,7 @@
     <string name="prompt_surname">Surname</string>
     <string name="prompt_password_reg">Password</string>
     <string name="prompt_password_confirm">Confirm Password</string>
-    <string name="action_register">Register New User</string>
+    <string name="action_register">Register</string>
     <string name="action_go_back">Go Back</string>
     <string name="prompt_gender">Gender</string>
     <string name="prompt_race">Race</string>
@@ -29,5 +29,6 @@
     <string name="statistic_details">Statistical Details</string>
     <string name="action_send_link">Send reset link to Email</string>
     <string name="action_next">Next</string>
+    <string name="prompt_new_user">New User?</string>
 
 </resources>

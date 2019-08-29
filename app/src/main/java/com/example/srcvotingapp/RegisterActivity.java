@@ -75,13 +75,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
-                if(isValidFields(etPassword, etConfirm) && isPasswordsMatching(etPassword, etConfirm)){
+                if (isValidFields(etPassword, etConfirm) &&
+                        isPasswordsMatching(etPassword, etConfirm)) {
                     etPassword.setError(null);
                     etConfirm.setError(null);
                 }
             }
         });
-
 
         btnNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,21 +92,22 @@ public class RegisterActivity extends AppCompatActivity {
                     if (isValidFields(etEmail, etName, etSurname, etPassword, etConfirm)
                             && isPasswordsMatching(etPassword, etConfirm)) {
 
-                        btnNavigate.setText(R.string.action_go_back);
                         showViews(frmStatisticalDetails, btnRegister);
                         hideViews(frmPersonalDetails);
+                        btnNavigate.setText(R.string.action_go_back);
 
                     } else {
 
                         showCustomToast(getApplicationContext(), toastView,
                                 "Please enter required fields");
+
                     }
 
                 } else {
 
-                    btnNavigate.setText(R.string.action_next);
-                    hideViews(frmStatisticalDetails,btnRegister);
+                    hideViews(frmStatisticalDetails, btnRegister);
                     showViews(frmPersonalDetails);
+                    btnNavigate.setText(R.string.action_next);
 
                 }
             }
@@ -168,7 +169,6 @@ public class RegisterActivity extends AppCompatActivity {
                 tvCourse.setError(null);
                 tvEthnicity.setError(null);
                 if (isPasswordsMatching(etPassword, etConfirm)) {
-
 
                     newUser = new BackendlessUser();
                     newUser.setEmail(etEmail.getText().toString().trim());
