@@ -30,6 +30,17 @@ public class ApplicationClass extends Application {
             MY_SHARED_PREFERENCES_NAME = "com.example.srcvotingapp";
     public static final int REQUEST_PHONE = 123;
 
+    //User Property Names
+    public static final String EMAIL = "email";
+    public static final String NAME = "name";
+    public static final String SURNAME = "surname";
+    public static final String GENDER = "gender";
+    public static final String ETHNICITY = "ethnicity";
+    public static final String COURSE = "course";
+    public static final String HAS_VOTED = "hasVoted";
+    public static final String IS_CANDIDATE = "isCandidate";
+    public static final String ROLE = "role";
+
     @Override
     public void onCreate() {
         super.onCreate();
