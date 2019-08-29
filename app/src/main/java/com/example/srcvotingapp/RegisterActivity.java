@@ -1,11 +1,16 @@
 package com.example.srcvotingapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,6 +39,7 @@ import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
+import static com.example.srcvotingapp.ApplicationClass.confirmAlert;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
@@ -57,6 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioButton rbMale, rbFemale;
     private Button btnNavigate, btnRegister;
     private LinearLayout frmPersonalDetails, frmStatisticalDetails;
+
+    public boolean isConfirmed = false;
 
     BackendlessUser newUser;
 
@@ -112,9 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
                         newUser.setProperty(HAS_VOTED, false);
                         newUser.setProperty(IS_CANDIDATE, false);
 
-                        showViews(frmStatisticalDetails, btnRegister);
-                        hideViews(frmPersonalDetails);
-                        btnNavigate.setText(R.string.action_go_back);
+                        showStatsForm();
 
                     } else {
 
@@ -125,14 +131,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
 
-                    hideViews(frmStatisticalDetails, btnRegister);
-                    showViews(frmPersonalDetails);
-                    btnNavigate.setText(R.string.action_next);
+                    showDetailsForm();
 
                 }
             }
         });
 
+    }
+
+    private void showDetailsForm() {
+        hideViews(frmStatisticalDetails, btnRegister);
+        showViews(frmPersonalDetails);
+        btnNavigate.setText(R.string.action_next);
+    }
+
+    private void showStatsForm() {
+        showViews(frmStatisticalDetails, btnRegister);
+        hideViews(frmPersonalDetails);
+        btnNavigate.setText(R.string.action_go_back);
     }
 
     private void initViews() {
@@ -178,6 +194,31 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+
+      AlertDialog.Builder builder = confirmAlert(this, "Discard Changes",
+                "Are you sure you want to exit without saving?");
+
+      builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+              finish();
+          }
+      });
+      builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+              showDetailsForm();
+
+          }
+      });
+
+      builder.create().show();
+
+    }
+
     public void onClick_RegisterUser(View view) {
 
         if (isRadioChecked(rbFemale, rbMale) && isValidSpinner(spnCourse, spnEthnicity)) {
@@ -190,49 +231,21 @@ public class RegisterActivity extends AppCompatActivity {
             newUser.setProperty(ETHNICITY, getSpinnerValue(spnEthnicity));
             newUser.setProperty(COURSE, getSpinnerValue(spnCourse));
 
-//            if (isValidSpinner(spnCourse, spnEthnicity)) {
-//                tvCourse.setError(null);
-//                tvEthnicity.setError(null);
-//                if (isPasswordsMatching(etPassword, etConfirm)) {
-//
-//                    // TODO: 2019/08/26 Implement Register Code
-//
-////                    Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
-////                        @Override
-////                        public void handleResponse(BackendlessUser response) {
-////
-////                        }
-////
-////                        @Override
-////                        public void handleFault(BackendlessFault fault) {
-////
-////                        }
-////                    });
-//
-//
-//                    //Then reset form
-//
-//                    clearFields(etEmail, etName, etSurname, etPassword, etConfirm);
-//                    clearRadioGroup(rgGender);
-//                    clearSpinners(spnCourse, spnEthnicity);
-//                    etEmail.hasFocus();
-//
+            // TODO: 2019/08/26 Implement Register Code
+//            Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
+//                @Override
+//                public void handleResponse(BackendlessUser response) {
+//                    resetForm();
 //                    showCustomToast(getApplicationContext(), toastView,
 //                            "User successfully registered");
 //
-//                } else {
-//
-//                    showCustomToast(getApplicationContext(), toastView,
-//                            "Please make sure passwords match");
-//
 //                }
 //
-//            } else {
-//                if (!isValidSpinner(spnEthnicity, spnCourse))
-//                } else {
-//
+//                @Override
+//                public void handleFault(BackendlessFault fault) {
+//                    showCustomToast(getApplicationContext(), toastView, fault.getMessage());
 //                }
-//            }
+//            });
 
         } else {
 
@@ -246,5 +259,14 @@ public class RegisterActivity extends AppCompatActivity {
                 tvEthnicity.setError("Please select Ethnicity on the dropdown list");
         }
 
+    }
+
+    private void resetForm() {
+
+        clearFields(etEmail, etName, etSurname, etPassword, etConfirm);
+        clearRadioGroup(rgGender);
+        clearSpinners(spnCourse, spnEthnicity);
+        showDetailsForm();
+        etEmail.hasFocus();
     }
 }

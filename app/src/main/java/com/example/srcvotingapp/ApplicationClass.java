@@ -1,12 +1,16 @@
 package com.example.srcvotingapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SearchRecentSuggestionsProvider;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,7 +23,9 @@ import android.widget.Toast;
 
 import com.backendless.BackendlessUser;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class ApplicationClass extends Application {
@@ -44,7 +50,9 @@ public class ApplicationClass extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // TODO: 2019/08/29 Initializa Backendless
     }
+
 
     /**
      * This method reuses the Scan Barcode Activity
@@ -313,5 +321,16 @@ public class ApplicationClass extends Application {
         }
     }
 
+
+    public static AlertDialog.Builder confirmAlert(Context context, String title, String message) {
+
+        android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        return builder;
+
+    }
 
 }
