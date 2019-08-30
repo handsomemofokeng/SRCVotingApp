@@ -30,5 +30,6 @@
     <string name="action_send_link">Send reset link to Email</string>
     <string name="action_next">Next</string>
     <string name="prompt_new_user">New User?</string>
+    <string name="course">Course</string>
 
 </resources>

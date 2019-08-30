@@ -96,18 +96,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick_SendResetLink(View view) {
 
-        if (isValidFields(etEmail)) {
-
-            if (isEmailValid(etEmail)) {
-                // TODO: 2019/08/27 Send Reset link
-                showCustomToast(getApplicationContext(), toastView,
-                        "Reset  link sent to " + etEmail.getText().toString().trim());
-                showLoginForm();
-            }else {
-                showCustomToast(getApplicationContext(), toastView,
-                        "Please enter valid email");
-            }
+        if (isValidFields(etEmail) && isEmailValid(etEmail)) {
+            // TODO: 2019/08/27 Send Reset link
+            showCustomToast(getApplicationContext(), toastView,
+                    "Reset  link sent to " + etEmail.getText().toString().trim());
+            showLoginForm();
+        } else {
+            showCustomToast(getApplicationContext(), toastView,
+                    "Please enter valid email");
         }
+
     }
 
     private void showLoginForm() {

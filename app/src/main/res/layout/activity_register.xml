@@ -206,10 +206,10 @@
                         android:drawableStart="@drawable/ic_person"
                         android:drawablePadding="5dp"
                         android:enabled="false"
-                        android:gravity="center"
+                        android:gravity="center|end"
                         android:maxLines="1"
                         android:text="@string/prompt_gender"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size" />
 
 
@@ -241,22 +241,28 @@
 
                     <TextView
                         android:id="@+id/tvEthnicity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="3dp"
+                        android:layout_weight="0.5"
                         android:drawableStart="@drawable/ic_group"
-                        android:focusable="true"
-                        android:text="@string/asterisk"
-                        android:textColor="@color/colorAccent" />
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:gravity="center|end"
+                        android:maxLines="1"
+                        android:text="@string/prompt_race"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size"/>
 
                     <Spinner
                         android:id="@+id/spnEthnicityReg"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:entries="@array/ethnicity"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        />
 
                 </LinearLayout>
 
@@ -270,20 +276,25 @@
 
                     <TextView
                         android:id="@+id/tvCourse"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="3dp"
+                        android:layout_weight="0.5"
                         android:drawableStart="@drawable/ic_school"
-                        android:focusable="true"
-                        android:text="@string/asterisk"
-                        android:textColor="@color/colorAccent" />
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:gravity="center|end"
+                        android:maxLines="1"
+                        android:text="@string/course"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size"/>
 
                     <Spinner
                         android:id="@+id/spnCourseReg"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:entries="@array/course"
                         android:textAlignment="center" />
 

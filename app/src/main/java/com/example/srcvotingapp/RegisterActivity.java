@@ -1,31 +1,24 @@
 package com.example.srcvotingapp;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
-import com.backendless.async.callback.AsyncCallback;
-import com.backendless.exceptions.BackendlessFault;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -35,11 +28,12 @@ import static com.example.srcvotingapp.ApplicationClass.GENDER;
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.IS_CANDIDATE;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
+import static com.example.srcvotingapp.ApplicationClass.ROLE;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
-import static com.example.srcvotingapp.ApplicationClass.confirmAlert;
+import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
@@ -64,8 +58,6 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnNavigate, btnRegister;
     private LinearLayout frmPersonalDetails, frmStatisticalDetails;
 
-    public boolean isConfirmed = false;
-
     BackendlessUser newUser;
 
     @Override
@@ -74,6 +66,32 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         initViews();
+
+        spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0)
+                    tvCourse.setError(null);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spnEthnicity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0)
+                    tvCourse.setError(null);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         rgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -113,12 +131,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                         newUser.setEmail(etEmail.getText().toString().trim());
                         newUser.setPassword(etConfirm.getText().toString().trim());
-
                         newUser.setProperty(NAME, etName.getText().toString().trim());
                         newUser.setProperty(SURNAME, etSurname.getText().toString().trim());
                         newUser.setProperty(GENDER, getSelectedRadio(rbFemale, rbMale));
                         newUser.setProperty(HAS_VOTED, false);
                         newUser.setProperty(IS_CANDIDATE, false);
+                        newUser.setProperty(ROLE, "Student");
 
                         showStatsForm();
 
@@ -197,25 +215,24 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-
-      AlertDialog.Builder builder = confirmAlert(this, "Discard Changes",
+        AlertDialog.Builder builder = buildAlertDialog(this, "Discard Changes",
                 "Are you sure you want to exit without saving?");
 
-      builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-              finish();
-          }
-      });
-      builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-              showDetailsForm();
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showDetailsForm();
 
-          }
-      });
+            }
+        });
 
-      builder.create().show();
+        builder.create().show();
 
     }
 

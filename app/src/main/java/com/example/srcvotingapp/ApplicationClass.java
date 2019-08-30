@@ -193,7 +193,8 @@ public class ApplicationClass extends Application {
      * @return True if passwords match, False if not.
      */
     public static boolean isPasswordsMatching(EditText etPassword, EditText etConfirm) {
-        boolean isMatching = etPassword.getText().toString().trim().equals(etConfirm.getText().toString().trim());
+        boolean isMatching = etPassword.getText().toString().trim()
+                .equals(etConfirm.getText().toString().trim());
         if (!isMatching) {
             etPassword.setError("Passwords must match!");
             etConfirm.setError("Passwords must match!");
@@ -216,8 +217,8 @@ public class ApplicationClass extends Application {
 
         String userStr = "Unidentified User";
         if (user != null)
-            userStr = String.format("%s, %s (%s)", user.getProperty("name"), user.getProperty("surname"),
-                    user.getEmail());
+            userStr = String.format("%s, %s (%s)", user.getProperty("name"),
+                    user.getProperty("surname"), user.getEmail());
         return userStr;
     }
 
@@ -291,7 +292,8 @@ public class ApplicationClass extends Application {
      * @param list    that contains items to be added to the spinner
      */
     public static void loadSpinnerValues(Context context, Spinner spinner, List<String> list) {
-        spinner.setAdapter((new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, list)));
+        spinner.setAdapter((new ArrayAdapter<>(context,
+                android.R.layout.simple_spinner_dropdown_item, list)));
         spinner.setGravity(View.TEXT_ALIGNMENT_CENTER);
     }
 
@@ -321,8 +323,8 @@ public class ApplicationClass extends Application {
         }
     }
 
-
-    public static AlertDialog.Builder confirmAlert(Context context, String title, String message) {
+    public static AlertDialog.Builder buildAlertDialog(Context context, String title,
+                                                       String message) {
 
         android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setIcon(R.mipmap.ic_launcher);
