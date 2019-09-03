@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:drawableStart="@mipmap/ic_launcher_round"
-                    android:drawableEnd="@mipmap/ic_launcher_round"
+                    android:drawableEnd="@mipmap/ic_effsc_round"
                     android:background="@drawable/spinner"
                     android:padding="15dp"
                     android:text="Candidate 1\nEFF" />
@@ -59,20 +59,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:drawableEnd="@mipmap/ic_launcher_round"
+                    android:drawableStart="@mipmap/ic_launcher_round"
+                    android:drawableEnd="@mipmap/ic_daso_round"
                     android:background="@drawable/spinner"
                     android:padding="15dp"
-                    android:text="Candidate 1\nSASCO"/>
+                    android:text="Candidate 2\nDASO" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:drawableEnd="@mipmap/ic_launcher_round"
+                    android:drawableStart="@mipmap/ic_launcher_round"
+                    android:drawableEnd="@mipmap/ic_sasco_round"
                     android:background="@drawable/spinner"
                     android:padding="15dp"
-                    android:text="Candidate 2\nPASMA"/>
+                    android:text="Candidate 3\nSASCO" />
             </RadioGroup>
 
         </LinearLayout>

@@ -182,7 +182,8 @@ public class ApplicationClass extends Application {
                 isValid = false;
             }
         }
-        view.requestFocus();
+        if (view != null)
+            view.requestFocus();
         return isValid;
     }
 
