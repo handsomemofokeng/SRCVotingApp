@@ -45,4 +45,22 @@ public class VoteActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClick_Navigate(View view) {
+
+        switch (view.getId()){
+
+            case R.id.btnNavigateNextVote:
+                // TODO: 2019/09/03 Navigate next
+
+                break;
+
+            case R.id.btnNavigatePreviousVote:
+                // TODO: 2019/09/03 Go back
+
+                break;
+
+
+        }
+    }
 }

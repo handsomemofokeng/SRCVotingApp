@@ -29,7 +29,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/colorButtonForeground"
             android:textSize="@dimen/text_size"
-            android:text="Time: 00:00"
+            android:text="Votes Closes in\n00:00"
             android:textAlignment="center"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="bottom|center" />
@@ -52,8 +52,43 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/btnNavigatePreviousVote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:text="@string/action_previous"
+            android:textColor="@color/colorButtonForeground"
+            android:textStyle="bold"
+            android:onClick="onClick_Navigate"/>
+
+        <Button
+            android:id="@+id/btnNavigateNextVote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:onClick="onClick_Navigate"
+            android:text="@string/action_next"
+            android:textColor="@color/colorButtonForeground"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
