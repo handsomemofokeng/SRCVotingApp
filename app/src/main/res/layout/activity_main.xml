@@ -164,7 +164,8 @@
                 android:background="@drawable/button"
                 android:text="@string/action_sign_in"
                 android:textColor="@color/colorButtonForeground"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onClick_SignIn"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

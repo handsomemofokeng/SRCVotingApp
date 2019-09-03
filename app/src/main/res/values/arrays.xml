@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <string-array name="sections">
+        <item>President</item>
+        <item>Deputy President</item>
+        <item>Secretary General</item>
+        <item>Financial Officer</item>
+        <item>Constitutional And Legal Affairs</item>
+        <item>Sports Officer</item>
+        <item>Public Relations Officer</item>
+        <item>Health And Welfare Officer</item>
+        <item>P C O</item>
+        <item>Student Affairs</item>
+        <item>E D O</item>
+        <item>Transformation Officer</item>
+        <item>Review</item>
+    </string-array>
+
     <string-array name="ethnicity">
         <item>-- Select Ethnic Group --</item>
         <item>African</item>

@@ -67,11 +67,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         initViews();
 
+        tvCourse.setError("");
+        tvEthnicity.setError("");
+        tvGender.setError("");
+
+
         spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0)
                     tvCourse.setError(null);
+                else
+                    tvCourse.setError("");
             }
 
             @Override
@@ -84,7 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0)
-                    tvCourse.setError(null);
+                    tvEthnicity.setError(null);
+                else
+                    tvEthnicity.setError("");
+
             }
 
             @Override
@@ -100,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                 tvGender.setError(null);
             }
         });
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -221,7 +232,7 @@ public class RegisterActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                RegisterActivity.super.onBackPressed();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -284,6 +295,6 @@ public class RegisterActivity extends AppCompatActivity {
         clearRadioGroup(rgGender);
         clearSpinners(spnCourse, spnEthnicity);
         showDetailsForm();
-        etEmail.hasFocus();
+        etEmail.requestFocus();
     }
 }

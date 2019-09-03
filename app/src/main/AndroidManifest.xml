@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".VoteActivity"
+            android:label="@string/title_activity_vote"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".RegisterActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">

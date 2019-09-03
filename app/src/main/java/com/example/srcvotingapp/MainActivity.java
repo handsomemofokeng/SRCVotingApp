@@ -151,4 +151,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
     }
 
+    public void onClick_SignIn(View view) {
+        startActivity( new Intent(getApplicationContext(), VoteActivity.class));
+    }
 }

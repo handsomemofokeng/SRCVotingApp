@@ -296,7 +296,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:entries="@array/course"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"/>
 
                 </LinearLayout>
 

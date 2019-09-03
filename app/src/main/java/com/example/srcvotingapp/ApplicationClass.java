@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SearchRecentSuggestionsProvider;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,9 +21,7 @@ import android.widget.Toast;
 
 import com.backendless.BackendlessUser;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class ApplicationClass extends Application {
@@ -47,10 +43,11 @@ public class ApplicationClass extends Application {
     public static final String IS_CANDIDATE = "isCandidate";
     public static final String ROLE = "role";
 
+
     @Override
     public void onCreate() {
         super.onCreate();
-        // TODO: 2019/08/29 Initializa Backendless
+        // TODO: 2019/08/29 Initialize Backendless
     }
 
 
@@ -96,7 +93,6 @@ public class ApplicationClass extends Application {
 
         return isChecked;
     }
-
 
     public static String getSelectedRadio(RadioButton... radioButtons) {
         String selectedRadio = "";
@@ -146,11 +142,13 @@ public class ApplicationClass extends Application {
      * @return true if email is valid
      */
     public static boolean isEmailValid(EditText etEmail) {
+
         String email = etEmail.getText().toString().trim();
 
         boolean isValid = email.contains("@") && (email.endsWith(".com") || email.endsWith(".za"));
         if (!isValid) {
             etEmail.setError("Invalid email format");
+            etEmail.requestFocus();
         }
 
         return isValid;
@@ -175,13 +173,16 @@ public class ApplicationClass extends Application {
      */
     public static boolean isValidFields(EditText... fields) {
         boolean isValid = true;
-        for (EditText field : fields) {
+        EditText view = null;
+        for (int i = (fields.length - 1); i >= 0; i--) {
+            EditText field = fields[i];
             if (field.getText().toString().trim().isEmpty()) {
-                field.findFocus();
+                view = field;
                 field.setError("This field is required!");
                 isValid = false;
             }
         }
+        view.requestFocus();
         return isValid;
     }
 
@@ -196,10 +197,12 @@ public class ApplicationClass extends Application {
         boolean isMatching = etPassword.getText().toString().trim()
                 .equals(etConfirm.getText().toString().trim());
         if (!isMatching) {
+
             etPassword.setError("Passwords must match!");
             etConfirm.setError("Passwords must match!");
-            etConfirm.findFocus();
+
         } else {
+
             etPassword.setError(null);
             etConfirm.setError(null);
         }
@@ -310,7 +313,7 @@ public class ApplicationClass extends Application {
         boolean isValid = true;
         for (Spinner spn : spinners) {
             if (spn.getSelectedItemPosition() <= 0) {
-
+                spn.requestFocus();
                 isValid = false;
             }
         }

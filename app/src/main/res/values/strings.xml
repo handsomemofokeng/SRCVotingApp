@@ -32,4 +32,22 @@
     <string name="prompt_new_user">New User?</string>
     <string name="course">Course</string>
 
+    <string name="title_activity_vote">VoteActivity</string>
+
+    <string name="tab_text_1">Prs</string>
+    <string name="tab_text_2">DPr</string>
+    <string name="tab_text_3">SGn</string>
+    <string name="tab_text_4">FnO</string>
+    <string name="tab_text_5">CLA</string>
+    <string name="tab_text_6">SpO</string>
+    <string name="tab_text_7">PRO</string>
+    <string name="tab_text_8">HWO</string>
+    <string name="tab_text_9">PCO</string>
+    <string name="tab_text_10">SAf</string>
+    <string name="tab_text_11">EDO</string>
+    <string name="tab_text_12">TrO</string>
+    <string name="tab_text_13">Rvw</string>
+    <string name="portfolio">Portfolio:</string>
+
+
 </resources>
