@@ -195,17 +195,25 @@ public class ApplicationClass extends Application {
      * @return True if passwords match, False if not.
      */
     public static boolean isPasswordsMatching(EditText etPassword, EditText etConfirm) {
-        boolean isMatching = etPassword.getText().toString().trim()
-                .equals(etConfirm.getText().toString().trim());
-        if (!isMatching) {
 
-            etPassword.setError("Passwords must match!");
-            etConfirm.setError("Passwords must match!");
+        boolean isMatching = false;
 
-        } else {
 
-            etPassword.setError(null);
-            etConfirm.setError(null);
+        if (isValidFields(etPassword, etConfirm)) {
+
+            isMatching = etPassword.getText().toString().trim()
+                    .equals(etConfirm.getText().toString().trim());
+
+            if (!isMatching) {
+
+                etPassword.setError("Passwords must match!");
+                etConfirm.setError("Passwords must match!");
+
+            } else {
+
+                etPassword.setError(null);
+                etConfirm.setError(null);
+            }
         }
 
         return isMatching;

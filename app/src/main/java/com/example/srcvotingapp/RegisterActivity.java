@@ -117,17 +117,16 @@ public class RegisterActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Register User");
 
-        etConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
-                if (isValidFields(etPassword, etConfirm) &&
-                        isPasswordsMatching(etPassword, etConfirm)) {
-                    etPassword.setError(null);
-                    etConfirm.setError(null);
-                }
-            }
-        });
+//        etConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//
+//                if (isPasswordsMatching(etPassword, etConfirm)) {
+//                    etPassword.setError(null);
+//                    etConfirm.setError(null);
+//                }
+//            }
+//        });
 
         btnNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,21 +134,22 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (btnNavigate.getText().toString().equals(getString(R.string.action_next))) {
 
-                    if (isValidFields(etEmail, etName, etSurname, etPassword, etConfirm)
-                            && isPasswordsMatching(etPassword, etConfirm)) {
+                    if (isValidFields(etEmail, etName, etSurname,etPassword, etConfirm) ) {
 
-                        newUser = new BackendlessUser();
+                        if (isPasswordsMatching(etPassword, etConfirm)) {
+                            newUser = new BackendlessUser();
 
-                        newUser.setEmail(etEmail.getText().toString().trim());
-                        newUser.setPassword(etConfirm.getText().toString().trim());
-                        newUser.setProperty(NAME, etName.getText().toString().trim());
-                        newUser.setProperty(SURNAME, etSurname.getText().toString().trim());
-                        newUser.setProperty(GENDER, getSelectedRadio(rbFemale, rbMale));
-                        newUser.setProperty(HAS_VOTED, false);
-                        newUser.setProperty(IS_CANDIDATE, false);
-                        newUser.setProperty(ROLE, "Student");
+                            newUser.setEmail(etEmail.getText().toString().trim());
+                            newUser.setPassword(etConfirm.getText().toString().trim());
+                            newUser.setProperty(NAME, etName.getText().toString().trim());
+                            newUser.setProperty(SURNAME, etSurname.getText().toString().trim());
+                            newUser.setProperty(GENDER, getSelectedRadio(rbFemale, rbMale));
+                            newUser.setProperty(HAS_VOTED, false);
+                            newUser.setProperty(IS_CANDIDATE, false);
+                            newUser.setProperty(ROLE, "Student");
 
-                        showStatsForm();
+                            showStatsForm();
+                        }
 
                     } else {
 
@@ -260,6 +260,8 @@ public class RegisterActivity extends AppCompatActivity {
             newUser.setProperty(COURSE, getSpinnerValue(spnCourse));
 
             // TODO: 2019/08/26 Implement Register Code
+
+
 //            Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
 //                @Override
 //                public void handleResponse(BackendlessUser response) {

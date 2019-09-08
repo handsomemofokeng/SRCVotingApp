@@ -13,4 +13,6 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="spinner_height">45dp</dimen>
     <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="dimen_edges">20dp</dimen>
+    <dimen name="dimen_edges_land">90dp</dimen>
 </resources>
