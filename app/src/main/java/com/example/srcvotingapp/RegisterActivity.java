@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                    etConfirm.setError(null);
 //                }
 //            }
-//        });
+//        })
 
         btnNavigate.setOnClickListener(new View.OnClickListener() {
             @Override

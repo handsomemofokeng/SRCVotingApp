@@ -61,7 +61,7 @@
                             android:hint="@string/prompt_email"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"/>
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -314,6 +314,12 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="2.5dp"
                     android:layout_weight="1"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="15dp"
+                    android:drawableEnd="@drawable/ic_navigate_next"
+                    android:drawableStart="@drawable/ic_navigate_back"
                     android:background="@drawable/button"
                     android:text="@string/action_next"
                     android:textColor="@color/colorButtonForeground"
@@ -326,6 +332,11 @@
                     android:layout_marginStart="2.5dp"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="15dp"
+                    android:drawableEnd="@drawable/ic_add_person"
                     android:background="@drawable/button"
                     android:onClick="onClick_RegisterUser"
                     android:text="@string/action_register"

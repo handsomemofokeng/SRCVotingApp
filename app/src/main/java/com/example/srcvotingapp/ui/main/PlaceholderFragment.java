@@ -70,7 +70,8 @@ public class PlaceholderFragment extends Fragment {
         rgCandidate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Toast.makeText(getContext(), getSelectedRadio(rbEFFSC, rbDASO, rbSASCO), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getSelectedRadio(rbEFFSC, rbDASO, rbSASCO),
+                        Toast.LENGTH_SHORT).show();
                 // TODO: 2019/09/08 Create an Interface to link selected Radio to Attached Activity
             }
         });

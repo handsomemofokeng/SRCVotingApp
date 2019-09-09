@@ -53,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Authenticate User");
 
+        btnSignIn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AdminActivity.class));
+                return false;
+            }
+        });
+
     }
 
     private void initViews() {
@@ -154,4 +162,5 @@ public class MainActivity extends AppCompatActivity {
     public void onClick_SignIn(View view) {
         startActivity( new Intent(getApplicationContext(), VoteActivity.class));
     }
+
 }
