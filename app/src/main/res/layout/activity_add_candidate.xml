@@ -4,56 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/default_gap"
     android:orientation="vertical"
+    android:padding="@dimen/default_gap"
     tools:context=".AddCandidateActivity">
 
-<!--    <SearchView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="end"/>-->
+    <!--    <SearchView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="end"/>-->
 
-    <RadioGroup
-        android:id="@+id/rgCandidateRegCan"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/rbEFFSCNewCan"
+        <RadioGroup
+            android:id="@+id/rgCandidateRegCan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="2.5dp"
-            android:background="@drawable/spinner"
-            android:drawableEnd="@mipmap/ic_effsc_round"
-            android:padding="5dp"/>
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-        <RadioButton
-            android:id="@+id/rbDASORegCan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="2.5dp"
-            android:background="@drawable/spinner"
-            android:drawableEnd="@mipmap/ic_daso_round"
-            android:padding="5dp"/>
+            <ImageView
+                android:id="@+id/ivResetParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button"
+                android:contentDescription="@string/prompt_email"
+                android:onClick="onClick_ResetPartySelection"
+                android:padding="10dp"
+                android:src="@drawable/ic_restore"
+                android:visibility="gone" />
 
-        <RadioButton
-            android:id="@+id/rbSASCORegCan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginRight="2.5dp"
-            android:background="@drawable/spinner"
-            android:drawableEnd="@mipmap/ic_sasco_round"
-            android:padding="5dp"/>
+            <RadioButton
+                android:id="@+id/rbEFFSCRegCan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:background="@drawable/spinner"
+                android:drawableEnd="@mipmap/ic_effsc_round"
+                android:padding="5dp"/>
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rbDASORegCan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:background="@drawable/spinner"
+                android:drawableEnd="@mipmap/ic_daso_round"
+                android:padding="5dp"/>
+
+            <RadioButton
+                android:id="@+id/rbSASCORegCan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:background="@drawable/spinner"
+                android:drawableEnd="@mipmap/ic_sasco_round"
+                android:padding="5dp"/>
+
+        </RadioGroup>
+    </ScrollView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -87,7 +102,6 @@
                     android:text="@string/portfolio"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size" />
-
                 <Spinner
                     android:id="@+id/spnEthnicityReg"
                     android:layout_width="0dp"
@@ -97,6 +111,7 @@
                     android:entries="@array/portfolio"
                     android:textAlignment="center" />
 
+
             </LinearLayout>
 
             <LinearLayout
@@ -104,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:orientation="horizontal">
+
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
@@ -120,8 +136,7 @@
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
-                        android:singleLine="true"
-                        />
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -133,9 +148,9 @@
                     android:layout_weight="1"
                     android:background="@drawable/button"
                     android:contentDescription="@string/prompt_email"
+                    android:onClick="onClick_ScanCard"
                     android:padding="5dp"
-                    android:src="@drawable/ic_card"
-                    android:onClick="onClick_ScanCard"/>
+                    android:src="@drawable/ic_card" />
 
                 <ImageView
                     android:id="@+id/ivSearchRegCan"
@@ -145,11 +160,10 @@
                     android:layout_weight="1"
                     android:background="@drawable/button"
                     android:contentDescription="@string/prompt_email"
+                    android:onClick="onClick_SearchEmail"
                     android:padding="5sp"
                     android:src="@drawable/ic_search"
-                    android:visibility="gone"
-                    android:onClick="onClick_SearchEmail"/>
-
+                    android:visibility="gone" />
             </LinearLayout>
 
             <android.support.design.widget.TextInputLayout

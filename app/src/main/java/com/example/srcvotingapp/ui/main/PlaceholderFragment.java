@@ -26,7 +26,7 @@ public class PlaceholderFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     RadioButton rbEFFSC, rbDASO, rbSASCO;
-    RadioGroup rgCandidate;
+    RadioGroup rgCandidateParty;
 
     private PageViewModel pageViewModel;
 
@@ -62,12 +62,12 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
-        rgCandidate = root.findViewById(R.id.rgCandidate);
+        rgCandidateParty = root.findViewById(R.id.rgCandidate);
         rbDASO = root.findViewById(R.id.rbDASO);
         rbEFFSC = root.findViewById(R.id.rbEFFSC);
         rbSASCO = root.findViewById(R.id.rbSASCO);
 
-        rgCandidate.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgCandidateParty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Toast.makeText(getContext(), getSelectedRadio(rbEFFSC, rbDASO, rbSASCO),

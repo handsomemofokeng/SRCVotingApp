@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -25,7 +27,9 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     View toastView;
     EditText etEmail;
-    ImageView ivScanCard, ivSearch;
+    ImageView ivScanCard, ivSearch, ivResetParty;
+    RadioGroup rgCandidatePartyRegCan;
+    RadioButton rbEFFSC, rbDASO, rbSASCO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,15 @@ public class AddCandidateActivity extends AppCompatActivity {
                     "Register New Candidate");
 
         initViews();
+
+        rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO: 2019/09/10 Hide Unselected Radios
+                hideViews(rbEFFSC, rbDASO, rbSASCO);
+                showViews(ivResetParty, findViewById(checkedId));
+            }
+        });
 
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,6 +80,13 @@ public class AddCandidateActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmailRegCan);
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
+
+        rgCandidatePartyRegCan = findViewById(R.id.rgCandidateRegCan);
+        rbDASO = findViewById(R.id.rbDASORegCan);
+        rbEFFSC = findViewById(R.id.rbEFFSCRegCan);
+        rbSASCO = findViewById(R.id.rbSASCORegCan);
+
+        ivResetParty = findViewById(R.id.ivResetParty);
     }
 
     @Override
@@ -105,5 +125,10 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     public void onClick_SearchEmail(View view) {
         // TODO: 2019/09/10 Search by Email
+    }
+
+    public void onClick_ResetPartySelection(View view) {
+        hideViews(view);
+        showViews(rbEFFSC, rbDASO, rbSASCO);
     }
 }
