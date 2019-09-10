@@ -6,8 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 
-import static com.example.srcvotingapp.VoteActivity.Portfolios;
-
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
 public class PageViewModel extends ViewModel {
 

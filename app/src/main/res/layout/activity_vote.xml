@@ -46,7 +46,7 @@
             android:textAlignment="center"
             android:textColor="@color/colorButtonForeground"
             android:textSize="@dimen/text_size"
-            android:drawablePadding="16dp"
+            android:drawablePadding="8dp"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="bottom|center" />
 

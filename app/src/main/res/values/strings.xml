@@ -49,9 +49,9 @@
     <string name="tab_text_13">Rvw</string>
     <string name="portfolio">Portfolio:</string>
     <string name="action_previous">Previous</string>
-    <string name="action_add_candidate">Add Candidate</string>
+    <string name="action_add_candidate">Register New Candidate</string>
     <string name="action_view_results">View Results</string>
-    <string name="action_set_election_period">Start Election Timer</string>
+    <string name="action_set_election_period">Start Elections</string>
 
 
 </resources>

@@ -8,20 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.srcvotingapp.ui.main.SectionsPagerAdapter;
 
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
-import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 
 public class VoteActivity extends AppCompatActivity {
-
-    public static String[] Portfolios = {"President", "Deputy President", "Secretary General",
-            "Financial Officer", "Constitutional And Legal Affairs", "Sports Officer",
-            "Public Relations Officer", "Health and Welfare Officer", "P C O", "Student Affairs",
-            "E D O", "Transformation Officer"};
-
     int tabNo = 0;
 
     ViewPager viewPager;
@@ -103,7 +96,7 @@ public class VoteActivity extends AppCompatActivity {
             case R.id.btnNavigateNextVote:
 
                 // TODO: 2019/09/03 Navigate next
-                if (tabNo <= Portfolios.length && tabNo >= 0 ) {
+                if (tabNo <= Portfolios.length && tabNo >= 0) {
 
                     tabNo++;
                     viewPager.setCurrentItem(tabNo);
@@ -114,7 +107,7 @@ public class VoteActivity extends AppCompatActivity {
             case R.id.btnNavigatePreviousVote:
 
                 // TODO: 2019/09/03 Go back
-                if (tabNo <= Portfolios.length && tabNo >= 0 ) {
+                if (tabNo <= Portfolios.length && tabNo >= 0) {
                     tabNo--;
                     viewPager.setCurrentItem(tabNo);
                 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-    <string-array name="sections">
+    <string-array name="portfolio">
+        <item>-- Select Portfolio --</item>
         <item>President</item>
         <item>Deputy President</item>
         <item>Secretary General</item>
@@ -11,11 +11,10 @@
         <item>Sports Officer</item>
         <item>Public Relations Officer</item>
         <item>Health And Welfare Officer</item>
-        <item>P C O</item>
+        <item>Projects and Campaign Officer</item>
         <item>Student Affairs</item>
-        <item>E D O</item>
+        <item>Equity and Diversity Officer</item>
         <item>Transformation Officer</item>
-        <item>Review</item>
     </string-array>
 
     <string-array name="ethnicity">
