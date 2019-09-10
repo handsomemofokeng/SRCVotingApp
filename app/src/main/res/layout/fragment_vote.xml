@@ -29,17 +29,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/rbEFFSC"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_edges"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="@dimen/dimen_edges"
-                    android:background="@drawable/spinner"
-                    android:drawableEnd="@mipmap/ic_effsc_round"
-                    android:padding="15dp"
-                    android:text="Candidate Comrade\nEFF" />
 
                 <RadioButton
                     android:id="@+id/rbDASO"
@@ -53,6 +42,17 @@
                     android:padding="15dp"
                     android:text="Honorable Member\nDASO" />
 
+                <RadioButton
+                    android:id="@+id/rbEFFSC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_edges"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="@dimen/dimen_edges"
+                    android:background="@drawable/spinner"
+                    android:drawableEnd="@mipmap/ic_effsc_round"
+                    android:padding="15dp"
+                    android:text="Candidate Comrade\nEFF" />
                 <RadioButton
                     android:id="@+id/rbSASCO"
                     android:layout_width="match_parent"
