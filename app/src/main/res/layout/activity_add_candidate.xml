@@ -54,7 +54,7 @@
                 android:layout_marginRight="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_effsc_round"
-                android:padding="5dp"/>
+                android:padding="5dp" />
 
             <RadioButton
                 android:id="@+id/rbSASCORegCan"
@@ -64,7 +64,7 @@
                 android:layout_marginRight="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_sasco_round"
-                android:padding="5dp"/>
+                android:padding="5dp" />
 
         </RadioGroup>
 
@@ -78,14 +78,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="2dp">
+            android:layout_marginBottom="2dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spinner_height"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:padding="2dp"
                 android:background="@drawable/spinner"
                 android:orientation="horizontal">
 
@@ -103,6 +104,7 @@
                     android:text="@string/portfolio"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size" />
+
                 <Spinner
                     android:id="@+id/spnEthnicityReg"
                     android:layout_width="0dp"
@@ -112,14 +114,12 @@
                     android:entries="@array/portfolio"
                     android:textAlignment="center" />
 
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"

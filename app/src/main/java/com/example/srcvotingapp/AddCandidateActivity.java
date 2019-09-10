@@ -131,4 +131,5 @@ public class AddCandidateActivity extends AppCompatActivity {
         hideViews(view);
         showViews(rbEFFSC, rbDASO, rbSASCO);
     }
+
 }
