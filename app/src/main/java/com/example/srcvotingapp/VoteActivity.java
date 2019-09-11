@@ -9,13 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.srcvotingapp.ui.main.SectionsPagerAdapter;
+import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 
 public class VoteActivity extends AppCompatActivity {
-    int tabNo = 0;
 
     ViewPager viewPager;
     View toastView;
@@ -69,7 +68,7 @@ public class VoteActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = buildAlertDialog(this, "Discard Changes",
                 "Are you sure you want to exit without saving?" +
-                        "\nAll progress will be lost");
+                        "\nAll progress will be lost!");
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -96,21 +95,13 @@ public class VoteActivity extends AppCompatActivity {
             case R.id.btnNavigateNextVote:
 
                 // TODO: 2019/09/03 Navigate next
-                if (tabNo <= Portfolios.length && tabNo >= 0) {
-
-                    tabNo++;
-                    viewPager.setCurrentItem(tabNo);
-                }
 
                 break;
 
             case R.id.btnNavigatePreviousVote:
 
                 // TODO: 2019/09/03 Go back
-                if (tabNo <= Portfolios.length && tabNo >= 0) {
-                    tabNo--;
-                    viewPager.setCurrentItem(tabNo);
-                }
+
                 break;
 
         }

@@ -212,7 +212,6 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size" />
 
-
                     <RadioButton
                         android:id="@+id/rbMale"
                         android:layout_width="0dp"

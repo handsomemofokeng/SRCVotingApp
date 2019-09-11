@@ -1,4 +1,4 @@
-package com.example.srcvotingapp.ui.main;
+package com.example.srcvotingapp.ui.vote;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -17,11 +17,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{
+
             R.string.tab_text_1, R.string.tab_text_2,
             R.string.tab_text_3, R.string.tab_text_4,
             R.string.tab_text_5, R.string.tab_text_6,
             R.string.tab_text_7, R.string.tab_text_8,
-            R.string.tab_text_9, R.string.tab_text_10, };
+            R.string.tab_text_9, R.string.tab_text_10,
+            R.string.tab_text_11, R.string.tab_text_12};
 
     private final Context mContext;
 
@@ -46,6 +48,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 10 total pages.
-        return 10;
+        return 12;
     }
 }

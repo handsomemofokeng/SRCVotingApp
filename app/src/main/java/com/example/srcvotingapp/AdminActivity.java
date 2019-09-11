@@ -30,4 +30,7 @@ public class AdminActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), AddCandidateActivity.class));
 
     }
+
+    public void onClick_StartElections(View view) {
+    }
 }

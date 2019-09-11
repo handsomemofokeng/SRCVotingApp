@@ -8,16 +8,7 @@
     android:padding="@dimen/default_gap"
     tools:context=".AddCandidateActivity">
 
-    <!--    <SearchView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:gravity="end"/>-->
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RadioGroup
+    <RadioGroup
             android:id="@+id/rgCandidateRegCan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +59,10 @@
 
         </RadioGroup>
 
-    </ScrollView>
+<!--    <SearchView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="end"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,6 +70,7 @@
         android:layout_marginTop="@dimen/default_gap">
 
         <LinearLayout
+            android:id="@+id/frmPartyRegCan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
@@ -106,7 +101,7 @@
                     android:textSize="@dimen/text_size" />
 
                 <Spinner
-                    android:id="@+id/spnEthnicityReg"
+                    android:id="@+id/spnPortfolioRegCan"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -116,10 +111,69 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/tvSelectedPortfolioRegCan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorIcon"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Portfolio"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/etNameRegCan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="5dp"
+                    android:hint="@string/prompt_name"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/black"
+                    android:maxLines="1"
+                    android:enabled="false"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/ivEditPortfolio"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:contentDescription="@string/prompt_email"
+                android:onClick="onClick_EditPortfolio"
+                android:padding="5dp"
+                android:src="@drawable/ic_edit" />
+
+        </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="2.5dp"
+                android:layout_marginBottom="2.5dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
@@ -167,26 +221,18 @@
 
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etNameReg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_person"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/prompt_name"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPersonName"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
+                android:layout_gravity="center"
+                android:background="@drawable/button"
+                android:contentDescription="@string/prompt_email"
+                android:padding="15dp"
+                android:textStyle="bold"
+                android:drawablePadding="15dp"
+                android:text="@string/save_candidate"
+                android:textColor="@color/colorButtonForeground"
+                android:drawableEnd="@drawable/ic_save" />
 
         </LinearLayout>
 

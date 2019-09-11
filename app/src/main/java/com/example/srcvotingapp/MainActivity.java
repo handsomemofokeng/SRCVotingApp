@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
 
-        toastView = getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
+        toastView = getLayoutInflater().inflate(R.layout.custom_toast, (
+                ViewGroup) findViewById(R.id.toast_layout));
         etEmail = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
         chkRememberMe = findViewById(R.id.chkRememberMe);

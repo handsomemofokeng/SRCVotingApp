@@ -1,4 +1,4 @@
-package com.example.srcvotingapp.ui.main;
+package com.example.srcvotingapp.ui.vote;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

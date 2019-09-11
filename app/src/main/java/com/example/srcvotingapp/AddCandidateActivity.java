@@ -9,27 +9,52 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.backendless.persistence.DataQueryBuilder;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+import static com.example.srcvotingapp.ApplicationClass.clearFields;
+import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
+import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
+import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
+import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
+import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
+import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
+import static com.example.srcvotingapp.ApplicationClass.uncheckRadioButton;
 
 public class AddCandidateActivity extends AppCompatActivity {
 
+    //UI references
     View toastView;
-    EditText etEmail;
+    EditText etEmail, etName;
+    TextView tvSelectedPortfolio;
     ImageView ivScanCard, ivSearch, ivResetParty;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
+    Spinner spnPortfolio;
+    LinearLayout frmParty;
+
+
+    Party selectedParty;
+    private DataQueryBuilder queryParty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +68,53 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         initViews();
 
+        hideViews(frmParty);
+
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // TODO: 2019/09/10 Hide Unselected Radios
+
                 hideViews(rbEFFSC, rbDASO, rbSASCO);
-                showViews(ivResetParty, findViewById(checkedId));
+                showViews(ivResetParty, findViewById(checkedId), frmParty);
+
+                selectedParty = null;
+
+                switch (checkedId) {
+
+                    case R.id.rbEFFSCRegCan:
+
+                        selectedParty = new Party("Economic Freedom Fighters Students' Command",
+                                "EFFSC");
+
+                        selectedParty.setPresident("EFFSC Pres"); // TODO: 2019/09/11 Remove
+                        break;
+
+
+                    case R.id.rbDASORegCan:
+
+                        selectedParty = new Party("Democratic Alliance Student Organisation",
+                                "DASO");
+
+                        selectedParty.setPresident("DASO Pres"); // TODO: 2019/09/11 Remove
+                        break;
+
+                    case R.id.rbSASCORegCan:
+
+                        selectedParty = new Party("South African Student Congress",
+                                "SASCO");
+
+                        selectedParty.setPresident("SASCO Pres"); // TODO: 2019/09/11 Remove
+                        break;
+                }
+
+                if (selectedParty != null) {
+
+                    queryParty = selectQuery(PARTY_ID, selectedParty.getPartyID(), PARTY_ID);
+                    // TODO: 2019/09/11 Get Selected Party from Backendless
+
+                }
+
+
             }
         });
 
@@ -65,11 +131,88 @@ public class AddCandidateActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().contains("@")) {
+                if (isEmailValid(etEmail)) {
                     showSearchButton();
                 } else {
                     showScanButton();
                 }
+            }
+        });
+
+        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position > 0) {
+
+                    tvSelectedPortfolio.setText(Portfolios[position-1]);
+                    switch (position) {
+
+                        case 1:
+                            etName.setText(selectedParty.getPresident());
+                            break;
+
+                        case 2:
+
+                            etName.setText(selectedParty.getDeputyPresident());
+                            break;
+
+                        case 3:
+
+                            etName.setText(selectedParty.getSecretaryGeneral());
+                            break;
+
+                        case 4:
+                            etName.setText(selectedParty.getFinancialOfficer());
+                            break;
+
+                        case 5:
+                            etName.setText(selectedParty.getConstitutionalAndLegalAffairs());
+                            break;
+
+                        case 6:
+                            etName.setText(selectedParty.getSportsOfficer());
+                            break;
+
+                        case 7:
+                            etName.setText(selectedParty.getPublicRelationsOfficer());
+                            break;
+
+                        case 8:
+                            etName.setText(selectedParty.getHealthAndWelfareOfficer());
+                            break;
+
+                        case 9:
+                            etName.setText(selectedParty.getProjectsAndCampaignOfficer());
+                            break;
+
+                        case 10:
+                            etName.setText(selectedParty.getStudentAffairs());
+                            break;
+
+                        case 11:
+                            etName.setText(selectedParty.getEquityAndDiversityOfficer());
+                            break;
+
+                        case 12:
+                            etName.setText(selectedParty.getTransformationOfficer());
+                            break;
+
+                        default:
+
+                            etName.setText(null);
+                            break;
+
+                    }
+
+                }else {
+                    etName.setText(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
@@ -78,8 +221,12 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
         etEmail = findViewById(R.id.etEmailRegCan);
+        etName = findViewById(R.id.etNameRegCan);
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
+        tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
+
+        frmParty = findViewById(R.id.frmPartyRegCan);
 
         rgCandidatePartyRegCan = findViewById(R.id.rgCandidateRegCan);
         rbDASO = findViewById(R.id.rbDASORegCan);
@@ -87,6 +234,8 @@ public class AddCandidateActivity extends AppCompatActivity {
         rbSASCO = findViewById(R.id.rbSASCORegCan);
 
         ivResetParty = findViewById(R.id.ivResetParty);
+
+        spnPortfolio = findViewById(R.id.spnPortfolioRegCan);
     }
 
     @Override
@@ -128,8 +277,17 @@ public class AddCandidateActivity extends AppCompatActivity {
     }
 
     public void onClick_ResetPartySelection(View view) {
-        hideViews(view);
+
+        uncheckRadioButton(rbEFFSC, rbDASO, rbSASCO);
         showViews(rbEFFSC, rbDASO, rbSASCO);
+        clearSpinners(spnPortfolio);
+        hideViews(view, frmParty);
+        clearFields(etName);
+
     }
 
+    public void onClick_EditPortfolio(View view) {
+        // TODO: 2019/09/11 Search By Email
+
+    }
 }

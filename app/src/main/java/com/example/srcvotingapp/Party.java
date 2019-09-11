@@ -20,6 +20,19 @@ public class Party {
     public Party(String partyName, String partyID) {
         PartyName = partyName;
         PartyID = partyID;
+
+        setPresident("Not set");
+        setDeputyPresident("Not set");
+        setSecretaryGeneral("Not set");
+        setFinancialOfficer("Not set");
+        setConstitutionalAndLegalAffairs("Not set");
+        setSportsOfficer("Not set");
+        setPublicRelationsOfficer("Not set");
+        setHealthAndWelfareOfficer("Not set");
+        setProjectsAndCampaignOfficer("Not set");
+        setStudentAffairs("Not set");
+        setEquityAndDiversityOfficer("Not set");
+        setTransformationOfficer("Not set");
     }
 
     public String getPartyName() {

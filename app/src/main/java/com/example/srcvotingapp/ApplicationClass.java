@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.BackendlessUser;
+import com.backendless.persistence.DataQueryBuilder;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.List;
@@ -37,8 +38,7 @@ public class ApplicationClass extends Application {
             "Public Relations Officer", "Health and Welfare Officer", "Projects and Campaign Officer",
             "Student Affairs", "Equity and Diversity Officer", "Transformation Officer"};
 
-
-    //User Property Names
+    //User Property Constants
     public static final String EMAIL = "email";
     public static final String NAME = "name";
     public static final String SURNAME = "surname";
@@ -49,11 +49,43 @@ public class ApplicationClass extends Application {
     public static final String IS_CANDIDATE = "isCandidate";
     public static final String ROLE = "role";
 
+    //Party Property Constants
+    public static final String PARTY_ID = "partyID";
+    public static final String PARTY_NAME = "partyName";
 
     @Override
     public void onCreate() {
         super.onCreate();
         // TODO: 2019/08/29 Initialize Backendless
+    }
+
+    /**
+     * This method creates a Query to find items by specified parameters
+     *
+     * @param property which property to look for in a table
+     * @param value    to be used to filter
+     * @param sortBy   to be used to arrange
+     * @return query that specifies which specific items to return.
+     */
+    public static DataQueryBuilder selectQuery(String property, String value, String sortBy) {
+        String whereClause = property + " = '" + value + "'";
+        DataQueryBuilder dataQueryBuilder = DataQueryBuilder.create().setWhereClause(whereClause);
+        dataQueryBuilder.setPageSize(100).setOffset(0).setSortBy(sortBy);
+        return dataQueryBuilder;
+    }
+
+    /**
+     * This method selects all objects within any Table in Backendless, every @NonNull object has
+     * a 'created' property hence the whereClause is "created != null"
+     *
+     * @param sortBy sorts the list according to the property within the specified table
+     * @return a query to be passed on Backendless Async
+     */
+    public static DataQueryBuilder selectAllQuery(String sortBy) {
+        String whereClause = "created != null";
+        DataQueryBuilder dataQueryBuilder = DataQueryBuilder.create().setWhereClause(whereClause);
+        dataQueryBuilder.setPageSize(100).setOffset(0).setSortBy(sortBy);
+        return dataQueryBuilder;
     }
 
 
@@ -78,6 +110,18 @@ public class ApplicationClass extends Application {
      */
     public static void clearRadioGroup(RadioGroup radioGroup) {
         radioGroup.clearCheck();
+    }
+
+    /**
+     * This method uncheck radio buttons
+     * @param radioButtons to be unchecked
+     */
+    public static void uncheckRadioButton(RadioButton... radioButtons) {
+        for (RadioButton radioButton : radioButtons) {
+            if (radioButton.isChecked()){
+                radioButton.setChecked(false);
+            }
+        }
     }
 
     /**

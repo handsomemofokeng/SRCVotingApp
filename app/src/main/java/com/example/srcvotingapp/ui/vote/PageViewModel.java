@@ -1,4 +1,4 @@
-package com.example.srcvotingapp.ui.main;
+package com.example.srcvotingapp.ui.vote;
 
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
