@@ -88,6 +88,16 @@ public class ApplicationClass extends Application {
         return dataQueryBuilder;
     }
 
+    /**
+     * Switch visibility of Views
+     * @param showView to be shown
+     * @param hideView to be hidden
+     */
+    public static void switchViews(View showView, View hideView){
+        showViews(showView);
+        hideViews(hideView);
+    }
+
 
     /**
      * This method reuses the Scan Barcode Activity

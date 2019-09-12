@@ -38,6 +38,7 @@ import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
+import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.uncheckRadioButton;
 
 public class AddCandidateActivity extends AppCompatActivity {
@@ -46,11 +47,12 @@ public class AddCandidateActivity extends AppCompatActivity {
     View toastView;
     EditText etEmail, etName;
     TextView tvSelectedPortfolio;
-    ImageView ivScanCard, ivSearch, ivResetParty;
+    ImageView ivScanCard, ivSearch, ivResetParty, ivEditCandidate, ivSaveCandidate;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
     Spinner spnPortfolio;
-    LinearLayout frmParty;
+    LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchemail;
+
 
 
     Party selectedParty;
@@ -68,7 +70,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         initViews();
 
-        hideViews(frmParty);
+        hideViews(frmParty,frmCandidateDetails);
 
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -86,16 +88,13 @@ public class AddCandidateActivity extends AppCompatActivity {
                         selectedParty = new Party("Economic Freedom Fighters Students' Command",
                                 "EFFSC");
 
-                        selectedParty.setPresident("EFFSC Pres"); // TODO: 2019/09/11 Remove
                         break;
-
 
                     case R.id.rbDASORegCan:
 
                         selectedParty = new Party("Democratic Alliance Student Organisation",
                                 "DASO");
 
-                        selectedParty.setPresident("DASO Pres"); // TODO: 2019/09/11 Remove
                         break;
 
                     case R.id.rbSASCORegCan:
@@ -103,7 +102,6 @@ public class AddCandidateActivity extends AppCompatActivity {
                         selectedParty = new Party("South African Student Congress",
                                 "SASCO");
 
-                        selectedParty.setPresident("SASCO Pres"); // TODO: 2019/09/11 Remove
                         break;
                 }
 
@@ -121,29 +119,38 @@ public class AddCandidateActivity extends AppCompatActivity {
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                showScanButton();
+                //showScanButton();
+                switchViews(ivScanCard, ivSearch);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                showScanButton();
+                //showScanButton();
+                switchViews(ivScanCard, ivSearch);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (isEmailValid(etEmail)) {
-                    showSearchButton();
+                    //showSearchButton();
+                    switchViews( ivSearch,ivScanCard);
+
                 } else {
-                    showScanButton();
+                    //showScanButton();
+                    switchViews(ivScanCard, ivSearch);
                 }
             }
         });
 
         spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (position > 0) {
+
+                    showViews(frmCandidateDetails, frmCandidateName);
+                    hideViews(frmSearchemail);
 
                     tvSelectedPortfolio.setText(Portfolios[position-1]);
                     switch (position) {
@@ -206,6 +213,8 @@ public class AddCandidateActivity extends AppCompatActivity {
                     }
 
                 }else {
+
+                    hideViews(frmCandidateDetails);
                     etName.setText(null);
                 }
             }
@@ -219,14 +228,20 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     private void initViews() {
 
-        toastView = getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
+        toastView = getLayoutInflater().inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.toast_layout));
         etEmail = findViewById(R.id.etEmailRegCan);
         etName = findViewById(R.id.etNameRegCan);
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
+        ivEditCandidate = findViewById(R.id.ivEditCandidateRegCan);
+        ivSaveCandidate = findViewById(R.id.ivSaveCandidateRegCan);
         tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
 
         frmParty = findViewById(R.id.frmPartyRegCan);
+        frmCandidateDetails = findViewById(R.id.frmCandidateDetails);
+        frmCandidateName = findViewById(R.id.frmCandidateNameRegCan);
+        frmSearchemail = findViewById(R.id.frmSearchEmailRegCan);
 
         rgCandidatePartyRegCan = findViewById(R.id.rgCandidateRegCan);
         rbDASO = findViewById(R.id.rbDASORegCan);
@@ -244,11 +259,13 @@ public class AddCandidateActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 showCustomToast(getApplicationContext(), toastView, "Result not found");
-                etEmail.findFocus();
+                etEmail.requestFocus();
             } else {
 
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
-                showSearchButton();
+                etEmail.setError(null);
+                //showSearchButton();
+                switchViews(ivSearch, ivScanCard);
 
             }
         } else {
@@ -256,15 +273,15 @@ public class AddCandidateActivity extends AppCompatActivity {
         }
     }
 
-    private void showScanButton() {
-        showViews(ivScanCard);
-        hideViews(ivSearch);
-    }
-
-    private void showSearchButton() {
-        showViews(ivSearch);
-        hideViews(ivScanCard);
-    }
+//    private void showScanButton() {
+//        showViews(ivScanCard);
+//        hideViews(ivSearch);
+//    }
+//
+//    private void showSearchButton() {
+//        showViews(ivSearch);
+//        hideViews(ivScanCard);
+//    }
 
     public void onClick_ScanCard(View view) {
 
@@ -281,13 +298,18 @@ public class AddCandidateActivity extends AppCompatActivity {
         uncheckRadioButton(rbEFFSC, rbDASO, rbSASCO);
         showViews(rbEFFSC, rbDASO, rbSASCO);
         clearSpinners(spnPortfolio);
-        hideViews(view, frmParty);
+        hideViews(view, frmParty,frmCandidateDetails);
         clearFields(etName);
 
     }
 
     public void onClick_EditPortfolio(View view) {
         // TODO: 2019/09/11 Search By Email
+
+        switchViews(frmSearchemail, frmCandidateName);
+//        hideViews(frmCandidateName);
+//        showViews(frmSearchemail);
+        clearFields(etEmail);
 
     }
 }

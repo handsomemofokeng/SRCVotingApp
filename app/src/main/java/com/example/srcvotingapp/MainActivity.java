@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private View toastView;
-    TextView tvResetLink;
+    private TextView tvResetLink;
     private CheckBox chkRememberMe;
-    private ImageView ivScanCard, ivSendResetLink;
-    private Button btnSignIn, btnResetPassword, btnRegister;
+    private ImageView ivScanCard, ivSendResetLink, ivSignIn;
+    private Button  btnResetPassword, btnRegister;
     private TextInputLayout tilPassword;
 
     @Override
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Authenticate User");
 
-        btnSignIn.setOnLongClickListener(new View.OnLongClickListener() {
+        ivSignIn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AdminActivity.class));
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.password);
         chkRememberMe = findViewById(R.id.chkRememberMe);
         tvResetLink = findViewById(R.id.tvResetLink);
-        btnSignIn = findViewById(R.id.btn_sign_in);
+        ivSignIn = findViewById(R.id.ivSignIn);
         btnRegister = findViewById(R.id.btn_register);
         btnResetPassword = findViewById(R.id.btn_reset);
         ivScanCard = findViewById(R.id.ivScanCard);
@@ -93,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
                 showCustomToast(getApplicationContext(), toastView, "Result not found");
-                etEmail.findFocus();
+                etEmail.requestFocus();
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
-                etPassword.findFocus();
+                etPassword.requestFocus();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -119,13 +119,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void showLoginForm() {
         btnResetPassword.setText(R.string.action_reset_password);
-        showViews(ivScanCard, tilPassword, chkRememberMe, btnSignIn);
+        showViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
         hideViews(ivSendResetLink, tvResetLink);
     }
 
     private void showResetPasswordForm() {
         btnResetPassword.setText(R.string.action_go_back);
-        hideViews(ivScanCard, tilPassword, chkRememberMe, btnSignIn);
+        hideViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
         showViews(ivSendResetLink, tvResetLink);
     }
 

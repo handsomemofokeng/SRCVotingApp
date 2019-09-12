@@ -111,11 +111,17 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/frmCandidateDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvSelectedPortfolioRegCan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorIcon"
+                android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_size"
                 android:gravity="center"
@@ -124,6 +130,7 @@
                 android:text="Portfolio"/>
 
         <LinearLayout
+            android:id="@+id/frmCandidateNameRegCan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -153,9 +160,8 @@
 
             </android.support.design.widget.TextInputLayout>
 
-
             <ImageView
-                android:id="@+id/ivEditPortfolio"
+                android:id="@+id/ivEditCandidateRegCan"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -166,9 +172,23 @@
                 android:padding="5dp"
                 android:src="@drawable/ic_edit" />
 
+            <ImageView
+                android:id="@+id/ivSaveCandidateRegCan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:contentDescription="@string/prompt_email"
+                android:onClick="onClick_SearchEmail"
+                android:padding="5sp"
+                android:src="@drawable/ic_save"
+                android:visibility="gone" />
+
         </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/frmSearchEmailRegCan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -187,7 +207,7 @@
                         android:layout_weight="9"
                         android:drawableStart="@drawable/ic_email"
                         android:drawablePadding="5dp"
-                        android:hint="@string/prompt_email"
+                        android:hint="@string/search_email"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:singleLine="true" />
@@ -221,18 +241,20 @@
 
             </LinearLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/button"
-                android:contentDescription="@string/prompt_email"
-                android:padding="15dp"
-                android:textStyle="bold"
-                android:drawablePadding="15dp"
-                android:text="@string/save_candidate"
-                android:textColor="@color/colorButtonForeground"
-                android:drawableEnd="@drawable/ic_save" />
+<!--            <Button-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:background="@drawable/button"-->
+<!--                android:contentDescription="@string/prompt_email"-->
+<!--                android:padding="15dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:drawablePadding="15dp"-->
+<!--                android:text="@string/save_candidate"-->
+<!--                android:textColor="@color/colorButtonForeground"-->
+<!--                android:drawableEnd="@drawable/ic_save" />-->
+
+            </LinearLayout>
 
         </LinearLayout>
 

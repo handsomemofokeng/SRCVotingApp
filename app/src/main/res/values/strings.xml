@@ -53,6 +53,7 @@
     <string name="action_view_results">View Results</string>
     <string name="action_set_election_period">Start Elections</string>
     <string name="save_candidate">Save Candidate</string>
+    <string name="search_email">Search Email</string>
 
 
 </resources>
