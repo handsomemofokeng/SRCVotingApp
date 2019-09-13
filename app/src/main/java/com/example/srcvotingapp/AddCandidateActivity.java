@@ -17,7 +17,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.backendless.persistence.DataQueryBuilder;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -26,13 +25,10 @@ import com.google.zxing.integration.android.IntentResult;
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
-import static com.example.srcvotingapp.ApplicationClass.clearRadioGroup;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
-import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
-import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
@@ -45,13 +41,13 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     //UI references
     View toastView;
-    EditText etEmail, etName;
+    EditText etEmail, etName, etFoundCandidate;
     TextView tvSelectedPortfolio;
     ImageView ivScanCard, ivSearch, ivResetParty, ivEditCandidate, ivSaveCandidate;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
     Spinner spnPortfolio;
-    LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchemail;
+    LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchEmail, frmFoundCandidate;
 
 
     Party selectedParty;
@@ -150,7 +146,7 @@ public class AddCandidateActivity extends AppCompatActivity {
                 if (position > 0) {
 
                     showViews(frmCandidateDetails, frmCandidateName);
-                    hideViews(frmSearchemail);
+                    hideViews(frmSearchEmail, frmFoundCandidate);
 
                     tvSelectedPortfolio.setText(Portfolios[position - 1]);
                     switch (position) {
@@ -230,25 +226,29 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
+
         etEmail = findViewById(R.id.etEmailRegCan);
         etName = findViewById(R.id.etNameRegCan);
+        etFoundCandidate = findViewById(R.id.etFoundCandidateNameRegCan);
+
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
         ivEditCandidate = findViewById(R.id.ivEditCandidateRegCan);
         ivSaveCandidate = findViewById(R.id.ivSaveCandidateRegCan);
+        ivResetParty = findViewById(R.id.ivResetParty);
+
         tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
 
         frmParty = findViewById(R.id.frmPartyRegCan);
         frmCandidateDetails = findViewById(R.id.frmCandidateDetails);
         frmCandidateName = findViewById(R.id.frmCandidateNameRegCan);
-        frmSearchemail = findViewById(R.id.frmSearchEmailRegCan);
+        frmSearchEmail = findViewById(R.id.frmSearchEmailRegCan);
+        frmFoundCandidate = findViewById(R.id.frmFoundCandidate);
 
         rgCandidatePartyRegCan = findViewById(R.id.rgCandidateRegCan);
         rbDASO = findViewById(R.id.rbDASORegCan);
         rbEFFSC = findViewById(R.id.rbEFFSCRegCan);
         rbSASCO = findViewById(R.id.rbSASCORegCan);
-
-        ivResetParty = findViewById(R.id.ivResetParty);
 
         spnPortfolio = findViewById(R.id.spnPortfolioRegCan);
     }
@@ -292,27 +292,51 @@ public class AddCandidateActivity extends AppCompatActivity {
     public void onClick_SearchEmail(View view) {
         // TODO: 2019/09/10 Search by Email
 
+        if (isEmailValid(etEmail)) {
+            showViews(frmFoundCandidate);
+        }
+
     }
 
     public void onClick_ResetPartySelection(View view) {
 
+        resetForm();
+
+    }
+
+    private void resetForm() {
+
         uncheckRadioButton(rbEFFSC, rbDASO, rbSASCO);
         showViews(rbEFFSC, rbDASO, rbSASCO);
         clearSpinners(spnPortfolio);
-        hideViews(view, frmParty, frmCandidateDetails);
+        hideViews(ivResetParty, frmParty, frmCandidateDetails);
         clearFields(etName);
 
     }
 
     public void onClick_EditPortfolio(View view) {
-        // TODO: 2019/09/11 Search By Email
 
-        switchViews(frmSearchemail, frmCandidateName);
+        // TODO: 2019/09/11 Search By Email
+        switchViews(frmSearchEmail, frmCandidateName);
         clearFields(etEmail);
 
     }
 
-    public void onClick_Navigate(View view) {
-        switchViews(frmCandidateName, frmSearchemail);
+    public void onClick_NavigateBack(View view) {
+
+        hideViews(frmFoundCandidate);
+        switchViews(frmCandidateName, frmSearchEmail);
+
+    }
+
+    public void onClick_AssignCandidate(View view) {
+        //if successful
+
+        showCustomToast(getApplicationContext(), toastView, "User assigned to Portfolio: "
+                + getSpinnerValue(spnPortfolio));
+
+        if (spnPortfolio.getSelectedItemPosition() < (spnPortfolio.getAdapter().getCount()-1)) {
+            spnPortfolio.setSelection(spnPortfolio.getSelectedItemPosition()+1, true);
+        }
     }
 }

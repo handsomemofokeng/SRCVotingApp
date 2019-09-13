@@ -53,7 +53,10 @@
     <string name="action_add_party">Add Party</string>
     <string name="action_view_results">View Results</string>
     <string name="action_set_election_period">Start Elections</string>
-    <string name="save_candidate">Save Candidate</string>
+    <string name="assign_portfolio">Assign Portfolio</string>
     <string name="search_email">Search Email</string>
+    <string name="found_candidate">Found Candidate</string>
+    <string name="prompt_username">Student Name</string>
+    <string name="registered_course">Registered Course</string>
 
 </resources>

@@ -146,4 +146,17 @@ public class Party {
     public void setTransformationOfficer(String transformationOfficer) {
         TransformationOfficer = transformationOfficer;
     }
+
+    private void assignPortfolio(String  selectedPortfolio, String selectedCandidate){
+
+        switch (selectedPortfolio){
+            case "President":
+
+                break;
+
+            case "Deputy President":
+
+        }
+
+    }
 }
