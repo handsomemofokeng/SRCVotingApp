@@ -119,12 +119,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void showLoginForm() {
         btnResetPassword.setText(R.string.action_reset_password);
+        btnResetPassword.setCompoundDrawablesRelative(null, null, getDrawable(R.drawable.ic_restore), null);
+        btnResetPassword.setCompoundDrawablePadding(5);
+        btnResetPassword.jumpDrawablesToCurrentState();
         showViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
         hideViews(ivSendResetLink, tvResetLink);
     }
 
     private void showResetPasswordForm() {
         btnResetPassword.setText(R.string.action_go_back);
+        btnResetPassword.setCompoundDrawablesRelative(getDrawable(R.drawable.ic_back), null, null, null);
+        btnResetPassword.setCompoundDrawablePadding(5);
         hideViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
         showViews(ivSendResetLink, tvResetLink);
     }

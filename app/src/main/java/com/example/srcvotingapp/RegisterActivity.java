@@ -146,56 +146,6 @@ public class RegisterActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Register User");
 
-//        etConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//
-//                if (isPasswordsMatching(etPassword, etConfirm)) {
-//                    etPassword.setError(null);
-//                    etConfirm.setError(null);
-//                }
-//            }
-//        })
-
-//        btnNavigate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (btnNavigate.getText().toString().equals(getString(R.string.action_next))) {
-//
-//                    if (isValidFields(etEmail, etName, etSurname,etPassword, etConfirm) ) {
-//
-//                        if (isPasswordsMatching(etPassword, etConfirm)) {
-//                            newUser = new BackendlessUser();
-//
-//                            newUser.setEmail(etEmail.getText().toString().trim());
-//                            newUser.setPassword(etConfirm.getText().toString().trim());
-//                            newUser.setProperty(NAME, etName.getText().toString().trim());
-//                            newUser.setProperty(SURNAME, etSurname.getText().toString().trim());
-//                            newUser.setProperty(GENDER, getSelectedRadio(rbFemale, rbMale));
-//                            newUser.setProperty(HAS_VOTED, false);
-//                            newUser.setProperty(IS_CANDIDATE, false);
-//                            newUser.setProperty(ROLE, "Student");
-//
-//                            showStatsForm();
-//                        }
-//
-//                    } else {
-//
-//                        showCustomToast(getApplicationContext(), toastView,
-//                                "Please enter required fields");
-//
-//                    }
-//
-//                } else {
-//
-//                    showDetailsForm();
-//
-//                }
-//            }
-//        });
-//
-
     }
 
 //    private void showDetailsForm() {
@@ -303,7 +253,8 @@ public class RegisterActivity extends AppCompatActivity {
                 newUser.setProperty(COURSE, getSpinnerValue(spnCourse));
 
 
-                showCustomToast(getApplicationContext(), toastView, getUserString(newUser) + " registered successfully.");
+                showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
+                        + " registered successfully.");
 
                 // TODO: 2019/08/26 Implement Register Code
 
@@ -311,8 +262,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                @Override
 //                public void handleResponse(BackendlessUser response) {
 //                    resetForm();
-//                    showCustomToast(getApplicationContext(), toastView,
-//                            "User successfully registered");
+//                    showCustomToast(getApplicationContext(), toastView, getUserString(newUser) + " registered successfully.");
 //
 //                }
 //
@@ -394,6 +344,12 @@ public class RegisterActivity extends AppCompatActivity {
         clearFields(etEmail, etName, etSurname, etPassword, etConfirm);
         clearRadioGroup(rgGender);
         clearSpinners(spnCourse, spnEthnicity);
+        switchViews(ivScanCard,ivCorrect);
+
+        tvCourse.setError(null);
+        tvEthnicity.setError(null);
+        tvGender.setError(null);
+
         etEmail.requestFocus();
 
     }
