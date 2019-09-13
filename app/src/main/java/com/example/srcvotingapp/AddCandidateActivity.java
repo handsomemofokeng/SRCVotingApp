@@ -109,6 +109,7 @@ public class AddCandidateActivity extends AppCompatActivity {
                     queryParty = selectQuery(PARTY_ID, selectedParty.getPartyID(), PARTY_ID);
                     // TODO: 2019/09/11 Get Selected Party from Backendless
 
+
                 }
 
 

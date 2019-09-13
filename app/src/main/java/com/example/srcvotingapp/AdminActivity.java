@@ -32,5 +32,6 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void onClick_StartElections(View view) {
+
     }
 }

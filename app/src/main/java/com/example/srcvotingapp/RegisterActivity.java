@@ -78,6 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
         tvEthnicity.setError("");
         tvGender.setError("");
 
+        switchViews(ivScanCard, ivCorrect);
+
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -346,8 +348,8 @@ public class RegisterActivity extends AppCompatActivity {
         clearSpinners(spnCourse, spnEthnicity);
         switchViews(ivScanCard,ivCorrect);
 
-        tvCourse.setError(null);
-        tvEthnicity.setError(null);
+//        tvCourse.setError(null);
+//        tvEthnicity.setError(null);
         tvGender.setError(null);
 
         etEmail.requestFocus();
