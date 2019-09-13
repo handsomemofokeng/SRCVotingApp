@@ -1,5 +1,7 @@
 package com.example.srcvotingapp;
 
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+
 public class Party {
 
     private String PartyName;
@@ -147,16 +149,31 @@ public class Party {
         TransformationOfficer = transformationOfficer;
     }
 
-    private void assignPortfolio(String  selectedPortfolio, String selectedCandidate){
+    public void assignPortfolio(String selectedPortfolio, String selectedCandidate) {
 
-        switch (selectedPortfolio){
-            case "President":
-
-                break;
-
-            case "Deputy President":
-
-        }
-
+        if (selectedPortfolio.equals(Portfolios[0]))
+            setPresident(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[1]))
+            setDeputyPresident(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[2]))
+            setSecretaryGeneral(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[3]))
+            setFinancialOfficer(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[4]))
+            setConstitutionalAndLegalAffairs(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[5]))
+            setSportsOfficer(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[6]))
+            setPublicRelationsOfficer(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[7]))
+            setHealthAndWelfareOfficer(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[8]))
+            setProjectsAndCampaignOfficer(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[9]))
+            setStudentAffairs(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[10]))
+            setEquityAndDiversityOfficer(selectedCandidate);
+        if (selectedPortfolio.equals(Portfolios[11]))
+            setTransformationOfficer(selectedCandidate);
     }
 }

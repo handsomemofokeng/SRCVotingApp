@@ -273,16 +273,6 @@ public class AddCandidateActivity extends AppCompatActivity {
         }
     }
 
-//    private void showScanButton() {
-//        showViews(ivScanCard);
-//        hideViews(ivSearch);
-//    }
-//
-//    private void showSearchButton() {
-//        showViews(ivSearch);
-//        hideViews(ivScanCard);
-//    }
-
     public void onClick_ScanCard(View view) {
 
         scanStudentCard(this);
@@ -331,6 +321,9 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     public void onClick_AssignCandidate(View view) {
         //if successful
+
+        // TODO: 2019/09/14 Get User string for found User
+        selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
 
         showCustomToast(getApplicationContext(), toastView, "User assigned to Portfolio: "
                 + getSpinnerValue(spnPortfolio));

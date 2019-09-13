@@ -58,5 +58,6 @@
     <string name="found_candidate">Found Candidate</string>
     <string name="prompt_username">Student Name</string>
     <string name="registered_course">Registered Course</string>
+    <string name="portfolio_candidate">Portfolio Candidate</string>
 
 </resources>
