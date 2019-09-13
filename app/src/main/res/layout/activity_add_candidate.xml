@@ -210,7 +210,7 @@
                     android:contentDescription="@string/prompt_email"
                     android:onClick="onClick_Navigate"
                     android:padding="5dp"
-                    android:src="@drawable/ic_navigate_back" />
+                    android:src="@drawable/ic_back" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
@@ -272,7 +272,6 @@
 <!--                        android:drawableEnd="@drawable/ic_save" />-->
 
                 </LinearLayout>
-
 
             </LinearLayout>
 

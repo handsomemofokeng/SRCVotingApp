@@ -10,6 +10,8 @@ import android.net.NetworkInfo;
 import android.service.autofill.RegexValidator;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -222,6 +224,16 @@ public class ApplicationClass extends Application {
             etEmail.setError("Invalid email format");
             etEmail.requestFocus();
         }
+//         TODO: 2019/09/13 Delete for Testing Purposes
+//        else{
+//            if (!email.endsWith("stud.cut.ac.za")){
+//                isValid = false;
+//                etEmail.setError("Invalid CUT Student Email!");
+//            }else{
+//                isValid = true;
+//                etEmail.setError(null);
+//            }
+//        }
 
         return isValid;
     }

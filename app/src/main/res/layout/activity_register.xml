@@ -66,7 +66,7 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <ImageView
-                        android:id="@+id/ivScanCard"
+                        android:id="@+id/ivScanCardRegUser"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -76,6 +76,18 @@
                         android:onClick="onClick_ScanCard"
                         android:padding="5sp"
                         android:src="@drawable/ic_card" />
+
+                    <ImageView
+                        android:id="@+id/ivCorrectRegUser"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:contentDescription="@string/prompt_email"
+                        android:padding="5sp"
+                        android:src="@drawable/ic_correct"
+                        android:visibility="visible"/>
 
                 </LinearLayout>
 

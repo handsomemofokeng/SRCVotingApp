@@ -7,11 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,6 +50,7 @@ import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
+import static com.example.srcvotingapp.ApplicationClass.switchViews;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -58,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
     private Button btnRegister;
+    private ImageView ivScanCard, ivCorrect;
 //    private LinearLayout frmPersonalDetails, frmStatisticalDetails;
 
     BackendlessUser newUser;
@@ -72,6 +77,28 @@ public class RegisterActivity extends AppCompatActivity {
         tvCourse.setError("");
         tvEthnicity.setError("");
         tvGender.setError("");
+
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                  }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isEmailValid(etEmail)) {
+                    //showSearchButton();
+                    switchViews(ivCorrect, ivScanCard);
+
+                } else {
+                    //showScanButton();
+                    switchViews(ivScanCard, ivCorrect);
+                }
+            }
+        });
 
 
         spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -201,6 +228,8 @@ public class RegisterActivity extends AppCompatActivity {
         rbMale = findViewById(R.id.rbMale);
         rbFemale = findViewById(R.id.rbFemale);
         btnRegister = findViewById(R.id.btnRegisterUser);
+        ivCorrect = findViewById(R.id.ivCorrectRegUser);
+        ivScanCard = findViewById(R.id.ivScanCardRegUser);
 
 //        btnNavigate = findViewById(R.id.btnNavigateReg);
 //        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
