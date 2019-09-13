@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
     tools:context=".RegisterActivity">
 
     <ScrollView
@@ -167,8 +167,7 @@
                 android:id="@+id/frmStatisticalDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -301,49 +300,48 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnNavigateReg"
+                    android:id="@+id/btnGoBack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="2.5dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2.5dp"
                     android:paddingStart="15dp"
                     android:paddingTop="15dp"
                     android:paddingEnd="15dp"
                     android:paddingBottom="15dp"
-                    android:drawableEnd="@drawable/ic_navigate_next"
-                    android:drawableStart="@drawable/ic_navigate_back"
+                    android:drawableStart="@drawable/ic_back"
+                    android:drawablePadding="15dp"
                     android:background="@drawable/button"
-                    android:text="@string/action_next"
+                    android:onClick="onClick_GoBack"
+                    android:text="@string/action_go_back"
                     android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold" />
-
+                    android:textStyle="bold"/>
                 <Button
                     android:id="@+id/btnRegisterUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2.5dp"
-                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2.5dp"
                     android:paddingStart="15dp"
                     android:paddingTop="15dp"
                     android:paddingEnd="15dp"
                     android:paddingBottom="15dp"
-                    android:drawableEnd="@drawable/ic_add_person"
+                    android:drawableEnd="@drawable/ic_done"
+                    android:drawablePadding="15dp"
                     android:background="@drawable/button"
                     android:onClick="onClick_RegisterUser"
                     android:text="@string/action_register"
                     android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
+                    android:textStyle="bold"/>
+</LinearLayout>
 
         </LinearLayout>
 

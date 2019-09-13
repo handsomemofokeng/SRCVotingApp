@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.service.autofill.RegexValidator;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.view.Gravity;
@@ -19,11 +20,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.persistence.DataQueryBuilder;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class ApplicationClass extends Application {
 
@@ -57,6 +60,13 @@ public class ApplicationClass extends Application {
     public void onCreate() {
         super.onCreate();
         // TODO: 2019/08/29 Initialize Backendless
+
+//        Backendless.setUrl(SERVER_URL);
+//        Backendless.initApp(getApplicationContext(),
+//                APPLICATION_ID,
+//                API_KEY);
+
+
     }
 
     /**
@@ -97,7 +107,6 @@ public class ApplicationClass extends Application {
         showViews(showView);
         hideViews(hideView);
     }
-
 
     /**
      * This method reuses the Scan Barcode Activity
@@ -204,8 +213,11 @@ public class ApplicationClass extends Application {
     public static boolean isEmailValid(EditText etEmail) {
 
         String email = etEmail.getText().toString().trim();
+        final Pattern EMAIL_REGEX = Pattern.compile("[a-z0-9!#$%&'*+/=?^_`{|}~-]" +
+                "+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)" +
+                "+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", Pattern.CASE_INSENSITIVE);
 
-        boolean isValid = email.contains("@") && (email.endsWith(".com") || email.endsWith(".za"));
+        boolean isValid = EMAIL_REGEX.matcher(email).matches(); // email.contains("@") && (email.endsWith(".com") || email.endsWith(".za"));
         if (!isValid) {
             etEmail.setError("Invalid email format");
             etEmail.requestFocus();
@@ -289,8 +301,8 @@ public class ApplicationClass extends Application {
 
         String userStr = "Unidentified User";
         if (user != null)
-            userStr = String.format("%s, %s (%s)", user.getProperty("name"),
-                    user.getProperty("surname"), user.getEmail());
+            userStr = String.format("%s %s, %s", user.getProperty(NAME),
+                    user.getProperty(SURNAME), user.getEmail());
         return userStr;
     }
 

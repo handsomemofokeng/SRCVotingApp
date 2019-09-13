@@ -54,7 +54,6 @@ public class AddCandidateActivity extends AppCompatActivity {
     LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchemail;
 
 
-
     Party selectedParty;
     private DataQueryBuilder queryParty;
 
@@ -70,7 +69,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         initViews();
 
-        hideViews(frmParty,frmCandidateDetails);
+        hideViews(frmParty, frmCandidateDetails);
 
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -133,7 +132,7 @@ public class AddCandidateActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (isEmailValid(etEmail)) {
                     //showSearchButton();
-                    switchViews( ivSearch,ivScanCard);
+                    switchViews(ivSearch, ivScanCard);
 
                 } else {
                     //showScanButton();
@@ -152,7 +151,7 @@ public class AddCandidateActivity extends AppCompatActivity {
                     showViews(frmCandidateDetails, frmCandidateName);
                     hideViews(frmSearchemail);
 
-                    tvSelectedPortfolio.setText(Portfolios[position-1]);
+                    tvSelectedPortfolio.setText(Portfolios[position - 1]);
                     switch (position) {
 
                         case 1:
@@ -212,7 +211,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
                     }
 
-                }else {
+                } else {
 
                     hideViews(frmCandidateDetails);
                     etName.setText(null);
@@ -291,6 +290,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     public void onClick_SearchEmail(View view) {
         // TODO: 2019/09/10 Search by Email
+
     }
 
     public void onClick_ResetPartySelection(View view) {
@@ -298,7 +298,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         uncheckRadioButton(rbEFFSC, rbDASO, rbSASCO);
         showViews(rbEFFSC, rbDASO, rbSASCO);
         clearSpinners(spnPortfolio);
-        hideViews(view, frmParty,frmCandidateDetails);
+        hideViews(view, frmParty, frmCandidateDetails);
         clearFields(etName);
 
     }
@@ -307,9 +307,11 @@ public class AddCandidateActivity extends AppCompatActivity {
         // TODO: 2019/09/11 Search By Email
 
         switchViews(frmSearchemail, frmCandidateName);
-//        hideViews(frmCandidateName);
-//        showViews(frmSearchemail);
         clearFields(etEmail);
 
+    }
+
+    public void onClick_Navigate(View view) {
+        switchViews(frmCandidateName, frmSearchemail);
     }
 }
