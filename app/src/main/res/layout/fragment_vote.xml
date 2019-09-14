@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.vote.PlaceholderFragment">
+    tools:context=".ui.vote.VoteFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                     android:background="@drawable/spinner"
                     android:drawableEnd="@mipmap/ic_daso_round"
                     android:padding="15dp"
-                    android:text="Honorable Member\nDASO" />
+                    android:text="Honorable Member\nmember@daso.com" />
 
                 <RadioButton
                     android:id="@+id/rbEFFSC"
@@ -52,7 +52,7 @@
                     android:background="@drawable/spinner"
                     android:drawableEnd="@mipmap/ic_effsc_round"
                     android:padding="15dp"
-                    android:text="Candidate Comrade\nEFF" />
+                    android:text="Candidate Comrade\nmember@effsc.com" />
 
                 <RadioButton
                     android:id="@+id/rbSASCO"
@@ -64,7 +64,7 @@
                     android:background="@drawable/spinner"
                     android:drawableEnd="@mipmap/ic_sasco_round"
                     android:padding="15dp"
-                    android:text="Jacob Ramaphosa\nSASCO" />
+                    android:text="Jacob Ramaphosa\nmember@sasco.com" />
 
             </RadioGroup>
 

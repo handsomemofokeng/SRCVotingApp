@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
+import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
-public class VoteActivity extends AppCompatActivity {
+public class VoteActivity extends AppCompatActivity implements VoteFragment.SetCandidateListener {
 
     ViewPager viewPager;
     View toastView;
@@ -30,7 +32,6 @@ public class VoteActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
         viewPager.setAdapter(sectionsPagerAdapter);
-
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //
@@ -51,7 +52,6 @@ public class VoteActivity extends AppCompatActivity {
 //        });
 
     }
-
 
     private void initViews() {
 
@@ -96,14 +96,26 @@ public class VoteActivity extends AppCompatActivity {
 
                 // TODO: 2019/09/03 Navigate next
 
+                if (viewPager.getCurrentItem() < (viewPager.getAdapter().getCount() - 1)) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+                }
                 break;
 
             case R.id.btnNavigatePreviousVote:
 
                 // TODO: 2019/09/03 Go back
-
+                if (viewPager.getCurrentItem() > 0) {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+                }
                 break;
 
         }
+    }
+
+    @Override
+    public void onSetCandidate(String candidateName, String portfolio) {
+        showCustomToast(getApplicationContext(), toastView, candidateName + " for " + portfolio);
+
+
     }
 }

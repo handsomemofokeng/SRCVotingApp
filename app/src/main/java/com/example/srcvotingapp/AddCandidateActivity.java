@@ -36,6 +36,7 @@ import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.uncheckRadioButton;
+import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
 
 public class AddCandidateActivity extends AppCompatActivity {
 
@@ -112,31 +113,7 @@ public class AddCandidateActivity extends AppCompatActivity {
             }
         });
 
-        etEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //showScanButton();
-                switchViews(ivScanCard, ivSearch);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //showScanButton();
-                switchViews(ivScanCard, ivSearch);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (isEmailValid(etEmail)) {
-                    //showSearchButton();
-                    switchViews(ivSearch, ivScanCard);
-
-                } else {
-                    //showScanButton();
-                    switchViews(ivScanCard, ivSearch);
-                }
-            }
-        });
+        validateEmailInput(etEmail, ivScanCard, ivSearch);
 
         spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

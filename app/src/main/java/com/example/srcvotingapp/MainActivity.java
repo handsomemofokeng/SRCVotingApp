@@ -6,6 +6,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,6 +32,7 @@ import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
+import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private View toastView;
     private TextView tvResetLink;
     private CheckBox chkRememberMe;
-    private ImageView ivScanCard, ivSendResetLink, ivSignIn;
-    private Button  btnResetPassword, btnRegister;
+    private ImageView ivScanCard, ivSendResetLink, ivSignIn, ivCorrect;
+    private Button btnResetPassword, btnRegister;
     private TextInputLayout tilPassword;
 
     @Override
@@ -62,6 +65,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //showScanButton();
+                switchViews(ivScanCard, ivCorrect);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //showScanButton();
+                switchViews(ivScanCard, ivCorrect);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (btnResetPassword.getText().toString().equals(getString(R.string.action_go_back))) {
+                    hideViews(ivCorrect);
+                    if (isEmailValid(etEmail)) {
+                        //showSearchButton();
+                        switchViews(ivSendResetLink, ivScanCard);
+
+                    } else {
+                        //showScanButton();
+                        switchViews(ivScanCard, ivSendResetLink);
+                    }
+
+                } else {
+                    if (isEmailValid(etEmail)) {
+                        //showSearchButton();
+                        switchViews(ivCorrect, ivScanCard);
+
+                    } else {
+                        //showScanButton();
+                        switchViews(ivScanCard, ivCorrect);
+                    }
+                }
+            }
+        });
+
     }
 
     private void initViews() {
@@ -73,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         chkRememberMe = findViewById(R.id.chkRememberMe);
         tvResetLink = findViewById(R.id.tvResetLink);
         ivSignIn = findViewById(R.id.ivSignIn);
+        ivCorrect = findViewById(R.id.ivCorrect);
         btnRegister = findViewById(R.id.btn_register);
         btnResetPassword = findViewById(R.id.btn_reset);
         ivScanCard = findViewById(R.id.ivScanCard);
@@ -120,16 +164,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void showLoginForm() {
         btnResetPassword.setText(R.string.action_reset_password);
-        btnResetPassword.setCompoundDrawablesRelative(null, null, getDrawable(R.drawable.ic_restore), null);
-        btnResetPassword.jumpDrawablesToCurrentState();
+
         showViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
         hideViews(ivSendResetLink, tvResetLink);
     }
 
     private void showResetPasswordForm() {
+
         btnResetPassword.setText(R.string.action_go_back);
-        btnResetPassword.setCompoundDrawablesRelative(getDrawable(R.drawable.ic_back), null, null, null);
-        hideViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
+
+        hideViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn, ivCorrect);
         showViews(ivSendResetLink, tvResetLink);
     }
 
@@ -165,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SignIn(View view) {
-        startActivity( new Intent(getApplicationContext(), VoteActivity.class));
+        startActivity(new Intent(getApplicationContext(), VoteActivity.class));
     }
 
 }

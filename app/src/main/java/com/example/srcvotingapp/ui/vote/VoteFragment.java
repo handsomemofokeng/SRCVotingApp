@@ -1,5 +1,6 @@
 package com.example.srcvotingapp.ui.vote;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +22,20 @@ import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class VoteFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     RadioButton rbEFFSC, rbDASO, rbSASCO;
     RadioGroup rgCandidateParty;
+    TextView tvSection;
 
     private PageViewModel pageViewModel;
 
-    public static PlaceholderFragment newInstance(int index) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    private SetCandidateListener setCandidateListener;
+
+    public static VoteFragment newInstance(int index) {
+        VoteFragment fragment = new VoteFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);
@@ -54,11 +58,12 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_vote, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
+
+        tvSection = root.findViewById(R.id.section_label);
         pageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                tvSection.setText(s);
             }
         });
 
@@ -70,11 +75,31 @@ public class PlaceholderFragment extends Fragment {
         rgCandidateParty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Toast.makeText(getContext(), getSelectedRadio(rbEFFSC, rbDASO, rbSASCO),
-                        Toast.LENGTH_SHORT).show();
+
                 // TODO: 2019/09/08 Create an Interface to link selected Radio to Attached Activity
+
+                String[] x = getSelectedRadio(rbEFFSC, rbDASO, rbSASCO).split("\n");
+
+                setCandidateListener.onSetCandidate(x[0],
+                        tvSection.getText().toString().trim());
             }
         });
         return root;
+    }
+
+    public interface SetCandidateListener {
+        void onSetCandidate(String candidateName, String portfolio);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            setCandidateListener = (VoteFragment.SetCandidateListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement interface"
+                    + " SetCandidateListener");
+        }
     }
 }

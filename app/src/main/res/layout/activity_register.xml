@@ -87,7 +87,7 @@
                         android:contentDescription="@string/prompt_email"
                         android:padding="5sp"
                         android:src="@drawable/ic_correct"
-                        android:visibility="visible"/>
+                        android:visibility="gone"/>
 
                 </LinearLayout>
 

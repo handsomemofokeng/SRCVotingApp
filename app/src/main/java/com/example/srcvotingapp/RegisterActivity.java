@@ -51,6 +51,7 @@ import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
+import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -78,29 +79,31 @@ public class RegisterActivity extends AppCompatActivity {
         tvEthnicity.setError("");
         tvGender.setError("");
 
-        switchViews(ivScanCard, ivCorrect);
+//        switchViews(ivScanCard, ivCorrect);
+//        etEmail.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                    }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                  }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (isEmailValid(etEmail)) {
+//                    //showSearchButton();
+//                    switchViews(ivCorrect, ivScanCard);
+//
+//                } else {
+//                    //showScanButton();
+//                    switchViews(ivScanCard, ivCorrect);
+//                }
+//            }
+//        });
 
-        etEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                  }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (isEmailValid(etEmail)) {
-                    //showSearchButton();
-                    switchViews(ivCorrect, ivScanCard);
-
-                } else {
-                    //showScanButton();
-                    switchViews(ivScanCard, ivCorrect);
-                }
-            }
-        });
+        validateEmailInput(etEmail, ivScanCard, ivCorrect);
 
 
         spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
