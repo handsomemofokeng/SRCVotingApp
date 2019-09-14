@@ -42,6 +42,7 @@ import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
+import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
 import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
@@ -52,6 +53,7 @@ import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
+import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -75,36 +77,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         initViews();
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
+                    "Register User");
+
         tvCourse.setError("");
         tvEthnicity.setError("");
         tvGender.setError("");
 
-//        switchViews(ivScanCard, ivCorrect);
-//        etEmail.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                    }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                  }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if (isEmailValid(etEmail)) {
-//                    //showSearchButton();
-//                    switchViews(ivCorrect, ivScanCard);
-//
-//                } else {
-//                    //showScanButton();
-//                    switchViews(ivScanCard, ivCorrect);
-//                }
-//            }
-//        });
-
-
         validateEmailInput(etEmail, ivScanCard, ivCorrect);
-
+        validatePasswordInput(etPassword);
+        validatePasswordInput(etConfirm);
 
         spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -145,25 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
-                    "Register User");
-
     }
-
-//    private void showDetailsForm() {
-//        hideViews(frmStatisticalDetails, btnRegister);
-//        showViews(frmPersonalDetails);
-//        btnNavigate.setText(R.string.action_next);
-//    }
-//
-//    private void showStatsForm() {
-//        showViews(frmStatisticalDetails, btnRegister);
-//        hideViews(frmPersonalDetails);
-//        btnNavigate.setText(R.string.action_go_back);
-//    }
 
     private void initViews() {
 
@@ -185,10 +151,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegisterUser);
         ivCorrect = findViewById(R.id.ivCorrectRegUser);
         ivScanCard = findViewById(R.id.ivScanCardRegUser);
-
-//        btnNavigate = findViewById(R.id.btnNavigateReg);
-//        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
-//        frmStatisticalDetails = findViewById(R.id.frmStatisticalDetails);
 
     }
 

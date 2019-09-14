@@ -8,67 +8,68 @@
     android:padding="8dp"
     tools:context=".AdminActivity">
 
-    <ImageView
-        android:layout_width="@dimen/dimen_175dp"
-        android:layout_height="@dimen/dimen_175dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/appbar_padding_top"
-        android:layout_marginBottom="@dimen/appbar_padding_top"
-        android:background="@drawable/spinner"
-        android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_launcher_foreground" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="@dimen/dimen_175dp"
+                android:layout_height="@dimen/dimen_175dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/appbar_padding_top"
+                android:layout_marginBottom="@dimen/appbar_padding_top"
+                android:background="@drawable/spinner"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_launcher_foreground" />
 
-            <Button
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="2.5dp"
-                android:background="@drawable/button"
-                android:drawableEnd="@drawable/ic_add_group"
-                android:gravity="center"
-                android:paddingStart="15dp"
-                android:paddingTop="25dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="25dp"
-                android:text="@string/action_add_party"
-                android:textColor="@color/colorButtonForeground"
-                android:textStyle="bold"/>
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnAddCandidateAdm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="2.5dp"
-                android:background="@drawable/button"
-                android:drawableEnd="@drawable/ic_add_person"
-                android:gravity="center"
-                android:onClick="onClick_AddCandidate"
-                android:paddingStart="15dp"
-                android:paddingTop="25dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="25dp"
-                android:text="@string/action_add_candidate"
-                android:textColor="@color/colorButtonForeground"
-                android:textStyle="bold"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_add_group"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="25dp"
+                    android:text="@string/action_add_party"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/btnAddCandidateAdm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_add_person"
+                    android:gravity="center"
+                    android:onClick="onClick_AddCandidate"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="25dp"
+                    android:text="@string/action_add_candidate"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                     android:paddingBottom="25dp"
                     android:text="@string/action_set_election_period"
                     android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btnViewResultsAdm"
@@ -111,7 +112,7 @@
                     android:paddingBottom="25dp"
                     android:text="@string/action_view_results"
                     android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/default_gap"
+    android:weightSum="10"
     tools:context=".AddCandidateActivity">
 
-    <RadioGroup
+<!--    <SearchView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="end"/>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/ivResetParty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:background="@drawable/button"
+            android:contentDescription="@string/prompt_email"
+            android:onClick="onClick_ResetPartySelection"
+            android:padding="10dp"
+            android:layout_margin="2.5dp"
+            android:src="@drawable/ic_restore"
+            android:visibility="gone" />
+
+        <RadioGroup
             android:id="@+id/rgCandidateRegCan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ivResetParty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/button"
-                android:contentDescription="@string/prompt_email"
-                android:onClick="onClick_ResetPartySelection"
-                android:padding="10dp"
-                android:src="@drawable/ic_restore"
-                android:visibility="gone" />
 
             <RadioButton
                 android:id="@+id/rbDASORegCan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
+                android:layout_margin="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_daso_round"
                 android:padding="5dp" />
@@ -41,8 +54,7 @@
                 android:id="@+id/rbEFFSCRegCan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
+                android:layout_margin="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_effsc_round"
                 android:padding="5dp" />
@@ -51,22 +63,19 @@
                 android:id="@+id/rbSASCORegCan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2.5dp"
-                android:layout_marginRight="2.5dp"
+                android:layout_margin="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_sasco_round"
                 android:padding="5dp" />
 
         </RadioGroup>
 
-<!--    <SearchView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="end"/>-->
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="9"
         android:layout_marginTop="@dimen/default_gap">
 
         <LinearLayout
@@ -338,6 +347,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
 
         </LinearLayout>
 

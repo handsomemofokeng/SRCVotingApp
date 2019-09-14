@@ -164,7 +164,8 @@
                     android:contentDescription="@string/prompt_email"
                     android:padding="5sp"
                     android:src="@drawable/ic_arrow_forward"
-                    android:onClick="onClick_SignIn"/>
+                    android:onClick="onClick_SignIn"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

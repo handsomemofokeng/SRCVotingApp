@@ -260,7 +260,7 @@
                         android:enabled="false"
                         android:gravity="center|end"
                         android:maxLines="1"
-                        android:text="@string/prompt_race"
+                        android:text="@string/prompt_ethnicity"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size"/>
 

@@ -26,6 +26,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
+import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
@@ -101,6 +102,29 @@ public class MainActivity extends AppCompatActivity {
                         //showScanButton();
                         switchViews(ivScanCard, ivCorrect);
                     }
+                }
+            }
+        });
+
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isPasswordValid(s.toString())) {
+                    showViews(ivSignIn);
+                    etPassword.setError(null);
+                } else {
+                    hideViews(ivSignIn);
+                    etPassword.setError("Password length must be > 2");
                 }
             }
         });

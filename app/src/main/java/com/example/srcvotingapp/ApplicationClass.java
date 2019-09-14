@@ -103,10 +103,11 @@ public class ApplicationClass extends Application {
 
     /**
      * Switch visibility of Views
+     *
      * @param showView to be shown
      * @param hideView to be hidden
      */
-    public static void switchViews(View showView, View hideView){
+    public static void switchViews(View showView, View hideView) {
         showViews(showView);
         hideViews(hideView);
     }
@@ -136,11 +137,12 @@ public class ApplicationClass extends Application {
 
     /**
      * This method uncheck radio buttons
+     *
      * @param radioButtons to be unchecked
      */
     public static void uncheckRadioButton(RadioButton... radioButtons) {
         for (RadioButton radioButton : radioButtons) {
-            if (radioButton.isChecked()){
+            if (radioButton.isChecked()) {
                 radioButton.setChecked(false);
             }
         }
@@ -282,7 +284,6 @@ public class ApplicationClass extends Application {
     public static boolean isPasswordsMatching(EditText etPassword, EditText etConfirm) {
 
         boolean isMatching = false;
-
 
         if (isValidFields(etPassword, etConfirm)) {
 
@@ -460,5 +461,27 @@ public class ApplicationClass extends Application {
         });
     }
 
+    public static void validatePasswordInput(final EditText etPassword) {
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!isPasswordValid(s.toString())) {
+                    etPassword.setError("Password length must be > 2");
+                } else {
+                    etPassword.setError(null);
+                }
+            }
+        });
+    }
 
 }
