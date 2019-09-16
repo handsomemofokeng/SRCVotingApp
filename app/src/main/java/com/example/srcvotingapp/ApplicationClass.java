@@ -623,6 +623,9 @@ public class ApplicationClass extends Application {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position > 0 && position < (spinner.getAdapter().getCount() - 1))
+                    showViews(next, previous);
+
                 if (position <= 0) {
 
                     switchViews(next, previous);

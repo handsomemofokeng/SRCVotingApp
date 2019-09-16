@@ -126,6 +126,9 @@ public class AddCandidateActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position > 0 && position < spnPortfolio.getAdapter().getCount())
+                    showViews(btnNext, btnPrevious);
+
                 if (position > 0) {
 
                     showViews(frmCandidateDetails, frmCandidateName);
@@ -308,8 +311,8 @@ public class AddCandidateActivity extends AppCompatActivity {
     }
 
     public void onClick_AssignCandidate(View view) {
-        //if successful
 
+        //if successful
         // TODO: 2019/09/14 Get User string for found User
         selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
 
@@ -325,4 +328,5 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         navigateSpinner(btnNext, btnPrevious, spnPortfolio);
     }
+
 }
