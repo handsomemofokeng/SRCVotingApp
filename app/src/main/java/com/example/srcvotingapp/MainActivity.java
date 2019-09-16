@@ -24,6 +24,7 @@ import com.backendless.exceptions.BackendlessFault;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
@@ -179,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
             showCustomToast(getApplicationContext(), toastView,
                     "Reset  link sent to " + etEmail.getText().toString().trim());
             showLoginForm();
+            clearFields(etPassword);
+            etPassword.requestFocus();
         } else {
             showCustomToast(getApplicationContext(), toastView,
                     "Please enter valid email");
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     private void showLoginForm() {
         btnResetPassword.setText(R.string.action_reset_password);
 
-        showViews(ivScanCard, tilPassword, chkRememberMe, ivSignIn);
+        showViews(ivScanCard, tilPassword, chkRememberMe);
         hideViews(ivSendResetLink, tvResetLink);
     }
 

@@ -54,7 +54,6 @@ public class AddCandidateActivity extends AppCompatActivity {
     Spinner spnPortfolio;
     LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchEmail, frmFoundCandidate;
 
-
     Party selectedParty;
     private DataQueryBuilder queryParty;
 
