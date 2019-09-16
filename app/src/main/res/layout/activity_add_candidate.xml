@@ -48,7 +48,7 @@
                 android:layout_margin="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_daso_round"
-                android:padding="5dp" />
+                android:padding="2.5dp" />
 
             <RadioButton
                 android:id="@+id/rbEFFSCRegCan"
@@ -57,7 +57,7 @@
                 android:layout_margin="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_effsc_round"
-                android:padding="5dp" />
+                android:padding="2.5dp" />
 
             <RadioButton
                 android:id="@+id/rbSASCORegCan"
@@ -66,7 +66,7 @@
                 android:layout_margin="2.5dp"
                 android:background="@drawable/spinner"
                 android:drawableEnd="@mipmap/ic_sasco_round"
-                android:padding="5dp" />
+                android:padding="2.5dp" />
 
         </RadioGroup>
 

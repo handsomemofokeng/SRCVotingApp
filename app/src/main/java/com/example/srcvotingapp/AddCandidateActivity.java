@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,6 +29,7 @@ import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
+import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
@@ -43,6 +45,9 @@ public class AddCandidateActivity extends AppCompatActivity {
     View toastView;
     EditText etEmail, etName, etFoundCandidate;
     TextView tvSelectedPortfolio, tvPartyDetails;
+
+    Button btnNext, btnPrevious;
+
     ImageView ivScanCard, ivSearch, ivResetParty, ivEditCandidate, ivSaveCandidate;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
@@ -66,6 +71,8 @@ public class AddCandidateActivity extends AppCompatActivity {
         initViews();
 
         hideViews(frmParty, frmCandidateDetails);
+
+        navigateSpinner(btnNext, btnPrevious, spnPortfolio);
 
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -207,6 +214,9 @@ public class AddCandidateActivity extends AppCompatActivity {
         etName = findViewById(R.id.etNameRegCan);
         etFoundCandidate = findViewById(R.id.etFoundCandidateNameRegCan);
 
+        btnNext = findViewById(R.id.btnNavigateNextPortfolio);
+        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolio);
+
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
         ivEditCandidate = findViewById(R.id.ivEditCandidateRegCan);
@@ -228,6 +238,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         rbSASCO = findViewById(R.id.rbSASCORegCan);
 
         spnPortfolio = findViewById(R.id.spnPortfolioRegCan);
+
     }
 
     @Override
@@ -260,7 +271,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         // TODO: 2019/09/10 Search by Email
 
         if (isEmailValid(etEmail)) {
-            showViews(frmFoundCandidate);
+            switchViews(frmFoundCandidate,tvPartyDetails);
         }
 
     }
@@ -304,14 +315,14 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         showCustomToast(getApplicationContext(), toastView, "User assigned to Portfolio: "
                 + getSpinnerValue(spnPortfolio));
-        tvPartyDetails.setText(selectedParty.toString());
 
-        if (spnPortfolio.getSelectedItemPosition() < (spnPortfolio.getAdapter().getCount() - 1)) {
-            spnPortfolio.setSelection(spnPortfolio.getSelectedItemPosition() + 1, true);
-        }
+        tvPartyDetails.setText(selectedParty.toString());
+        switchViews(tvPartyDetails,frmFoundCandidate);
+
     }
 
     public void onClick_Navigate(View view) {
 
+        navigateSpinner(btnNext, btnPrevious, spnPortfolio);
     }
 }

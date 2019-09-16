@@ -23,7 +23,6 @@
         <item>Indian</item>
         <item>Coloured</item>
         <item>White</item>
-        <item>Other</item>
     </string-array>
 
     <string-array name="course">

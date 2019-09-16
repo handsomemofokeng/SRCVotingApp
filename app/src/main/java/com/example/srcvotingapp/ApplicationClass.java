@@ -20,7 +20,9 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.QuickContactBadge;
@@ -498,6 +500,11 @@ public class ApplicationClass extends Application {
         });
     }
 
+    /**
+     * Checks validity of password as user types it
+     *
+     * @param etPassword EditText to be checked
+     */
     public static void validatePasswordInput(final EditText etPassword) {
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -523,11 +530,13 @@ public class ApplicationClass extends Application {
 
     /**
      * Hides or shows Navigation Buttons according to Selected Tab
-     * @param next button that navigates to next Tab
-     * @param previous button that navigates to previous Tab
+     *
+     * @param next      button that navigates to next Tab
+     * @param previous  button that navigates to previous Tab
      * @param viewPager to determine which tab is selected
      */
-    public static void navigateTabs(final View next, final View previous, @NonNull final ViewPager viewPager) {
+    public static void navigateTabs(final View next, final View previous,
+                                    @NonNull final ViewPager viewPager) {
 
         hideViews(previous);
 
@@ -550,7 +559,8 @@ public class ApplicationClass extends Application {
                     showViews(previous);
                 }
 
-                if (viewPager.getCurrentItem() >= Objects.requireNonNull(viewPager.getAdapter()).getCount() -1) {
+                if (viewPager.getCurrentItem() >= Objects.
+                        requireNonNull(viewPager.getAdapter()).getCount() - 1) {
                     hideViews(next);
                 } else {
                     showViews(next);
@@ -561,12 +571,14 @@ public class ApplicationClass extends Application {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (viewPager.getCurrentItem() < (Objects.requireNonNull(viewPager.getAdapter()).getCount() - 1)) {
+                if (viewPager.getCurrentItem() < (Objects.
+                        requireNonNull(viewPager.getAdapter()).getCount() - 1)) {
 
                     showViews(previous);
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
 
-                    if (viewPager.getCurrentItem() == (Objects.requireNonNull(viewPager.getAdapter()).getCount() - 1)){
+                    if (viewPager.getCurrentItem() == (Objects.
+                            requireNonNull(viewPager.getAdapter()).getCount() - 1)) {
                         hideViews(next);
                     }
 
@@ -586,11 +598,11 @@ public class ApplicationClass extends Application {
                     viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
                     showViews(next);
 
-                    if (viewPager.getCurrentItem() == 0){
+                    if (viewPager.getCurrentItem() == 0) {
                         hideViews(previous);
                     }
 
-                }else{
+                } else {
 
                     hideViews(previous);
 
@@ -598,24 +610,69 @@ public class ApplicationClass extends Application {
             }
         });
 
-//        if (viewPager.getCurrentItem() >= Objects.requireNonNull(viewPager.getAdapter()).getCount()) {
-//            hideViews(next);
-//        } else {
-//            showViews(next);
-//            if (viewPager.getCurrentItem() < (Objects.requireNonNull(viewPager.getAdapter()).getCount() - 1)) {
-//                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
-//            }
-////            else {
-////            }
-//
-//        }
-//        // TODO: 2019/09/03 Go back
-//        if (viewPager.getCurrentItem() <= 0) {
-//            hideViews(previous);
-//        } else {
-//            showViews(previous);
-//            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
-//        }
+    }
+
+    public static void navigateSpinner(@NonNull final Button next, @NonNull final Button previous,
+                                       @NonNull final Spinner spinner) {
+
+        // TODO: 2019/09/16 Sort out the Logic!!
+
+        hideViews(previous);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position <= 0) {
+
+                    switchViews(next, previous);
+
+                } else {
+
+                    showViews(previous, next);
+                }
+
+                if (position >= (spinner.getAdapter().getCount() - 1)) {
+
+                    switchViews(previous, next);
+
+                } else {
+
+                    showViews(next,previous);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (spinner.getSelectedItemPosition() < (spinner.getAdapter().getCount() -1)){
+                    spinner.setSelection(spinner.getSelectedItemPosition() +1,true);
+                    showViews(previous);
+                }else{
+                    hideViews(next);
+                }
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (spinner.getSelectedItemPosition() > 1){
+                    spinner.setSelection(spinner.getSelectedItemPosition() - 1,true);
+                    showViews(next);
+                }else{
+                    hideViews(previous);
+                }
+            }
+        });
 
     }
 
