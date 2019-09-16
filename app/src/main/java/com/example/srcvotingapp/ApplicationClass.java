@@ -4,19 +4,26 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.service.autofill.RegexValidator;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -29,6 +36,7 @@ import com.backendless.persistence.DataQueryBuilder;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ApplicationClass extends Application {
@@ -58,6 +66,8 @@ public class ApplicationClass extends Application {
     //Party Property Constants
     public static final String PARTY_ID = "partyID";
     public static final String PARTY_NAME = "partyName";
+
+    public static boolean isConfirmed;
 
     @Override
     public void onCreate() {
@@ -404,6 +414,12 @@ public class ApplicationClass extends Application {
         return spinner.getSelectedItem().toString();
     }
 
+    /**
+     * Checks if a spinner (dropdown list) option is selected
+     *
+     * @param spinners to be checked
+     * @return true if a valid option is selected, false if not.
+     */
     public static boolean isValidSpinner(Spinner... spinners) {
         boolean isValid = true;
         for (Spinner spn : spinners) {
@@ -415,12 +431,25 @@ public class ApplicationClass extends Application {
         return isValid;
     }
 
+    /**
+     * Resets the spinner to its default value
+     *
+     * @param spinners to be reset.
+     */
     public static void clearSpinners(Spinner... spinners) {
         for (Spinner spinner : spinners) {
             spinner.setSelection(0);
         }
     }
 
+    /**
+     * Creates a basis of an AlertDialog
+     *
+     * @param context in which the dialog will be shown
+     * @param title   of the AlertDialog
+     * @param message to be displayed in the AlertDialog
+     * @return AlertDialog.Builder with specified parameters
+     */
     public static AlertDialog.Builder buildAlertDialog(Context context, String title,
                                                        String message) {
 
@@ -433,7 +462,15 @@ public class ApplicationClass extends Application {
 
     }
 
-    public static void validateEmailInput(final EditText etEmail, final ImageView ivScanCard, final ImageView ivSearch) {
+    /**
+     * Checks validity of the email as user types it
+     *
+     * @param etEmail    EditText to be checked
+     * @param ivScanCard ImageView to give an option
+     * @param ivSearch
+     */
+    public static void validateEmailInput(final EditText etEmail, final ImageView ivScanCard,
+                                          final ImageView ivSearch) {
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -483,5 +520,104 @@ public class ApplicationClass extends Application {
             }
         });
     }
+
+    /**
+     * Hides or shows Navigation Buttons according to Selected Tab
+     * @param next button that navigates to next Tab
+     * @param previous button that navigates to previous Tab
+     * @param viewPager to determine which tab is selected
+     */
+    public static void navigateTabs(final View next, final View previous, @NonNull final ViewPager viewPager) {
+
+        hideViews(previous);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                if (viewPager.getCurrentItem() < 1) {
+                    hideViews(previous);
+                } else {
+                    showViews(previous);
+                }
+
+                if (viewPager.getCurrentItem() >= Objects.requireNonNull(viewPager.getAdapter()).getCount() -1) {
+                    hideViews(next);
+                } else {
+                    showViews(next);
+                }
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewPager.getCurrentItem() < (Objects.requireNonNull(viewPager.getAdapter()).getCount() - 1)) {
+
+                    showViews(previous);
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+
+                    if (viewPager.getCurrentItem() == (Objects.requireNonNull(viewPager.getAdapter()).getCount() - 1)){
+                        hideViews(next);
+                    }
+
+                } else {
+
+                    hideViews(next);
+
+                }
+            }
+        });
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewPager.getCurrentItem() > 0) {
+
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+                    showViews(next);
+
+                    if (viewPager.getCurrentItem() == 0){
+                        hideViews(previous);
+                    }
+
+                }else{
+
+                    hideViews(previous);
+
+                }
+            }
+        });
+
+//        if (viewPager.getCurrentItem() >= Objects.requireNonNull(viewPager.getAdapter()).getCount()) {
+//            hideViews(next);
+//        } else {
+//            showViews(next);
+//            if (viewPager.getCurrentItem() < (Objects.requireNonNull(viewPager.getAdapter()).getCount() - 1)) {
+//                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+//            }
+////            else {
+////            }
+//
+//        }
+//        // TODO: 2019/09/03 Go back
+//        if (viewPager.getCurrentItem() <= 0) {
+//            hideViews(previous);
+//        } else {
+//            showViews(previous);
+//            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+//        }
+
+    }
+
 
 }

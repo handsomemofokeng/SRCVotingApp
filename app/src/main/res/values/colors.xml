@@ -7,4 +7,5 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorIcon">#A70E16</color>
     <color name="colorButtonForeground">#FDCB04</color>
+    <color name="colorGreen">#07830B</color>
 </resources>

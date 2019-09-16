@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.backendless.persistence.DataQueryBuilder;
+import com.example.srcvotingapp.BL.Party;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -43,7 +42,7 @@ public class AddCandidateActivity extends AppCompatActivity {
     //UI references
     View toastView;
     EditText etEmail, etName, etFoundCandidate;
-    TextView tvSelectedPortfolio;
+    TextView tvSelectedPortfolio, tvPartyDetails;
     ImageView ivScanCard, ivSearch, ivResetParty, ivEditCandidate, ivSaveCandidate;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
@@ -215,6 +214,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         ivResetParty = findViewById(R.id.ivResetParty);
 
         tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
+        tvPartyDetails = findViewById(R.id.tvPartyDetails);
 
         frmParty = findViewById(R.id.frmPartyRegCan);
         frmCandidateDetails = findViewById(R.id.frmCandidateDetails);
@@ -304,9 +304,14 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         showCustomToast(getApplicationContext(), toastView, "User assigned to Portfolio: "
                 + getSpinnerValue(spnPortfolio));
+        tvPartyDetails.setText(selectedParty.toString());
 
-        if (spnPortfolio.getSelectedItemPosition() < (spnPortfolio.getAdapter().getCount()-1)) {
-            spnPortfolio.setSelection(spnPortfolio.getSelectedItemPosition()+1, true);
+        if (spnPortfolio.getSelectedItemPosition() < (spnPortfolio.getAdapter().getCount() - 1)) {
+            spnPortfolio.setSelection(spnPortfolio.getSelectedItemPosition() + 1, true);
         }
+    }
+
+    public void onClick_Navigate(View view) {
+
     }
 }

@@ -68,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView ivScanCard, ivCorrect;
 //    private LinearLayout frmPersonalDetails, frmStatisticalDetails;
 
+
     BackendlessUser newUser;
 
     @Override
@@ -88,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         validateEmailInput(etEmail, ivScanCard, ivCorrect);
         validatePasswordInput(etPassword);
+
         validatePasswordInput(etConfirm);
 
         spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -229,7 +231,8 @@ public class RegisterActivity extends AppCompatActivity {
 //                @Override
 //                public void handleResponse(BackendlessUser response) {
 //                    resetForm();
-//                    showCustomToast(getApplicationContext(), toastView, getUserString(newUser) + " registered successfully.");
+//                    showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
+//                    + " registered successfully.");
 //
 //                }
 //

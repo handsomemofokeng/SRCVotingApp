@@ -1,4 +1,4 @@
-package com.example.srcvotingapp;
+package com.example.srcvotingapp.BL;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
@@ -176,4 +176,25 @@ public class Party {
         if (selectedPortfolio.equals(Portfolios[11]))
             setTransformationOfficer(selectedCandidate);
     }
+
+    @Override
+    public String toString() {
+
+        return "Party Details" + "\n" +
+                "\tPartyName: " + PartyName  + "\n" +
+                "\tPartyID: " + PartyID  + "\n" +
+                "\tPresident: " + President  + "\n" +
+                "\tDeputy President: " + DeputyPresident  + "\n" +
+                "\tSecretary General: " + SecretaryGeneral  + "\n" +
+                "\tFinancial Officer: " + FinancialOfficer  + "\n" +
+                "\tConstitutional And Legal Affairs: " + ConstitutionalAndLegalAffairs  + "\n" +
+                "\tSports Officer: " + SportsOfficer  + "\n" +
+                "\tPublic Relations Officer: " + PublicRelationsOfficer  + "\n" +
+                "\tHealthAnd Welfare Officer: " + HealthAndWelfareOfficer  + "\n" +
+                "\tProjects And Campaign Officer: " + ProjectsAndCampaignOfficer  + "\n" +
+                "\tStudent Affairs: " + StudentAffairs  + "\n" +
+                "\tEquity And Diversity Officer: " + EquityAndDiversityOfficer  + "\n" +
+                "\tTransformation Officer: " + TransformationOfficer;
+    }
+
 }

@@ -8,19 +8,25 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showViews;
 
 public class VoteActivity extends AppCompatActivity implements VoteFragment.SetCandidateListener {
 
     ViewPager viewPager;
     View toastView;
     TabLayout tabs;
+    Button btnNext, btnPrevious;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
         viewPager.setAdapter(sectionsPagerAdapter);
+
+        navigateTabs(btnNext, btnPrevious, viewPager);
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //
@@ -61,6 +69,9 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         viewPager = findViewById(R.id.view_pager);
         tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+        btnNext = findViewById(R.id.btnNavigateNextVote);
+        btnPrevious = findViewById(R.id.btnNavigatePreviousVote);
     }
 
     @Override
@@ -90,32 +101,33 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
     public void onClick_Navigate(View view) {
 
-        switch (view.getId()) {
-
-            case R.id.btnNavigateNextVote:
-
-                // TODO: 2019/09/03 Navigate next
-
-                if (viewPager.getCurrentItem() < (viewPager.getAdapter().getCount() - 1)) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
-                }
-                break;
-
-            case R.id.btnNavigatePreviousVote:
-
-                // TODO: 2019/09/03 Go back
-                if (viewPager.getCurrentItem() > 0) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
-                }
-                break;
-
-        }
+        navigateTabs(btnNext, btnPrevious, viewPager);
+//        switch (view.getId()) {
+//            case R.id.btnNavigateNextVote:
+//
+//                // TODO: 2019/09/03 Navigate next
+//
+//                if (viewPager.getCurrentItem() < (viewPager.getAdapter().getCount() - 1)) {
+//                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+//                } else {
+//                }
+//                break;
+//
+//            case R.id.btnNavigatePreviousVote:
+//
+//                // TODO: 2019/09/03 Go back
+//                if (viewPager.getCurrentItem() > 0) {
+//                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
+//                } else {
+//                }
+//                break;
+//
+//        }
     }
 
     @Override
     public void onSetCandidate(String candidateName, String portfolio) {
         showCustomToast(getApplicationContext(), toastView, candidateName + " for " + portfolio);
-
 
     }
 }

@@ -94,18 +94,32 @@
                 android:background="@drawable/spinner"
                 android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btnNavigatePreviousPortfolio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button"
+                    android:onClick="onClick_Navigate"
+                    android:foregroundTint="@color/colorButtonForeground"
+                    android:foreground="@drawable/ic_navigate_back"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tvPortfolioRegCan"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="3dp"
-                    android:layout_weight="0.5"
-                    android:drawableStart="@drawable/ic_group"
+                    android:layout_weight="1.5"
+                    android:drawableStart="@drawable/ic_assign_candidate"
+                    android:drawableTint="@color/colorAccent"
                     android:drawablePadding="5dp"
                     android:enabled="false"
                     android:gravity="center|end"
                     android:maxLines="1"
-                    android:text="@string/portfolio"
+                    android:text="@string/prompt_portfolio"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/text_size" />
 
@@ -114,9 +128,22 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:entries="@array/portfolio"
                     android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/btnNavigateNextPortfolio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button"
+                    android:onClick="onClick_Navigate"
+                    android:foregroundTint="@color/colorButtonForeground"
+                    android:foreground="@drawable/ic_navigate_next"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -155,7 +182,8 @@
                     android:id="@+id/etNameRegCan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_person"
+                    android:drawableStart="@drawable/ic_assign_candidate"
+                    android:drawableTint="@color/colorAccent"
                     android:drawablePadding="5dp"
                     android:hint="@string/portfolio_candidate"
                     android:imeActionId="6"
@@ -163,9 +191,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPersonName"
                     android:textColor="@android:color/black"
-                    android:maxLines="1"
                     android:enabled="false"
-                    android:singleLine="true" />
+                    android:singleLine="false" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -342,11 +369,18 @@
                         android:drawableEnd="@drawable/ic_assign_candidate"
                         android:onClick="onClick_AssignCandidate"/>
 
+
                 </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPartyDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"/>
 
 
         </LinearLayout>
