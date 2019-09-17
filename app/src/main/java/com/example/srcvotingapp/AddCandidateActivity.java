@@ -304,7 +304,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_NavigateBack(View view) {
+    public void onClick_GoBack(View view) {
 
         hideViews(frmFoundCandidate);
         switchViews(frmCandidateName, frmSearchEmail);

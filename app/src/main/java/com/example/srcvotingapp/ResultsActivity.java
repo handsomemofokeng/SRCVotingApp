@@ -1,9 +1,16 @@
 package com.example.srcvotingapp;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -12,14 +19,25 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 
 public class ResultsActivity extends AppCompatActivity {
+
+    private Typeface tfRegular, tfLight;
+
+    //UI references
+    View toastView;
+
+    Button btnNext, btnPrevious;
+    Spinner spnPortfolio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,95 +49,110 @@ public class ResultsActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Live Results");
 
+        initViews();
+
+        tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
+
         drawChart();
     }
+    private void initViews() {
 
-    private void drawChart() {
-        BarChart barChart = findViewById(R.id.barChart);
-        barChart.setDrawBarShadow(false);
-        barChart.setDrawValueAboveBar(true);
-        Description description = new Description();
-        description.setText("");
-        barChart.setDescription(description);
-        barChart.setMaxVisibleValueCount(50);
-        barChart.setPinchZoom(false);
-        barChart.setDrawGridBackground(false);
+        toastView = getLayoutInflater().inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.toast_layout));
 
-        XAxis xl = barChart.getXAxis();
-        xl.setGranularity(1f);
-        xl.setCenterAxisLabels(true);
+        btnNext = findViewById(R.id.btnNavigateNextPortfolioResults);
+        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolioResults);
 
-        YAxis leftAxis = barChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setSpaceTop(30f);
-        barChart.getAxisRight().setEnabled(false);
+        spnPortfolio = findViewById(R.id.spnPortfolioResults);
 
-        //data
-        float groupSpace = 0.04f;
-        float barSpace = 0.02f;
-        float barWidth = 0.46f;
+    }
 
+        private void drawChart() {
+        BarChart chart = findViewById(R.id.barChart);
+//        BarDataSet set1, set2, set3, set4;
+
+        float groupSpace = 0.14f;
+        float barSpace = 0.06f; // x4 DataSet
+        float barWidth = 0.80f; // x4 DataSet
+        // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
+        //(barwidth + barspace) * no of bars + groupspace = 1
+
+//        int groupCount = seekBarX.getProgress() + 1;
         int startYear = 1;
-        int endYear = 12;
+        int endYear = 15;
 
-        List<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        List<BarEntry> yVals2 = new ArrayList<BarEntry>();
-        List<BarEntry> yVals3 = new ArrayList<BarEntry>();
+//        tvX.setText(String.format(Locale.ENGLISH, "%d-%d", startYear, endYear));
+//        tvY.setText(String.valueOf(seekBarY.getProgress()));
+
+        ArrayList<BarEntry> values1 = new ArrayList<>();
+        ArrayList<BarEntry> values2 = new ArrayList<>();
+        ArrayList<BarEntry> values3 = new ArrayList<>();
+
+//        ArrayList<BarEntry> values4 = new ArrayList<>();
+
+        float randomMultiplier = 1 * 100f;
 
         for (int i = startYear; i < endYear; i++) {
-            yVals1.add(new BarEntry(i, 0.3f));
-        }
+            values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+            values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
 
-        for (int i = startYear; i < endYear; i++) {
-            yVals2.add(new BarEntry(i, 0.6f));
-        }
-
-        for (int i = startYear; i < endYear; i++) {
-            yVals3.add(new BarEntry(i, 0.4f));
+//            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
         }
 
         BarDataSet set1, set2, set3;
 
-        if (barChart.getData() != null && barChart.getData().getDataSetCount() > 0) {
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
 
-            set1 = (BarDataSet) barChart.getData().getDataSetByIndex(0);
-            set2 = (BarDataSet) barChart.getData().getDataSetByIndex(1);
-            set3 = (BarDataSet) barChart.getData().getDataSetByIndex(2);
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
+            set3 = (BarDataSet) chart.getData().getDataSetByIndex(2);
 
-            set1.setValues(yVals1);
-            set2.setValues(yVals2);
-            set2.setValues(yVals3);
+//            set4 = (BarDataSet) chart.getData().getDataSetByIndex(3);
+            set1.setValues(values1);
+            set2.setValues(values2);
+            set3.setValues(values3);
 
-            set1.setValues(yVals1);
-            set2.setValues(yVals2);
-            set3.setValues(yVals3);
+//            set4.setValues(values4);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
 
-            barChart.getData().notifyDataChanged();
-            barChart.notifyDataSetChanged();
         } else {
-
-            set1 = new BarDataSet(yVals1, "DASO");
+            // create 4 DataSets
+            set1 = new BarDataSet(values1, "DASO");
             set1.setColor(Color.BLUE);
-
-            set2 = new BarDataSet(yVals2, "EFFSC");
+            set2 = new BarDataSet(values2, "EFFSC");
             set2.setColor(Color.RED);
-
-            set3 = new BarDataSet(yVals3, "SASCO");
+            set3 = new BarDataSet(values3, "SASCO");
             set3.setColor(Color.YELLOW);
 
-            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-            dataSets.add(set1);
-            dataSets.add(set2);
-            dataSets.add(set3);
+//            set4 = new BarDataSet(values4, "Company D");
+//            set4.setColor(Color.rgb(255, 102, 0));
 
-            BarData data = new BarData(dataSets);
-            barChart.setData(data);
+            BarData data = new BarData(set1, set2, set3);
+            data.setValueFormatter(new LargeValueFormatter());
+            data.setValueTypeface(tfLight);
+
+            chart.setData(data);
         }
 
-        barChart.animateY(2500);
-        barChart.getBarData().setBarWidth(barWidth);
-        barChart.groupBars(startYear, groupSpace, barSpace);
-        barChart.invalidate();
+        // specify the width each bar should have
+        chart.getBarData().setBarWidth(barWidth);
 
+        // restrict the x-axis range
+        chart.getXAxis().setAxisMinimum(startYear);
+
+        chart.animateY(1500);
+
+        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
+        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) );
+        chart.groupBars(startYear, groupSpace, barSpace);
+        chart.invalidate();
+
+    }
+
+    public void onClick_Navigate(View view) {
+        navigateSpinner(btnNext, btnPrevious, spnPortfolio);
     }
 }

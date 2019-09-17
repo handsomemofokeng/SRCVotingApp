@@ -469,32 +469,32 @@ public class ApplicationClass extends Application {
      *
      * @param etEmail    EditText to be checked
      * @param ivScanCard ImageView to give an option
-     * @param ivSearch
+     * @param anotherAction to be performed
      */
     public static void validateEmailInput(final EditText etEmail, final ImageView ivScanCard,
-                                          final ImageView ivSearch) {
+                                          final ImageView anotherAction) {
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //showScanButton();
-                switchViews(ivScanCard, ivSearch);
+                switchViews(ivScanCard, anotherAction);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //showScanButton();
-                switchViews(ivScanCard, ivSearch);
+                switchViews(ivScanCard, anotherAction);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (isEmailValid(etEmail)) {
                     //showSearchButton();
-                    switchViews(ivSearch, ivScanCard);
+                    switchViews(anotherAction, ivScanCard);
 
                 } else {
                     //showScanButton();
-                    switchViews(ivScanCard, ivSearch);
+                    switchViews(ivScanCard, anotherAction);
                 }
             }
         });
@@ -614,8 +614,6 @@ public class ApplicationClass extends Application {
 
     public static void navigateSpinner(@NonNull final Button next, @NonNull final Button previous,
                                        @NonNull final Spinner spinner) {
-
-        // TODO: 2019/09/16 Sort out the Logic!!
 
         hideViews(previous);
 
