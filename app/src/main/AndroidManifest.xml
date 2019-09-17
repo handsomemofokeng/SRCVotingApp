@@ -10,8 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddCandidateActivity"
-            android:parentActivityName=".AdminActivity"/>
+        <activity android:name=".ResultsActivity"></activity>
+        <activity
+            android:name=".AddCandidateActivity"
+            android:parentActivityName=".AdminActivity" />
         <activity android:name=".AdminActivity" />
         <activity
             android:name=".VoteActivity"
@@ -33,7 +35,6 @@
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

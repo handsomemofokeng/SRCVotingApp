@@ -109,8 +109,10 @@ public class AddCandidateActivity extends AppCompatActivity {
                 if (selectedParty != null) {
 
                     queryParty = selectQuery(PARTY_ID, selectedParty.getPartyID(), PARTY_ID);
+
                     // TODO: 2019/09/11 Get Selected Party from Backendless
 
+                    tvPartyDetails.setText(selectedParty.toString());
 
                 }
 
@@ -273,7 +275,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         // TODO: 2019/09/10 Search by Email
 
         if (isEmailValid(etEmail)) {
-            switchViews(frmFoundCandidate,tvPartyDetails);
+            switchViews(frmFoundCandidate, tvPartyDetails);
         }
 
     }
@@ -311,15 +313,18 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     public void onClick_AssignCandidate(View view) {
 
-        //if successful
+        //if successful...
+
         // TODO: 2019/09/14 Get User string for found User
+
         selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
 
-        showCustomToast(getApplicationContext(), toastView, "User assigned to Portfolio: "
+        showCustomToast(getApplicationContext(), toastView,
+                etEmail.getText().toString().trim() +" assigned to Portfolio: "
                 + getSpinnerValue(spnPortfolio));
 
         tvPartyDetails.setText(selectedParty.toString());
-        switchViews(tvPartyDetails,frmFoundCandidate);
+        switchViews(tvPartyDetails, frmFoundCandidate);
 
     }
 

@@ -22,7 +22,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void onClick_ViewResults(View view) {
-
+        startActivity(new Intent(getApplicationContext(),ResultsActivity.class));
     }
 
     public void onClick_AddCandidate(View view) {
