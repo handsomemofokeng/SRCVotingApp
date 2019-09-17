@@ -88,8 +88,8 @@ public class ResultsActivity extends AppCompatActivity {
         BarDataSet set1, set2, set3;
 
         float groupSpace = 0.00f;
-        float barSpace = 0.05f; // x4 DataSet
-        float barWidth = 0.95f; // x4 DataSet
+        float barSpace = 0.10f; // x4 DataSet
+        float barWidth = 0.90f; // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
         //(barwidth + barspace) * no of bars + groupspace = 1
 
