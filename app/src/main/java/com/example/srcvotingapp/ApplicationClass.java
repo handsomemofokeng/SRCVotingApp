@@ -239,6 +239,7 @@ public class ApplicationClass extends Application {
             etEmail.setError("Invalid email format");
             etEmail.requestFocus();
         }
+
 //         TODO: 2019/09/13 Delete for Testing Purposes
 //        else{
 //            if (!email.endsWith("stud.cut.ac.za")){
@@ -467,8 +468,8 @@ public class ApplicationClass extends Application {
     /**
      * Checks validity of the email as user types it
      *
-     * @param etEmail    EditText to be checked
-     * @param ivScanCard ImageView to give an option
+     * @param etEmail       EditText to be checked
+     * @param ivScanCard    ImageView to give an option
      * @param anotherAction to be performed
      */
     public static void validateEmailInput(final EditText etEmail, final ImageView ivScanCard,
@@ -639,7 +640,7 @@ public class ApplicationClass extends Application {
 
                 } else {
 
-                    showViews(next,previous);
+                    showViews(next, previous);
 
                 }
             }
@@ -653,11 +654,11 @@ public class ApplicationClass extends Application {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (spinner.getSelectedItemPosition() < (spinner.getAdapter().getCount() -1)){
-                    spinner.setSelection(spinner.getSelectedItemPosition() +1,true);
+                if (spinner.getSelectedItemPosition() < (spinner.getAdapter().getCount() - 1)) {
+                    spinner.setSelection(spinner.getSelectedItemPosition() + 1, true);
                     showViews(previous);
-                }else{
-                    hideViews(next);
+                } else {
+                    switchViews(previous, next);
                 }
             }
         });
@@ -666,16 +667,15 @@ public class ApplicationClass extends Application {
             @Override
             public void onClick(View v) {
 
-                if (spinner.getSelectedItemPosition() > 1){
-                    spinner.setSelection(spinner.getSelectedItemPosition() - 1,true);
+                if (spinner.getSelectedItemPosition() > 1) {
+                    spinner.setSelection(spinner.getSelectedItemPosition() - 1, true);
                     showViews(next);
-                }else{
-                    hideViews(previous);
+                } else {
+                    switchViews(next, previous);
                 }
             }
         });
 
     }
-
 
 }

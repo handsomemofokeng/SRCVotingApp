@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -36,7 +37,7 @@ public class ResultsActivity extends AppCompatActivity {
     //UI references
     View toastView;
 
-    Button btnNext, btnPrevious;
+    //    Button btnNext, btnPrevious;
     Spinner spnPortfolio;
 
     @Override
@@ -54,33 +55,47 @@ public class ResultsActivity extends AppCompatActivity {
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
-        drawChart();
+
+        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (spnPortfolio.getSelectedItemPosition() > 0)
+                    drawChart();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
+
     private void initViews() {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
 
-        btnNext = findViewById(R.id.btnNavigateNextPortfolioResults);
-        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolioResults);
+//        btnNext = findViewById(R.id.btnNavigateNextPortfolioResults);
+//        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolioResults);
 
         spnPortfolio = findViewById(R.id.spnPortfolioResults);
 
     }
 
-        private void drawChart() {
+    private void drawChart() {
         BarChart chart = findViewById(R.id.barChart);
-//        BarDataSet set1, set2, set3, set4;
+        BarDataSet set1, set2, set3;
 
-        float groupSpace = 0.14f;
-        float barSpace = 0.06f; // x4 DataSet
-        float barWidth = 0.80f; // x4 DataSet
+        float groupSpace = 0.00f;
+        float barSpace = 0.05f; // x4 DataSet
+        float barWidth = 0.95f; // x4 DataSet
         // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
         //(barwidth + barspace) * no of bars + groupspace = 1
 
 //        int groupCount = seekBarX.getProgress() + 1;
         int startYear = 1;
-        int endYear = 15;
+        int endYear = 3;
 
 //        tvX.setText(String.format(Locale.ENGLISH, "%d-%d", startYear, endYear));
 //        tvY.setText(String.valueOf(seekBarY.getProgress()));
@@ -100,8 +115,6 @@ public class ResultsActivity extends AppCompatActivity {
 
 //            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
         }
-
-        BarDataSet set1, set2, set3;
 
         if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
 
@@ -143,16 +156,17 @@ public class ResultsActivity extends AppCompatActivity {
         // restrict the x-axis range
         chart.getXAxis().setAxisMinimum(startYear);
 
-        chart.animateY(1500);
+        for (IBarDataSet set : chart.getData().getDataSets()) {
+            ((BarDataSet) set).setBarBorderWidth(1.f);
+            set.setDrawValues(false);
+        }
+
+        chart.animateY(1000);
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) );
+        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * 1.00f);
         chart.groupBars(startYear, groupSpace, barSpace);
         chart.invalidate();
 
-    }
-
-    public void onClick_Navigate(View view) {
-        navigateSpinner(btnNext, btnPrevious, spnPortfolio);
     }
 }
