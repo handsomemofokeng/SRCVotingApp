@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 etEmail.requestFocus();
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
+                etEmail.setError(null);
                 etPassword.requestFocus();
             }
         } else {

@@ -169,6 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             } else {
                 etEmail.setText(String.format("%s@stud.cut.ac.za", result.getContents()));
+                etEmail.setError(null);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

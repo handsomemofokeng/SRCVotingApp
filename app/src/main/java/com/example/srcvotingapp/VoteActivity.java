@@ -39,7 +39,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         initViews();
 //      28800s = 8h
-        reverseTimer(30, tvTimer);
+        reverseTimer(65, tvTimer);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());

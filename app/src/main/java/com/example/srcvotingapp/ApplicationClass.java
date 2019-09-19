@@ -70,7 +70,6 @@ public class ApplicationClass extends Application {
     public static final String PARTY_ID = "partyID";
     public static final String PARTY_NAME = "partyName";
 
-    public static boolean isConfirmed;
 
     @Override
     public void onCreate() {
