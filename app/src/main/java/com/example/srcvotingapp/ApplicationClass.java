@@ -180,6 +180,11 @@ public class ApplicationClass extends Application {
         return isChecked;
     }
 
+    /**
+     *
+     * @param radioButtons
+     * @return
+     */
     public static String getSelectedRadio(RadioButton... radioButtons) {
         String selectedRadio = "";
         for (RadioButton radioButton : radioButtons) {
@@ -613,6 +618,12 @@ public class ApplicationClass extends Application {
 
     }
 
+    /**
+     *
+     * @param next
+     * @param previous
+     * @param spinner
+     */
     public static void navigateSpinner(@NonNull final Button next, @NonNull final Button previous,
                                        @NonNull final Spinner spinner) {
 
@@ -678,6 +689,11 @@ public class ApplicationClass extends Application {
 
     }
 
+    /**
+     *
+     * @param Seconds
+     * @param tv
+     */
     public static void reverseTimer(int Seconds, final TextView tv) {
 
         new CountDownTimer(Seconds * 1000 + 1000, 1000) {
