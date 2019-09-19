@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.CountDownTimer;
 import android.service.autofill.RegexValidator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -676,6 +677,31 @@ public class ApplicationClass extends Application {
             }
         });
 
+    }
+
+    public static void reverseTimer(int Seconds, final TextView tv) {
+
+        new CountDownTimer(Seconds * 1000 + 1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000);
+
+                int hours = seconds / (60 * 60);
+                int tempMint = (seconds - (hours * 60 * 60));
+                int minutes = tempMint / 60;
+                seconds = tempMint - (minutes * 60);
+
+                tv.setText(new StringBuilder()
+//                        .append("TIME : ")
+                        .append(String.format("%02d", hours))
+                        .append(":").append(String.format("%02d", minutes))
+                        .append(":").append(String.format("%02d", seconds)).toString());
+            }
+
+            public void onFinish() {
+                tv.setError("Votes Closed!");
+            }
+        }.start();
     }
 
 }

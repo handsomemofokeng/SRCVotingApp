@@ -225,7 +225,23 @@ public class RegisterActivity extends AppCompatActivity {
                 showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
                         + " registered successfully.");
 
-                // TODO: 2019/08/26 Implement Register Code
+                AlertDialog.Builder builder = buildAlertDialog(this,
+                        "Registration Co", "Student registered successfully." +
+                                "\n\nRegister another user?");
+
+                builder.setPositiveButton("Yes, Add New", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        resetForm();
+                    }
+                });
+
+                builder.setNegativeButton("No, Go Back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).create().show();
 
 //            Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
 //                @Override
@@ -252,7 +268,6 @@ public class RegisterActivity extends AppCompatActivity {
                     "Please make sure all required fields are filled.");
         }
 
-
     }
 
     private boolean isValidPersonalDetails() {
@@ -270,6 +285,7 @@ public class RegisterActivity extends AppCompatActivity {
                             "Please make sure passwords match!");
                     etConfirm.requestFocus();
                 }
+
             }else{
                 isValid = false;
                 showCustomToast(getApplicationContext(), toastView,
@@ -309,16 +325,19 @@ public class RegisterActivity extends AppCompatActivity {
         return isValid;
     }
 
-    private void resetForm() {
+    private void resetForm()
+    {
 
         clearFields(etEmail, etName, etSurname, etPassword, etConfirm);
         clearRadioGroup(rgGender);
         clearSpinners(spnCourse, spnEthnicity);
         switchViews(ivScanCard,ivCorrect);
 
+        etPassword.setError(null);
+        etConfirm.setError(null);
 //        tvCourse.setError(null);
 //        tvEthnicity.setError(null);
-        tvGender.setError(null);
+        tvGender.setError("");
 
         etEmail.requestFocus();
 

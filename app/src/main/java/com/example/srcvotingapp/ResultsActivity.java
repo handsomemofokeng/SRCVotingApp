@@ -1,10 +1,13 @@
 package com.example.srcvotingapp;
 
 import android.graphics.Color;
+import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,27 +18,35 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 
-public class ResultsActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity //implements  OnChartValueSelectedListener
+{
 
     private Typeface tfRegular, tfLight;
 
     //UI references
     View toastView;
+    BarChart chart;
 
     //    Button btnNext, btnPrevious;
     Spinner spnPortfolio;
@@ -61,6 +72,7 @@ public class ResultsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (spnPortfolio.getSelectedItemPosition() > 0)
                     drawChart();
+//                    setData(3,100);
             }
 
             @Override
@@ -79,13 +91,15 @@ public class ResultsActivity extends AppCompatActivity {
 //        btnNext = findViewById(R.id.btnNavigateNextPortfolioResults);
 //        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolioResults);
 
+        chart = findViewById(R.id.barChart);
+
         spnPortfolio = findViewById(R.id.spnPortfolioResults);
 
     }
 
     private void drawChart() {
-        BarChart chart = findViewById(R.id.barChart);
-        BarDataSet set1, set2, set3;
+
+         BarDataSet set1, set2, set3;
 
         float groupSpace = 0.00f;
         float barSpace = 0.10f; // x4 DataSet
@@ -106,7 +120,7 @@ public class ResultsActivity extends AppCompatActivity {
 
 //        ArrayList<BarEntry> values4 = new ArrayList<>();
 
-        float randomMultiplier = 1 * 100f;
+        float randomMultiplier = 1 * 1000f;
 
         for (int i = startYear; i < endYear; i++) {
             values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
@@ -132,16 +146,15 @@ public class ResultsActivity extends AppCompatActivity {
             chart.notifyDataSetChanged();
 
         } else {
-            // create 4 DataSets
+            // create 3 DataSets
             set1 = new BarDataSet(values1, "DASO");
-            set1.setColor(Color.BLUE);
             set2 = new BarDataSet(values2, "EFFSC");
-            set2.setColor(Color.RED);
             set3 = new BarDataSet(values3, "SASCO");
-            set3.setColor(Color.YELLOW);
 
-//            set4 = new BarDataSet(values4, "Company D");
-//            set4.setColor(Color.rgb(255, 102, 0));
+            set3.setColor(Color.YELLOW);
+            set1.setColor(Color.BLUE);
+            set2.setColor(Color.RED);
+
 
             BarData data = new BarData(set1, set2, set3);
             data.setValueFormatter(new LargeValueFormatter());
@@ -161,12 +174,24 @@ public class ResultsActivity extends AppCompatActivity {
             set.setDrawValues(false);
         }
 
-        chart.animateY(1000);
+        chart.setPinchZoom(false);
+//        chart.setHighlightFullBarEnabled(false);
+
+        chart.animateXY(1500, 1000);
+        chart.setDrawGridBackground(false);
+
+        Description description = new Description();
+        description.setText(getSpinnerValue(spnPortfolio));
+        description.setTextSize(8f);
+        description.setTextColor(R.color.colorPrimary);
+        chart.setDescription(description);
 
         // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
         chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * 1.00f);
         chart.groupBars(startYear, groupSpace, barSpace);
+
         chart.invalidate();
 
     }
+
 }
