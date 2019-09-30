@@ -22,7 +22,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void onClick_ViewResults(View view) {
-        startActivity(new Intent(getApplicationContext(),ResultsActivity.class));
+        startActivity(new Intent(getApplicationContext(), ResultsActivity.class));
     }
 
     public void onClick_AddCandidate(View view) {
@@ -32,6 +32,6 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void onClick_StartElections(View view) {
-
+        // TODO: 2019/09/25 send notifications to students and set the timer
     }
 }

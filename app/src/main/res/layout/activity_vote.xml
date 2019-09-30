@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
-            android:text="00:00"
+            tools:text="00:00"
             android:drawableStart="@drawable/ic_timer"
             android:textAlignment="center"
             android:textColor="@color/colorButtonForeground"
@@ -60,7 +60,7 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:background="?attr/colorPrimary" />
 
         </ScrollView>

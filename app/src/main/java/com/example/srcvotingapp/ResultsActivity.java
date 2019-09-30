@@ -70,8 +70,8 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
         spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (spnPortfolio.getSelectedItemPosition() > 0)
-                    drawChart();
+//                if (spnPortfolio.getSelectedItemPosition() > 0)
+//                    drawChart();
 //                    setData(3,100);
             }
 
@@ -97,101 +97,107 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
 
     }
 
-    private void drawChart() {
+    private void drawGroupChart(){
 
-         BarDataSet set1, set2, set3;
-
-        float groupSpace = 0.00f;
-        float barSpace = 0.10f; // x4 DataSet
-        float barWidth = 0.90f; // x4 DataSet
-        // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
-        //(barwidth + barspace) * no of bars + groupspace = 1
-
-//        int groupCount = seekBarX.getProgress() + 1;
-        int startYear = 1;
-        int endYear = 3;
-
-//        tvX.setText(String.format(Locale.ENGLISH, "%d-%d", startYear, endYear));
-//        tvY.setText(String.valueOf(seekBarY.getProgress()));
-
-        ArrayList<BarEntry> values1 = new ArrayList<>();
-        ArrayList<BarEntry> values2 = new ArrayList<>();
-        ArrayList<BarEntry> values3 = new ArrayList<>();
-
-//        ArrayList<BarEntry> values4 = new ArrayList<>();
-
-        float randomMultiplier = 1 * 1000f;
-
-        for (int i = startYear; i < endYear; i++) {
-            values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-
-//            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-        }
-
-        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-
-            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
-            set3 = (BarDataSet) chart.getData().getDataSetByIndex(2);
-
-//            set4 = (BarDataSet) chart.getData().getDataSetByIndex(3);
-            set1.setValues(values1);
-            set2.setValues(values2);
-            set3.setValues(values3);
-
-//            set4.setValues(values4);
-            chart.getData().notifyDataChanged();
-            chart.notifyDataSetChanged();
-
-        } else {
-            // create 3 DataSets
-            set1 = new BarDataSet(values1, "DASO");
-            set2 = new BarDataSet(values2, "EFFSC");
-            set3 = new BarDataSet(values3, "SASCO");
-
-            set3.setColor(Color.YELLOW);
-            set1.setColor(Color.BLUE);
-            set2.setColor(Color.RED);
-
-
-            BarData data = new BarData(set1, set2, set3);
-            data.setValueFormatter(new LargeValueFormatter());
-            data.setValueTypeface(tfLight);
-
-            chart.setData(data);
-        }
-
-        // specify the width each bar should have
-        chart.getBarData().setBarWidth(barWidth);
-
-        // restrict the x-axis range
-        chart.getXAxis().setAxisMinimum(startYear);
-
-        for (IBarDataSet set : chart.getData().getDataSets()) {
-            ((BarDataSet) set).setBarBorderWidth(1.f);
-            set.setDrawValues(false);
-        }
-
-        chart.setPinchZoom(false);
-//        chart.setHighlightFullBarEnabled(false);
-
-        chart.animateXY(1500, 1000);
-        chart.setDrawGridBackground(false);
-
-        Description description = new Description();
-        description.setText(getSpinnerValue(spnPortfolio));
-        description.setTextSize(8f);
-        description.setTextColor(R.color.colorPrimary);
-        chart.setDescription(description);
-
-        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * 1.00f);
-        chart.groupBars(startYear, groupSpace, barSpace);
-
-        chart.invalidate();
+//        BarDataSet setDASO
 
     }
+
+//    private void drawChart() {
+//
+//         BarDataSet set1, set2, set3;
+//
+//        float groupSpace = 0.00f;
+//        float barSpace = 0.10f; // x4 DataSet
+//        float barWidth = 0.90f; // x4 DataSet
+//        // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
+//        //(barwidth + barspace) * no of bars + groupspace = 1
+//
+////        int groupCount = seekBarX.getProgress() + 1;
+//        int startYear = 1;
+//        int endYear = 3;
+//
+////        tvX.setText(String.format(Locale.ENGLISH, "%d-%d", startYear, endYear));
+////        tvY.setText(String.valueOf(seekBarY.getProgress()));
+//
+//        ArrayList<BarEntry> values1 = new ArrayList<>();
+//        ArrayList<BarEntry> values2 = new ArrayList<>();
+//        ArrayList<BarEntry> values3 = new ArrayList<>();
+//
+////        ArrayList<BarEntry> values4 = new ArrayList<>();
+//
+//        float randomMultiplier = 1 * 1000f;
+//
+//        for (int i = startYear; i < endYear; i++) {
+//            values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+//            values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+//            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+//
+////            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
+//        }
+//
+//        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+//
+//            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+//            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
+//            set3 = (BarDataSet) chart.getData().getDataSetByIndex(2);
+//
+////            set4 = (BarDataSet) chart.getData().getDataSetByIndex(3);
+//            set1.setValues(values1);
+//            set2.setValues(values2);
+//            set3.setValues(values3);
+//
+////            set4.setValues(values4);
+//            chart.getData().notifyDataChanged();
+//            chart.notifyDataSetChanged();
+//
+//        } else {
+//            // create 3 DataSets
+//            set1 = new BarDataSet(values1, "DASO");
+//            set2 = new BarDataSet(values2, "EFFSC");
+//            set3 = new BarDataSet(values3, "SASCO");
+//
+//            set3.setColor(Color.YELLOW);
+//            set1.setColor(Color.BLUE);
+//            set2.setColor(Color.RED);
+//
+//
+//            BarData data = new BarData(set1, set2, set3);
+//            data.setValueFormatter(new LargeValueFormatter());
+//            data.setValueTypeface(tfLight);
+//
+//            chart.setData(data);
+//        }
+//
+//        // specify the width each bar should have
+//        chart.getBarData().setBarWidth(barWidth);
+//
+//        // restrict the x-axis range
+//        chart.getXAxis().setAxisMinimum(startYear);
+//
+//        for (IBarDataSet set : chart.getData().getDataSets()) {
+//            ((BarDataSet) set).setBarBorderWidth(1.f);
+//            set.setDrawValues(false);
+//        }
+//
+//        chart.setPinchZoom(false);
+////        chart.setHighlightFullBarEnabled(false);
+//
+//        chart.animateXY(1500, 1000);
+//        chart.setDrawGridBackground(false);
+//
+//        Description description = new Description();
+//        description.setText(getSpinnerValue(spnPortfolio));
+//        description.setTextSize(8f);
+//        description.setTextColor(R.color.colorPrimary);
+//        chart.setDescription(description);
+//
+//        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
+//        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * 1.00f);
+//        chart.groupBars(startYear, groupSpace, barSpace);
+//
+//        chart.invalidate();
+//
+//    }
 
 }

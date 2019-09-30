@@ -300,6 +300,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         // TODO: 2019/09/11 Search By Email
         switchViews(frmSearchEmail, frmCandidateName);
+        hideViews(tvPartyDetails);
         clearFields(etEmail);
 
     }
