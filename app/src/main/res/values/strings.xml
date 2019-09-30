@@ -60,5 +60,6 @@
     <string name="registered_course">Registered Course</string>
     <string name="portfolio_candidate">Portfolio Candidate</string>
     <string name="dash">-</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>

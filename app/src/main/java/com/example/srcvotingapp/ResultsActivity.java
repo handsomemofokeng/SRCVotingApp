@@ -1,8 +1,10 @@
 package com.example.srcvotingapp;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.BarLineChartBase;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -25,6 +29,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -33,11 +39,14 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
+import static com.example.srcvotingapp.ui.vote.SectionsPagerAdapter.TAB_TITLES;
 
 public class ResultsActivity extends AppCompatActivity //implements  OnChartValueSelectedListener
 {
@@ -66,20 +75,23 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
+        drawGroupChart();
 
-        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                if (spnPortfolio.getSelectedItemPosition() > 0)
-//                    drawChart();
-//                    setData(3,100);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                drawGroupChart();
+////                if (spnPortfolio.getSelectedItemPosition() > 0)
+////                    drawGroupChart();
+////                    setData(3,100);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
     }
 
@@ -93,13 +105,70 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
 
         chart = findViewById(R.id.barChart);
 
-        spnPortfolio = findViewById(R.id.spnPortfolioResults);
+//        spnPortfolio = findViewById(R.id.spnPortfolioResults);
 
     }
 
-    private void drawGroupChart(){
+    private void drawGroupChart() {
 
-//        BarDataSet setDASO
+        ArrayList<BarEntry> entriesDASO = new ArrayList<>();
+        ArrayList<BarEntry> entriesEFFSC = new ArrayList<>();
+        ArrayList<BarEntry> entriesSASCO = new ArrayList<>();
+
+        for (int i = 1; i <= 12; i++) {
+            entriesDASO.add(new BarEntry(i, (float) Math.random() * 1000f));
+            entriesEFFSC.add(new BarEntry(i, (float) Math.random() * 1000f));
+            entriesSASCO.add(new BarEntry(i, (float) Math.random() * 1000f));
+        }
+
+        BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
+        setDASO.setColor(Color.BLUE);
+        BarDataSet setEFFSC = new BarDataSet(entriesEFFSC, "EFFSC");
+        setEFFSC.setColor(Color.RED);
+        BarDataSet setSASCO = new BarDataSet(entriesSASCO, "SASCO");
+        setSASCO.setColor(Color.YELLOW);
+
+        BarData barData = new BarData(setDASO, setEFFSC, setSASCO);
+        chart.setData(barData);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(Portfolios));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setGranularityEnabled(true);
+
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setDrawGridLines(true);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setTextSize(12);
+        xAxis.setAxisLineColor(Color.WHITE);
+        xAxis.setAxisMinimum(1f);
+
+        chart.setDragEnabled(true);
+
+        Configuration configuration = this.getResources().getConfiguration();
+        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+            chart.setVisibleXRangeMaximum(1);
+        }else{
+            chart.setVisibleXRangeMaximum(2);
+        }
+
+        chart.getDescription().setPosition(0f,1000f);
+
+        float barSpace = 0.02f, groupSpace = 0.1f, barWidth = 0.28f;
+        int numBars = 12;
+        barData.setBarWidth(barWidth);
+
+        chart.getXAxis().setAxisMinimum(0);
+
+        chart.getXAxis().setAxisMaximum(0 + chart.getBarData().getGroupWidth(groupSpace,
+                barWidth) * numBars);
+        chart.getAxisLeft().setAxisMinimum(0);
+
+        chart.groupBars(0, groupSpace, barSpace);
+
+        chart.animateXY(1500,500);
+        chart.invalidate();
 
     }
 
