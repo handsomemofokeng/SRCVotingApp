@@ -3,26 +3,21 @@ package com.example.srcvotingapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
-import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
-import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
 import static com.example.srcvotingapp.ApplicationClass.reverseTimer;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
-import static com.example.srcvotingapp.ApplicationClass.showViews;
 
 public class VoteActivity extends AppCompatActivity implements VoteFragment.SetCandidateListener {
 
@@ -39,7 +34,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         initViews();
 //      28800s = 8h
-        reverseTimer(65, tvTimer);
+        reverseTimer(72, tvTimer);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
@@ -79,8 +74,6 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         btnNext = findViewById(R.id.btnNavigateNextVote);
         btnPrevious = findViewById(R.id.btnNavigatePreviousVote);
     }
-
-
 
     @Override
     public void onBackPressed() {

@@ -23,7 +23,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             R.string.tab_text_5, R.string.tab_text_6,
             R.string.tab_text_7, R.string.tab_text_8,
             R.string.tab_text_9, R.string.tab_text_10,
-            R.string.tab_text_11, R.string.tab_text_12};
+            R.string.tab_text_11, R.string.tab_text_12,
+            R.string.tab_text_13
+    };
 
     private final Context mContext;
 

@@ -35,6 +35,7 @@
                 android:paddingEnd="15dp"
                 android:paddingBottom="15dp"
                 android:text="@string/action_go_back"
+                android:onClick="onClick_GoBack"
                 android:textColor="@color/colorButtonForeground"
                 android:textStyle="bold" />
 
@@ -53,6 +54,7 @@
                 android:paddingEnd="15dp"
                 android:paddingBottom="15dp"
                 android:text="@string/action_refresh"
+                android:onClick="onClick_RefreshVotes"
                 android:textColor="@color/colorButtonForeground"
                 android:textStyle="bold" />
 

@@ -181,9 +181,10 @@ public class ApplicationClass extends Application {
     }
 
     /**
+     * This method gets a checked RadioButton from a list of RadioButtons
      *
-     * @param radioButtons
-     * @return
+     * @param radioButtons list to pick which RadioButton
+     * @return String Value of the selected RadioGroup
      */
     public static String getSelectedRadio(RadioButton... radioButtons) {
         String selectedRadio = "";
@@ -246,15 +247,14 @@ public class ApplicationClass extends Application {
         }
 
 //         TODO: 2019/09/13 Delete for Testing Purposes
-//        else{
-//            if (!email.endsWith("stud.cut.ac.za")){
-//                isValid = false;
-//                etEmail.setError("Invalid CUT Student Email!");
-//            }else{
-//                isValid = true;
-//                etEmail.setError(null);
-//            }
-//        }
+        else{
+            if (!email.endsWith("cut.ac.za")){
+                isValid = false;
+                etEmail.setError("Invalid CUT Email!");
+            }else{
+                etEmail.setError(null);
+            }
+        }
 
         return isValid;
     }
@@ -619,10 +619,11 @@ public class ApplicationClass extends Application {
     }
 
     /**
+     * This method uses buttons to navigate through the Spinner
      *
-     * @param next
-     * @param previous
-     * @param spinner
+     * @param next     button navigate to the following entry
+     * @param previous button navigates to the previous entry
+     * @param spinner  to be navigated
      */
     public static void navigateSpinner(@NonNull final Button next, @NonNull final Button previous,
                                        @NonNull final Spinner spinner) {
@@ -690,9 +691,10 @@ public class ApplicationClass extends Application {
     }
 
     /**
+     * Creates a Count Down Timer
      *
-     * @param Seconds
-     * @param tv
+     * @param Seconds time to count down from
+     * @param tv      TextView to represent the time
      */
     public static void reverseTimer(int Seconds, final TextView tv) {
 

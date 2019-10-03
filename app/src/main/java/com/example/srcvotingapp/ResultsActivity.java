@@ -2,53 +2,32 @@ package com.example.srcvotingapp;
 
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.BarLineChartBase;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
-import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
-import static com.example.srcvotingapp.ApplicationClass.hideViews;
-import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
-import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
-import static com.example.srcvotingapp.ui.vote.SectionsPagerAdapter.TAB_TITLES;
 
-public class ResultsActivity extends AppCompatActivity //implements  OnChartValueSelectedListener
+import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
+import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+
+public class ResultsActivity extends AppCompatActivity
 {
 
     private Typeface tfRegular, tfLight;
@@ -76,6 +55,19 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
         drawGroupChart();
+
+//        // TODO: 2019/09/30 Show Candidate Name and Current Votes
+//        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, Highlight h) {
+//                showCustomToast(getApplicationContext(), toastView, e.getX() +"");
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//
+//            }
+//        });
 
 //        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -109,12 +101,15 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
 
     }
 
+    // TODO: 2019/09/30 Get Votes from Backendless and pass them as Parameters
     private void drawGroupChart() {
 
         ArrayList<BarEntry> entriesDASO = new ArrayList<>();
         ArrayList<BarEntry> entriesEFFSC = new ArrayList<>();
         ArrayList<BarEntry> entriesSASCO = new ArrayList<>();
 
+        // TODO: 2019/09/30 Comment out when connected to Backendless
+        //Generate Random Entries
         for (int i = 1; i <= 12; i++) {
             entriesDASO.add(new BarEntry(i, (float) Math.random() * 1000f));
             entriesEFFSC.add(new BarEntry(i, (float) Math.random() * 1000f));
@@ -147,13 +142,13 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
         chart.setDragEnabled(true);
 
         Configuration configuration = this.getResources().getConfiguration();
-        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             chart.setVisibleXRangeMaximum(1);
-        }else{
+        } else {
             chart.setVisibleXRangeMaximum(2);
         }
 
-        chart.getDescription().setPosition(0f,1000f);
+        chart.getDescription().setPosition(0f, 1000f);
 
         float barSpace = 0.02f, groupSpace = 0.1f, barWidth = 0.28f;
         int numBars = 12;
@@ -167,9 +162,17 @@ public class ResultsActivity extends AppCompatActivity //implements  OnChartValu
 
         chart.groupBars(0, groupSpace, barSpace);
 
-        chart.animateXY(1500,500);
+        chart.animateXY(1500, 2000);
         chart.invalidate();
 
+    }
+
+    public void onClick_RefreshVotes(View view) {
+        drawGroupChart();
+    }
+
+    public void onClick_GoBack(View view) {
+        finish();
     }
 
 //    private void drawChart() {

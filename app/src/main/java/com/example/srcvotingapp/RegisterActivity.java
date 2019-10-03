@@ -7,15 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -40,9 +37,7 @@ import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
-import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
-import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
 import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
@@ -50,7 +45,6 @@ import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
-import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
 import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
@@ -192,7 +186,6 @@ public class RegisterActivity extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                showDetailsForm();
 
             }
         });

@@ -321,8 +321,8 @@ public class AddCandidateActivity extends AppCompatActivity {
         selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
 
         showCustomToast(getApplicationContext(), toastView,
-                etEmail.getText().toString().trim() +" assigned to Portfolio: "
-                + getSpinnerValue(spnPortfolio));
+                etEmail.getText().toString().trim() + " assigned to Portfolio: "
+                        + getSpinnerValue(spnPortfolio));
 
         tvPartyDetails.setText(selectedParty.toString());
         switchViews(tvPartyDetails, frmFoundCandidate);
