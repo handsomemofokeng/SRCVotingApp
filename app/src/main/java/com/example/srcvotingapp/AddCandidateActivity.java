@@ -71,6 +71,8 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         hideViews(frmParty, frmCandidateDetails);
 
+        etEmail.setError(null);
+
         navigateSpinner(btnNext, btnPrevious, spnPortfolio);
 
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

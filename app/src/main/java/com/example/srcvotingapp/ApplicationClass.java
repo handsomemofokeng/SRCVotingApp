@@ -248,7 +248,7 @@ public class ApplicationClass extends Application {
 
 //         TODO: 2019/09/13 Delete for Testing Purposes
         else{
-            if (!email.endsWith("cut.ac.za")){
+            if (!email.endsWith(".cut.ac.za")){
                 isValid = false;
                 etEmail.setError("Invalid CUT Email!");
             }else{
@@ -311,7 +311,7 @@ public class ApplicationClass extends Application {
             if (!isMatching) {
 
                 etPassword.setError("Passwords must match!");
-                etConfirm.setError("Passwords must match!");
+                 etConfirm.setError("Passwords must match!");
 
             } else {
 
