@@ -3,6 +3,7 @@ package com.example.srcvotingapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -18,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Adapter;
@@ -26,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -69,6 +72,7 @@ public class ApplicationClass extends Application {
     //Party Property Constants
     public static final String PARTY_ID = "partyID";
     public static final String PARTY_NAME = "partyName";
+    private static ProgressDialog progressDialog;
 
 
     @Override
@@ -248,7 +252,7 @@ public class ApplicationClass extends Application {
 
 //         TODO: 2019/09/13 Delete for Testing Purposes
         else{
-            if (!email.endsWith(".cut.ac.za")){
+            if (!email.endsWith("cut.ac.za")){
                 isValid = false;
                 etEmail.setError("Invalid CUT Email!");
             }else{
@@ -721,4 +725,24 @@ public class ApplicationClass extends Application {
         }.start();
     }
 
+    /**
+     * @param context in which the Progress Dialog will be shown
+     * @param title   of the Progress Dialog
+     * @param message to be displayed on the Dialog
+     */
+    public static void showProgressDialog(Context context, String title, String message,
+                                          boolean isCancelable) {
+
+        try {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setTitle(title);
+            progressDialog.setMessage(message);
+            progressDialog.setIcon(R.mipmap.ic_launcher);
+            progressDialog.setCancelable(isCancelable);
+            progressDialog.show();
+        } catch (Exception ex) {
+            Log.d("Error", "Error: " + ex.getMessage());
+        }
+
+    }//end method
 }

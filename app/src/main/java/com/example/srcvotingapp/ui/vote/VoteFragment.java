@@ -78,9 +78,23 @@ public class VoteFragment extends Fragment {
 
                 // TODO: 2019/09/08 Create an Interface to link selected Radio to Attached Activity
 
-                String[] x = getSelectedRadio(rbEFFSC, rbDASO, rbSASCO).split("\n");
+                String selectedPartyID = "";
 
-                setCandidateListener.onSetCandidate(x[0],
+                switch (checkedId) {
+                    case R.id.rbDASO:
+                        selectedPartyID = "DASO";
+                        break;
+
+                    case R.id.rbEFFSC:
+                        selectedPartyID = "EFFSC";
+                        break;
+
+                    case R.id.rbSASCO:
+                        selectedPartyID = "SASCO";
+                        break;
+                }
+
+                setCandidateListener.onSetCandidate(selectedPartyID,
                         tvSection.getText().toString().trim());
             }
         });
@@ -88,7 +102,7 @@ public class VoteFragment extends Fragment {
     }
 
     public interface SetCandidateListener {
-        void onSetCandidate(String candidateName, String portfolio);
+        void onSetCandidate(String candidatePartyID, String portfolio);
     }
 
     @Override

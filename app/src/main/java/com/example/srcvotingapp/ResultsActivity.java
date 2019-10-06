@@ -107,9 +107,9 @@ public class ResultsActivity extends AppCompatActivity {
         // TODO: 2019/09/30 Comment out when connected to Backendless
         //Generate Random Entries
         for (int i = 1; i <= 12; i++) {
-            entriesDASO.add(new BarEntry(i, (float) 294 * 1f));
-            entriesEFFSC.add(new BarEntry(i, (float) 366 * 1f));
-            entriesSASCO.add(new BarEntry(i, (float) 440 * 1f));
+            entriesDASO.add(new BarEntry(i, (float) Math.random() * 1000f));
+            entriesEFFSC.add(new BarEntry(i, (float) Math.random()  * 1000f));
+            entriesSASCO.add(new BarEntry(i, (float) Math.random()  * 1000f));
         }
 
         BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");

@@ -1,5 +1,7 @@
 package com.example.srcvotingapp.BL;
 
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+
 public class Vote {
 
     public Vote() {
@@ -144,7 +146,36 @@ public class Vote {
                 '}';
     }
 
-    public boolean isVotesValid(){
+    public boolean isVotesValid() {
         return this.toString().contains("Not selected");
     }
+
+    public void assignVotes(String selectedPortfolio, String selectedPartyID) {
+
+        if (selectedPortfolio.equals(Portfolios[0]))
+            setSelectedPresident(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[1]))
+            setSelectedDeputyPresident(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[2]))
+            setSelectedSecretaryGeneral(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[3]))
+            setSelectedFinancialOfficer(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[4]))
+            setSelectedConstitutionalAndLegalAffairs(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[5]))
+            setSelectedSportsOfficer(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[6]))
+            setSelectedPublicRelationsOfficer(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[7]))
+            setSelectedHealthAndWelfareOfficer(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[8]))
+            setSelectedProjectsAndCampaignOfficer(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[9]))
+            setSelectedStudentAffairs(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[10]))
+            setSelectedEquityAndDiversityOfficer(selectedPartyID);
+        if (selectedPortfolio.equals(Portfolios[11]))
+            setSelectedTransformationOfficer(selectedPartyID);
+    }
+
 }

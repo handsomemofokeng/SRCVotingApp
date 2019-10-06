@@ -32,6 +32,7 @@ import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
                     "Authenticate User");
 
+        // TODO: 2019/10/06 Authenticate Admin
         ivSignIn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -71,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //showScanButton();
-                switchViews(ivScanCard, ivCorrect);
+//                switchViews(ivScanCard, ivCorrect);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //showScanButton();
-                switchViews(ivScanCard, ivCorrect);
+//                switchViews(ivScanCard, ivCorrect);
             }
 
             @Override
@@ -88,20 +90,30 @@ public class MainActivity extends AppCompatActivity {
                     if (isEmailValid(etEmail)) {
                         //showSearchButton();
                         switchViews(ivSendResetLink, ivScanCard);
+                        if (isPasswordValid(etPassword.getText().toString()))
+                            showViews(ivSignIn);
+                        else
+                            hideViews(ivSignIn);
 
                     } else {
                         //showScanButton();
                         switchViews(ivScanCard, ivSendResetLink);
+                        hideViews(ivSignIn);
                     }
 
                 } else {
                     if (isEmailValid(etEmail)) {
                         //showSearchButton();
                         switchViews(ivCorrect, ivScanCard);
+                        if (isPasswordValid(etPassword.getText().toString()))
+                            showViews(ivSignIn);
+                        else
+                            hideViews(ivSignIn);
 
                     } else {
                         //showScanButton();
                         switchViews(ivScanCard, ivCorrect);
+                        hideViews(ivSignIn);
                     }
                 }
             }
@@ -121,8 +133,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (isPasswordValid(s.toString())) {
-                    showViews(ivSignIn);
                     etPassword.setError(null);
+                    if (isEmailValid(etEmail))
+                        showViews(ivSignIn);
+                    else
+                        hideViews(ivSignIn);
                 } else {
                     hideViews(ivSignIn);
                     etPassword.setError("Password length must be > 2");
@@ -180,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
             // TODO: 2019/08/27 Send Reset link
             showCustomToast(getApplicationContext(), toastView,
                     "Reset  link sent to " + etEmail.getText().toString().trim());
+
+            showProgressDialog(this, "Reset Password",
+                    String.format("Sending reset link to %s...", etEmail.getText().toString()),
+                    true);
+
             showLoginForm();
             clearFields(etPassword);
             etPassword.requestFocus();
@@ -209,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (btnResetPassword.getText().toString().equals(getString(R.string.action_reset_password))) {
             showResetPasswordForm();
+            etPassword.setText("");
         } else {
             showLoginForm();
         }

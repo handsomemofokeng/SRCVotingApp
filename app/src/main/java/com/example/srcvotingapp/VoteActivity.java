@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.srcvotingapp.BL.Vote;
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
@@ -31,14 +32,18 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     Button btnNext, btnPrevious;
     TextView tvTimer;
 
+    Vote studentVote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
 
+        studentVote = new Vote();
+
         initViews();
 //      28800s = 8h
-        reverseTimer( 800, tvTimer);
+        reverseTimer(800, tvTimer);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
@@ -77,6 +82,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         tvTimer = findViewById(R.id.tvTimer);
         btnNext = findViewById(R.id.btnNavigateNextVote);
         btnPrevious = findViewById(R.id.btnNavigatePreviousVote);
+
     }
 
     @Override
@@ -131,9 +137,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     }
 
     @Override
-    public void onSetCandidate(String candidateName, String portfolio) {
-        //showCustomToast(getApplicationContext(), toastView, candidateName + " for " + portfolio);
-
-
+    public void onSetCandidate(String candidatePartyID, String portfolio) {
+        studentVote.assignVotes(portfolio, candidatePartyID);
+        showCustomToast(getApplicationContext(), toastView, studentVote.toString());
     }
 }
