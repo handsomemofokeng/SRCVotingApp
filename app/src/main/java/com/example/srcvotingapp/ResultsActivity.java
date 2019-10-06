@@ -30,8 +30,6 @@ import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    private Typeface tfRegular, tfLight;
-
     //UI references
     View toastView;
     BarChart chart;
@@ -51,8 +49,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         initViews();
 
-        tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
         drawGroupChart();
 
