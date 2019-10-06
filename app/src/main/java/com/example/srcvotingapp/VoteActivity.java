@@ -3,6 +3,7 @@ package com.example.srcvotingapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
+
+import java.sql.Time;
+import java.util.Timer;
 
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
@@ -34,7 +38,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         initViews();
 //      28800s = 8h
-        reverseTimer(72, tvTimer);
+        reverseTimer( 800, tvTimer);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
@@ -128,7 +132,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
     @Override
     public void onSetCandidate(String candidateName, String portfolio) {
-        showCustomToast(getApplicationContext(), toastView, candidateName + " for " + portfolio);
+        //showCustomToast(getApplicationContext(), toastView, candidateName + " for " + portfolio);
+
 
     }
 }

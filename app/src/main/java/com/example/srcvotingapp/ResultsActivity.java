@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 
+import com.example.srcvotingapp.BL.Vote;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -27,8 +28,7 @@ import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
-public class ResultsActivity extends AppCompatActivity
-{
+public class ResultsActivity extends AppCompatActivity {
 
     private Typeface tfRegular, tfLight;
 
@@ -111,9 +111,9 @@ public class ResultsActivity extends AppCompatActivity
         // TODO: 2019/09/30 Comment out when connected to Backendless
         //Generate Random Entries
         for (int i = 1; i <= 12; i++) {
-            entriesDASO.add(new BarEntry(i, (float) Math.random() * 1000f));
-            entriesEFFSC.add(new BarEntry(i, (float) Math.random() * 1000f));
-            entriesSASCO.add(new BarEntry(i, (float) Math.random() * 1000f));
+            entriesDASO.add(new BarEntry(i, (float) 294 * 1f));
+            entriesEFFSC.add(new BarEntry(i, (float) 366 * 1f));
+            entriesSASCO.add(new BarEntry(i, (float) 440 * 1f));
         }
 
         BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
@@ -167,6 +167,10 @@ public class ResultsActivity extends AppCompatActivity
 
     }
 
+    private void countVotes(Vote... votes) {
+
+    }
+
     public void onClick_RefreshVotes(View view) {
         drawGroupChart();
     }
@@ -174,102 +178,5 @@ public class ResultsActivity extends AppCompatActivity
     public void onClick_GoBack(View view) {
         finish();
     }
-
-//    private void drawChart() {
-//
-//         BarDataSet set1, set2, set3;
-//
-//        float groupSpace = 0.00f;
-//        float barSpace = 0.10f; // x4 DataSet
-//        float barWidth = 0.90f; // x4 DataSet
-//        // (0.2 + 0.03) * 4 + 0.08 = 1.00 -> interval per "group"
-//        //(barwidth + barspace) * no of bars + groupspace = 1
-//
-////        int groupCount = seekBarX.getProgress() + 1;
-//        int startYear = 1;
-//        int endYear = 3;
-//
-////        tvX.setText(String.format(Locale.ENGLISH, "%d-%d", startYear, endYear));
-////        tvY.setText(String.valueOf(seekBarY.getProgress()));
-//
-//        ArrayList<BarEntry> values1 = new ArrayList<>();
-//        ArrayList<BarEntry> values2 = new ArrayList<>();
-//        ArrayList<BarEntry> values3 = new ArrayList<>();
-//
-////        ArrayList<BarEntry> values4 = new ArrayList<>();
-//
-//        float randomMultiplier = 1 * 1000f;
-//
-//        for (int i = startYear; i < endYear; i++) {
-//            values1.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//            values2.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//            values3.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//
-////            values4.add(new BarEntry(i, (float) (Math.random() * randomMultiplier)));
-//        }
-//
-//        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-//
-//            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-//            set2 = (BarDataSet) chart.getData().getDataSetByIndex(1);
-//            set3 = (BarDataSet) chart.getData().getDataSetByIndex(2);
-//
-////            set4 = (BarDataSet) chart.getData().getDataSetByIndex(3);
-//            set1.setValues(values1);
-//            set2.setValues(values2);
-//            set3.setValues(values3);
-//
-////            set4.setValues(values4);
-//            chart.getData().notifyDataChanged();
-//            chart.notifyDataSetChanged();
-//
-//        } else {
-//            // create 3 DataSets
-//            set1 = new BarDataSet(values1, "DASO");
-//            set2 = new BarDataSet(values2, "EFFSC");
-//            set3 = new BarDataSet(values3, "SASCO");
-//
-//            set3.setColor(Color.YELLOW);
-//            set1.setColor(Color.BLUE);
-//            set2.setColor(Color.RED);
-//
-//
-//            BarData data = new BarData(set1, set2, set3);
-//            data.setValueFormatter(new LargeValueFormatter());
-//            data.setValueTypeface(tfLight);
-//
-//            chart.setData(data);
-//        }
-//
-//        // specify the width each bar should have
-//        chart.getBarData().setBarWidth(barWidth);
-//
-//        // restrict the x-axis range
-//        chart.getXAxis().setAxisMinimum(startYear);
-//
-//        for (IBarDataSet set : chart.getData().getDataSets()) {
-//            ((BarDataSet) set).setBarBorderWidth(1.f);
-//            set.setDrawValues(false);
-//        }
-//
-//        chart.setPinchZoom(false);
-////        chart.setHighlightFullBarEnabled(false);
-//
-//        chart.animateXY(1500, 1000);
-//        chart.setDrawGridBackground(false);
-//
-//        Description description = new Description();
-//        description.setText(getSpinnerValue(spnPortfolio));
-//        description.setTextSize(8f);
-//        description.setTextColor(R.color.colorPrimary);
-//        chart.setDescription(description);
-//
-//        // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
-//        chart.getXAxis().setAxisMaximum(startYear + chart.getBarData().getGroupWidth(groupSpace, barSpace) * 1.00f);
-//        chart.groupBars(startYear, groupSpace, barSpace);
-//
-//        chart.invalidate();
-//
-//    }
 
 }
