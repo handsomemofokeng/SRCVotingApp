@@ -76,8 +76,6 @@ public class VoteFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                // TODO: 2019/09/08 Create an Interface to link selected Radio to Attached Activity
-
                 String selectedPartyID = "";
 
                 switch (checkedId) {

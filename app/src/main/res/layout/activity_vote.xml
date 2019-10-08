@@ -6,57 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".VoteActivity">
 
-    <LinearLayout
-        android:id="@+id/linlayNavigate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        app:layout_anchor="@+id/view_pager"
-        app:layout_anchorGravity="bottom">
-
-        <Button
-            android:id="@+id/btnNavigatePreviousVote"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2.5dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/button"
-            android:foreground="@drawable/ic_navigate_back"
-            android:foregroundTint="@color/colorButtonForeground"
-            android:gravity="start|center"
-            android:onClick="onClick_Navigate"
-            android:padding="10dp"
-            android:textColor="@color/colorButtonForeground"
-            android:textStyle="bold" />
-
-        <!--Divider-->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_weight="6"/>
-
-        <Button
-            android:id="@+id/btnNavigateNextVote"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="2.5dp"
-            android:layout_weight="1"
-            android:background="@drawable/button"
-            android:foreground="@drawable/ic_navigate_next"
-            android:foregroundTint="@color/colorButtonForeground"
-            android:gravity="start|center"
-            android:onClick="onClick_Navigate"
-            android:padding="10dp"
-            android:textColor="@color/colorButtonForeground"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -73,6 +22,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:contentDescription="@string/action_set_election_period"
                 android:padding="5dp"
                 app:srcCompat="@mipmap/ic_launcher_round" />
 
@@ -123,169 +73,235 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <ScrollView
-        android:id="@+id/frmReviewVotes"
+
+    </android.support.v4.view.ViewPager>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:max="12"
+        android:progress="5"
+        app:layout_anchor="@+id/view_pager"
+        app:layout_anchorGravity="top" />
+
+
+    <LinearLayout
+        android:id="@+id/linlayNavigate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:padding="@dimen/default_gap"
-        app:layout_anchor="@id/view_pager"
-        android:layout_gravity="bottom">
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_anchor="@+id/view_pager"
+        app:layout_anchorGravity="bottom">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btnNavigatePreviousVote"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="2.5dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:foreground="@drawable/ic_navigate_back"
+            android:foregroundTint="@color/colorButtonForeground"
+            android:gravity="start|center"
+            android:onClick="onClick_NavigateTabs"
+            android:padding="10dp"
+            android:textColor="@color/colorButtonForeground"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvSelectedPortfolioRegCan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="Review Votes"/>
+        <!--Divider-->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="6"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:padding="2dp"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnNavigateNextVote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:foreground="@drawable/ic_navigate_next"
+            android:foregroundTint="@color/colorButtonForeground"
+            android:gravity="start|center"
+            android:onClick="onClick_NavigateTabs"
+            android:padding="10dp"
+            android:textColor="@color/colorButtonForeground"
+            android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnNavigatePreviousPortfolio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button"
-                    android:onClick="onClick_Navigate"
-                    android:foregroundTint="@color/colorButtonForeground"
-                    android:foreground="@drawable/ic_navigate_back"
-                    android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold" />
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvPortfolioRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="3dp"
-                    android:layout_weight="1.5"
-                    android:drawableStart="@drawable/ic_assign_candidate"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawablePadding="5dp"
-                    android:enabled="false"
-                    android:gravity="center|end"
-                    android:maxLines="1"
-                    android:text="@string/prompt_portfolio"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_size" />
+    <!--    <ScrollView-->
+<!--        android:id="@+id/frmReviewVotes"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="gone"-->
+<!--        android:padding="@dimen/default_gap"-->
+<!--        app:layout_anchor="@id/view_pager"-->
+<!--        android:layout_gravity="bottom">-->
 
-                <Spinner
-                    android:id="@+id/spnPortfolioRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:entries="@array/portfolio"
-                    android:textAlignment="center" />
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-                <Button
-                    android:id="@+id/btnNavigateNextPortfolio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button"
-                    android:onClick="onClick_Navigate"
-                    android:foregroundTint="@color/colorButtonForeground"
-                    android:foreground="@drawable/ic_navigate_next"
-                    android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvSelectedPortfolioRegCan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/colorPrimaryDark"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="@dimen/text_size"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:text="@string/review_votes"/>-->
 
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:padding="2dp"-->
+<!--                android:background="@drawable/spinner"-->
+<!--                android:orientation="horizontal">-->
 
-            <LinearLayout
-                android:id="@+id/frmCandidateNameRegCan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="2.5dp">
+<!--                <Button-->
+<!--                    android:id="@+id/btnNavigatePreviousPortfolio"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@drawable/button"-->
+<!--                    android:onClick="onClick_NavigateSpinner"-->
+<!--                    android:foregroundTint="@color/colorButtonForeground"-->
+<!--                    android:foreground="@drawable/ic_navigate_back"-->
+<!--                    android:textColor="@color/colorButtonForeground"-->
+<!--                    android:textStyle="bold" />-->
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_weight="9">
+<!--                <TextView-->
+<!--                    android:id="@+id/tvPortfolioRegCan"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="3dp"-->
+<!--                    android:layout_weight="1.5"-->
+<!--                    android:drawableStart="@drawable/ic_assign_candidate"-->
+<!--                    android:drawableTint="@color/colorAccent"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    android:enabled="false"-->
+<!--                    android:gravity="center|end"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/prompt_portfolio"-->
+<!--                    android:textColor="@color/colorPrimaryDark"-->
+<!--                    android:textSize="@dimen/text_size" />-->
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etNameRegCan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_assign_candidate"
-                        android:drawableTint="@color/colorAccent"
-                        android:drawablePadding="5dp"
-                        android:hint="@string/selected_candidate"
-                        android:imeActionId="6"
-                        android:imeActionLabel="@string/action_sign_in_short"
-                        android:imeOptions="actionUnspecified"
-                        android:inputType="textPersonName"
-                        android:textColor="@android:color/black"
-                        android:enabled="false"
-                        android:singleLine="false" />
+<!--                <Spinner-->
+<!--                    android:id="@+id/spnPortfolioRegCan"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="3"-->
+<!--                    android:entries="@array/portfolio"-->
+<!--                    android:textAlignment="center" />-->
 
-                </android.support.design.widget.TextInputLayout>
+<!--                <Button-->
+<!--                    android:id="@+id/btnNavigateNextPortfolio"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="0.5"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@drawable/button"-->
+<!--                    android:onClick="onClick_NavigateSpinner"-->
+<!--                    android:foregroundTint="@color/colorButtonForeground"-->
+<!--                    android:foreground="@drawable/ic_navigate_next"-->
+<!--                    android:textColor="@color/colorButtonForeground"-->
+<!--                    android:textStyle="bold" />-->
 
-                <ImageView
-                    android:id="@+id/ivEditCandidateRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/button"
-                    android:contentDescription="@string/prompt_email"
-                    android:onClick="onClick_EditVote"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_edit" />
+<!--            </LinearLayout>-->
 
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/frmCandidateNameRegCan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginTop="2.5dp"-->
+<!--                android:layout_marginBottom="2.5dp">-->
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieReview"
-                android:layout_width="match_parent"
-                android:layout_height="315dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:visibility="gone"/>
+<!--                <android.support.design.widget.TextInputLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="2dp"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                    android:layout_weight="9">-->
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:background="@drawable/button"
-                android:contentDescription="@string/prompt_email"
-                android:drawableEnd="@drawable/ic_send"
-                android:drawablePadding="15dp"
-                android:onClick="onClick_SubmitVote"
-                android:padding="15dp"
-                android:text="@string/submit_vote"
-                android:textColor="@color/colorButtonForeground"
-                android:textStyle="bold" />
+<!--                    <android.support.design.widget.TextInputEditText-->
+<!--                        android:id="@+id/etNameRegCan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:drawableStart="@drawable/ic_assign_candidate"-->
+<!--                        android:drawableTint="@color/colorAccent"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:hint="@string/selected_candidate"-->
+<!--                        android:imeActionId="6"-->
+<!--                        android:imeActionLabel="@string/action_sign_in_short"-->
+<!--                        android:imeOptions="actionUnspecified"-->
+<!--                        android:inputType="textPersonName"-->
+<!--                        android:textColor="@android:color/black"-->
+<!--                        android:enabled="false"-->
+<!--                        android:singleLine="false" />-->
 
-        </LinearLayout>
+<!--                </android.support.design.widget.TextInputLayout>-->
 
-    </ScrollView>
+<!--                <ImageView-->
+<!--                    android:id="@+id/ivEditCandidateRegCan"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@drawable/button"-->
+<!--                    android:contentDescription="@string/prompt_email"-->
+<!--                    android:onClick="onClick_EditVote"-->
+<!--                    android:padding="5dp"-->
+<!--                    android:src="@drawable/ic_edit" />-->
+
+<!--            </LinearLayout>-->
+
+<!--            <com.github.mikephil.charting.charts.PieChart-->
+<!--                android:id="@+id/pieReview"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="315dp"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:visibility="gone"/>-->
+
+<!--            <Button-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:background="@drawable/button"-->
+<!--                android:contentDescription="@string/prompt_email"-->
+<!--                android:drawableEnd="@drawable/ic_send"-->
+<!--                android:drawablePadding="15dp"-->
+<!--                android:onClick="onClick_SubmitVote"-->
+<!--                android:padding="15dp"-->
+<!--                android:text="@string/submit_vote"-->
+<!--                android:textColor="@color/colorButtonForeground"-->
+<!--                android:textStyle="bold" />-->
+
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
 <!--    <android.support.design.widget.FloatingActionButton-->
 <!--    android:id="@+id/fab"-->

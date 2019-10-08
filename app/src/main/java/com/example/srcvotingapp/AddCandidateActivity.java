@@ -274,7 +274,6 @@ public class AddCandidateActivity extends AppCompatActivity {
     }
 
     public void onClick_SearchEmail(View view) {
-        // TODO: 2019/09/10 Search by Email
 
         if (isEmailValid(etEmail)) {
             switchViews(frmFoundCandidate, tvPartyDetails);
@@ -300,7 +299,6 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     public void onClick_EditPortfolio(View view) {
 
-        // TODO: 2019/09/11 Search By Email
         switchViews(frmSearchEmail, frmCandidateName);
         hideViews(tvPartyDetails);
         clearFields(etEmail);

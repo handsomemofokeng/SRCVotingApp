@@ -321,6 +321,74 @@
 
             </LinearLayout>
 
+<!--            <LinearLayout-->
+<!--                android:id="@+id/frmStatisticalDetails"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/statistic_details"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textColor="@color/colorPrimaryDark"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                &lt;!&ndash;Divider&ndash;&gt;-->
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:background="@color/colorPrimary" />-->
+
+<!--                <RadioGroup-->
+<!--                    android:id="@+id/rgGender"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/spinner_height"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@drawable/spinner"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvGenderReg"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginStart="3dp"-->
+<!--                        android:layout_weight="0.5"-->
+<!--                        android:drawableStart="@drawable/ic_person"-->
+<!--                        android:drawablePadding="5dp"-->
+<!--                        android:enabled="false"-->
+<!--                        android:gravity="center|end"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:text="@string/prompt_gender"-->
+<!--                        android:textColor="@color/colorPrimaryDark"-->
+<!--                        android:textSize="@dimen/text_size" />-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rbMale"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="0.5"-->
+<!--                        android:text="@string/male" />-->
+
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/rbFemale"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:layout_weight="0.5"-->
+<!--                        android:text="@string/female" />-->
+
+<!--                </RadioGroup>-->
+
+<!--            </LinearLayout>-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

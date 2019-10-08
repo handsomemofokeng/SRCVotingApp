@@ -22,6 +22,7 @@ import java.sql.Time;
 import java.util.Timer;
 
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
 import static com.example.srcvotingapp.ApplicationClass.reverseTimer;
 import static com.example.srcvotingapp.ApplicationClass.setPieData;
@@ -35,7 +36,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     Button btnNext, btnPrevious;
     TextView tvTimer;
 
-    PieChart pieChart;
+//    PieChart pieChart;
 
     Vote studentVote;
 
@@ -56,9 +57,9 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         navigateTabs(btnNext, btnPrevious, viewPager);
 
-        pieChart.setData(setPieData("Votes"));
-        pieChart.setRotationEnabled(false);
-        pieChart.animateY(1000, Easing.EasingOption.EaseInOutBounce);
+//        pieChart.setData(setPieData("Votes"));
+//        pieChart.setRotationEnabled(false);
+//        pieChart.animateY(1000, Easing.EasingOption.EaseInOutBounce);
 
 
     }
@@ -75,7 +76,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         btnNext = findViewById(R.id.btnNavigateNextVote);
         btnPrevious = findViewById(R.id.btnNavigatePreviousVote);
 
-        pieChart = findViewById(R.id.pieReview);
+//        pieChart = findViewById(R.id.pieReview);
 
     }
 
@@ -104,42 +105,24 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
     }
 
-    public void onClick_Navigate(View view) {
-
-        navigateTabs(btnNext, btnPrevious, viewPager);
-//        switch (view.getId()) {
-//            case R.id.btnNavigateNextVote:
-//
-//                // TODO: 2019/09/03 Navigate next
-//
-//                if (viewPager.getCurrentItem() < (viewPager.getAdapter().getCount() - 1)) {
-//                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
-//                } else {
-//                }
-//                break;
-//
-//            case R.id.btnNavigatePreviousVote:
-//
-//                // TODO: 2019/09/03 Go back
-//                if (viewPager.getCurrentItem() > 0) {
-//                    viewPager.setCurrentItem(viewPager.getCurrentItem() - 1, true);
-//                } else {
-//                }
-//                break;
-//
-//        }
-    }
-
     @Override
     public void onSetCandidate(String candidatePartyID, String portfolio) {
         studentVote.assignVotes(portfolio, candidatePartyID);
         showCustomToast(getApplicationContext(), toastView, studentVote.toString());
     }
 
-    public void onClick_SubmitVote(View view) {
+//    public void onClick_SubmitVote(View view) {
+//
+//    }
+//
+//    public void onClick_EditVote(View view) {
+//    }
+//
+//    public void onClick_NavigateSpinner(View view) {
+////        navigateSpinner();
+//    }
 
-    }
-
-    public void onClick_EditVote(View view) {
+    public void onClick_NavigateTabs(View view) {
+        navigateTabs(btnNext, btnPrevious, viewPager);
     }
 }
