@@ -266,7 +266,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isValidPersonalDetails() {
 
-        boolean isValid = isValidFields(etEmail, etName, etSurname, etPassword, etConfirm);
+        boolean isValid = isValidFields(etName, etSurname,etEmail,  etPassword, etConfirm);
 
         if (isValid) {
 

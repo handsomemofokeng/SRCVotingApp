@@ -62,5 +62,7 @@
     <string name="portfolio_candidate">Portfolio Candidate</string>
     <string name="dash">-</string>
     <string name="action_refresh">Refresh</string>
+    <string name="submit_vote">Submit Votes</string>
+    <string name="selected_candidate">Selected Candidate</string>
 
 </resources>

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.example.srcvotingapp.BL.Vote;
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
 
 import java.sql.Time;
 import java.util.Timer;
@@ -22,6 +24,7 @@ import java.util.Timer;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
 import static com.example.srcvotingapp.ApplicationClass.reverseTimer;
+import static com.example.srcvotingapp.ApplicationClass.setPieData;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
 public class VoteActivity extends AppCompatActivity implements VoteFragment.SetCandidateListener {
@@ -31,6 +34,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     TabLayout tabs;
     Button btnNext, btnPrevious;
     TextView tvTimer;
+
+    PieChart pieChart;
 
     Vote studentVote;
 
@@ -43,7 +48,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         initViews();
 //      28800s = 8h
-        reverseTimer(800, tvTimer);
+        reverseTimer(600, tvTimer);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
@@ -51,23 +56,10 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         navigateTabs(btnNext, btnPrevious, viewPager);
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                // TODO: 2019/09/03 Testing
-//                                Toast.makeText(VoteActivity.this, "Action Clicked!!!",
-//                                        Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).show();
-//            }
-//        });
+        pieChart.setData(setPieData("Votes"));
+        pieChart.setRotationEnabled(false);
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutBounce);
+
 
     }
 
@@ -82,6 +74,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         tvTimer = findViewById(R.id.tvTimer);
         btnNext = findViewById(R.id.btnNavigateNextVote);
         btnPrevious = findViewById(R.id.btnNavigatePreviousVote);
+
+        pieChart = findViewById(R.id.pieReview);
 
     }
 
@@ -140,5 +134,12 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     public void onSetCandidate(String candidatePartyID, String portfolio) {
         studentVote.assignVotes(portfolio, candidatePartyID);
         showCustomToast(getApplicationContext(), toastView, studentVote.toString());
+    }
+
+    public void onClick_SubmitVote(View view) {
+
+    }
+
+    public void onClick_EditVote(View view) {
     }
 }

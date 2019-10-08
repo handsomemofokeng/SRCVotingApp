@@ -39,8 +39,13 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.persistence.DataQueryBuilder;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.zxing.integration.android.IntentIntegrator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -472,6 +477,19 @@ public class ApplicationClass extends Application {
 
         return builder;
 
+    }
+
+    public static PieData setPieData(String label) {
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            pieEntries.add(new PieEntry(20.0f));
+            pieEntries.get(i).setLabel(label);
+        }
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, label);
+        pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        return new PieData(pieDataSet);
     }
 
     /**
