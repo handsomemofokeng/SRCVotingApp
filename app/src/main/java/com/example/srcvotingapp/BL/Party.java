@@ -181,20 +181,79 @@ public class Party {
     public String toString() {
 
         return "Party Details" + "\n" +
-                "\tPartyName: " + PartyName  + "\n" +
-                "\tPartyID: " + PartyID  + "\n" +
-                "\tPresident: " + President  + "\n" +
-                "\tDeputy President: " + DeputyPresident  + "\n" +
-                "\tSecretary General: " + SecretaryGeneral  + "\n" +
-                "\tFinancial Officer: " + FinancialOfficer  + "\n" +
-                "\tConstitutional And Legal Affairs: " + ConstitutionalAndLegalAffairs  + "\n" +
-                "\tSports Officer: " + SportsOfficer  + "\n" +
-                "\tPublic Relations Officer: " + PublicRelationsOfficer  + "\n" +
-                "\tHealthAnd Welfare Officer: " + HealthAndWelfareOfficer  + "\n" +
-                "\tProjects And Campaign Officer: " + ProjectsAndCampaignOfficer  + "\n" +
-                "\tStudent Affairs: " + StudentAffairs  + "\n" +
-                "\tEquity And Diversity Officer: " + EquityAndDiversityOfficer  + "\n" +
-                "\tTransformation Officer: " + TransformationOfficer;
+                "PartyName: " + PartyName  + "\n" +
+                "PartyID: " + PartyID  + "\n" +
+                "President: " + President  + "\n" +
+                "Deputy President: " + DeputyPresident  + "\n" +
+                "Secretary General: " + SecretaryGeneral  + "\n" +
+                "Financial Officer: " + FinancialOfficer  + "\n" +
+                "Constitutional And Legal Affairs: " + ConstitutionalAndLegalAffairs  + "\n" +
+                "Sports Officer: " + SportsOfficer  + "\n" +
+                "Public Relations Officer: " + PublicRelationsOfficer  + "\n" +
+                "HealthAnd Welfare Officer: " + HealthAndWelfareOfficer  + "\n" +
+                "Projects And Campaign Officer: " + ProjectsAndCampaignOfficer  + "\n" +
+                "Student Affairs: " + StudentAffairs  + "\n" +
+                "Equity And Diversity Officer: " + EquityAndDiversityOfficer  + "\n" +
+                "Transformation Officer: " + TransformationOfficer;
+    }
+
+    public String getCandidateByPosition(int position){
+        String candidate = "Not set";
+        switch (position) {
+
+            case 1:
+                candidate = getPresident();
+                break;
+
+            case 2:
+
+                candidate =getDeputyPresident();
+                break;
+
+            case 3:
+
+                candidate =getSecretaryGeneral();
+                break;
+
+            case 4:
+                candidate =getFinancialOfficer();
+                break;
+
+            case 5:
+                candidate =getConstitutionalAndLegalAffairs();
+                break;
+
+            case 6:
+                candidate =getSportsOfficer();
+                break;
+
+            case 7:
+                candidate =getPublicRelationsOfficer();
+                break;
+
+            case 8:
+                candidate =getHealthAndWelfareOfficer();
+                break;
+
+            case 9:
+                candidate =getProjectsAndCampaignOfficer();
+                break;
+
+            case 10:
+                candidate =getStudentAffairs();
+                break;
+
+            case 11:
+                candidate =getEquityAndDiversityOfficer();
+                break;
+
+            case 12:
+                candidate =getTransformationOfficer();
+                break;
+
+        }
+
+        return candidate;
     }
 
 }

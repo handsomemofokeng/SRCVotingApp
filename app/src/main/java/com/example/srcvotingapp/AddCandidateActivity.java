@@ -118,7 +118,6 @@ public class AddCandidateActivity extends AppCompatActivity {
 
                 }
 
-
             }
         });
 
@@ -138,64 +137,66 @@ public class AddCandidateActivity extends AppCompatActivity {
                     hideViews(frmSearchEmail, frmFoundCandidate);
 
                     tvSelectedPortfolio.setText(Portfolios[position - 1]);
-                    switch (position) {
 
-                        case 1:
-                            etName.setText(selectedParty.getPresident());
-                            break;
-
-                        case 2:
-
-                            etName.setText(selectedParty.getDeputyPresident());
-                            break;
-
-                        case 3:
-
-                            etName.setText(selectedParty.getSecretaryGeneral());
-                            break;
-
-                        case 4:
-                            etName.setText(selectedParty.getFinancialOfficer());
-                            break;
-
-                        case 5:
-                            etName.setText(selectedParty.getConstitutionalAndLegalAffairs());
-                            break;
-
-                        case 6:
-                            etName.setText(selectedParty.getSportsOfficer());
-                            break;
-
-                        case 7:
-                            etName.setText(selectedParty.getPublicRelationsOfficer());
-                            break;
-
-                        case 8:
-                            etName.setText(selectedParty.getHealthAndWelfareOfficer());
-                            break;
-
-                        case 9:
-                            etName.setText(selectedParty.getProjectsAndCampaignOfficer());
-                            break;
-
-                        case 10:
-                            etName.setText(selectedParty.getStudentAffairs());
-                            break;
-
-                        case 11:
-                            etName.setText(selectedParty.getEquityAndDiversityOfficer());
-                            break;
-
-                        case 12:
-                            etName.setText(selectedParty.getTransformationOfficer());
-                            break;
-
-                        default:
-
-                            etName.setText(null);
-                            break;
-
-                    }
+                    etName.setText(selectedParty.getCandidateByPosition(position));
+//                    switch (position) {
+//
+//                        case 1:
+//                            etName.setText(selectedParty.getPresident());
+//                            break;
+//
+//                        case 2:
+//
+//                            etName.setText(selectedParty.getDeputyPresident());
+//                            break;
+//
+//                        case 3:
+//
+//                            etName.setText(selectedParty.getSecretaryGeneral());
+//                            break;
+//
+//                        case 4:
+//                            etName.setText(selectedParty.getFinancialOfficer());
+//                            break;
+//
+//                        case 5:
+//                            etName.setText(selectedParty.getConstitutionalAndLegalAffairs());
+//                            break;
+//
+//                        case 6:
+//                            etName.setText(selectedParty.getSportsOfficer());
+//                            break;
+//
+//                        case 7:
+//                            etName.setText(selectedParty.getPublicRelationsOfficer());
+//                            break;
+//
+//                        case 8:
+//                            etName.setText(selectedParty.getHealthAndWelfareOfficer());
+//                            break;
+//
+//                        case 9:
+//                            etName.setText(selectedParty.getProjectsAndCampaignOfficer());
+//                            break;
+//
+//                        case 10:
+//                            etName.setText(selectedParty.getStudentAffairs());
+//                            break;
+//
+//                        case 11:
+//                            etName.setText(selectedParty.getEquityAndDiversityOfficer());
+//                            break;
+//
+//                        case 12:
+//                            etName.setText(selectedParty.getTransformationOfficer());
+//                            break;
+//
+//                        default:
+//
+//                            etName.setText(null);
+//                            break;
+//
+//                    }
 
                 } else {
 
@@ -325,7 +326,14 @@ public class AddCandidateActivity extends AppCompatActivity {
                         + getSpinnerValue(spnPortfolio));
 
         tvPartyDetails.setText(selectedParty.toString());
+
         switchViews(tvPartyDetails, frmFoundCandidate);
+
+        switchViews(frmCandidateName, frmSearchEmail);
+
+
+        etName.setText(selectedParty.getCandidateByPosition(spnPortfolio.getSelectedItemPosition()));
+
 
     }
 

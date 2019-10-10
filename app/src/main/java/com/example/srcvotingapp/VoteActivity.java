@@ -49,8 +49,6 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         studentVote = new Vote();
 
-
-
         initViews();
 //      28800s = 8h
         reverseTimer(600, tvTimer);
@@ -123,8 +121,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                     .equalsIgnoreCase("Not selected")) {
                 numVotesSoFar++;
                 if (studentVote.isVotesValid()){
-                    showCustomToast(getApplicationContext(), toastView, "Votes complete!");
                     showViews(fabSubmitVotes);
+                    showCustomToast(getApplicationContext(), toastView, "Votes complete!");
                 }
             }
         } else {

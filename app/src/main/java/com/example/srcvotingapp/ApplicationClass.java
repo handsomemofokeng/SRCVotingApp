@@ -5,16 +5,10 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
-import android.service.autofill.RegexValidator;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
@@ -22,14 +16,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.QuickContactBadge;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -52,8 +43,8 @@ import java.util.regex.Pattern;
 
 public class ApplicationClass extends Application {
 
-    public static final String APPLICATION_ID = "YOUR_APP_ID";
-    public static final String API_KEY = "YOUR_API_KEY";
+    public static final String APPLICATION_ID = "5F1830F4-0981-DA83-FFE7-4B5B8C74CE00";
+    public static final String API_KEY = "C5C2CAA7-B896-58DB-FF65-BA29DCA69600";
     public static final String SERVER_URL = "https://api.backendless.com",
             MY_SHARED_PREFERENCES_NAME = "com.example.srcvotingapp";
     public static final int REQUEST_PHONE = 123;
@@ -64,7 +55,7 @@ public class ApplicationClass extends Application {
             "Student Affairs", "Equity and Diversity Officer", "Transformation Officer"};
 
     //User Property Constants
-    public static final String EMAIL = "email";
+//    public static final String EMAIL = "email";
     public static final String NAME = "name";
     public static final String SURNAME = "surname";
     public static final String GENDER = "gender";
@@ -85,11 +76,10 @@ public class ApplicationClass extends Application {
         super.onCreate();
         // TODO: 2019/08/29 Initialize Backendless
 
-//        Backendless.setUrl(SERVER_URL);
-//        Backendless.initApp(getApplicationContext(),
-//                APPLICATION_ID,
-//                API_KEY);
-
+        Backendless.setUrl(SERVER_URL);
+        Backendless.initApp(getApplicationContext(),
+                APPLICATION_ID,
+                API_KEY);
 
     }
 
