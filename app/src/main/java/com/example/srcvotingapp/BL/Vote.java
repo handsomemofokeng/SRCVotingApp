@@ -147,7 +147,7 @@ public class Vote {
     }
 
     public boolean isVotesValid() {
-        return this.toString().contains("Not selected");
+        return !this.toString().contains("Not selected");
     }
 
     public void assignVotes(String selectedPortfolio, String selectedPartyID) {
@@ -176,6 +176,36 @@ public class Vote {
             setSelectedEquityAndDiversityOfficer(selectedPartyID);
         if (selectedPortfolio.equals(Portfolios[11]))
             setSelectedTransformationOfficer(selectedPartyID);
+    }
+
+    public String getCandidateByPortfolio(String selectedPortfolio) {
+        String candidate = "Not selected";
+        if (selectedPortfolio.equals(Portfolios[0]))
+            candidate = getSelectedPresident();
+        if (selectedPortfolio.equals(Portfolios[1]))
+            candidate = getSelectedDeputyPresident();
+        if (selectedPortfolio.equals(Portfolios[2]))
+            candidate = getSelectedSecretaryGeneral();
+        if (selectedPortfolio.equals(Portfolios[3]))
+            candidate = getSelectedFinancialOfficer();
+        if (selectedPortfolio.equals(Portfolios[4]))
+            candidate = getSelectedConstitutionalAndLegalAffairs();
+        if (selectedPortfolio.equals(Portfolios[5]))
+            candidate = getSelectedSportsOfficer();
+        if (selectedPortfolio.equals(Portfolios[6]))
+            candidate = getSelectedPublicRelationsOfficer();
+        if (selectedPortfolio.equals(Portfolios[7]))
+            candidate = getSelectedHealthAndWelfareOfficer();
+        if (selectedPortfolio.equals(Portfolios[8]))
+            candidate = getSelectedProjectsAndCampaignOfficer();
+        if (selectedPortfolio.equals(Portfolios[9]))
+            candidate = getSelectedStudentAffairs();
+        if (selectedPortfolio.equals(Portfolios[10]))
+            candidate = getSelectedEquityAndDiversityOfficer();
+        if (selectedPortfolio.equals(Portfolios[11]))
+            candidate = getSelectedTransformationOfficer();
+
+        return candidate;
     }
 
 }

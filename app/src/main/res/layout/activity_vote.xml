@@ -79,17 +79,6 @@
     </android.support.v4.view.ViewPager>
 
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:max="12"
-        android:progress="5"
-        app:layout_anchor="@+id/view_pager"
-        app:layout_anchorGravity="top" />
-
-
     <LinearLayout
         android:id="@+id/linlayNavigate"
         android:layout_width="match_parent"
@@ -140,6 +129,17 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pbVotes"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:max="12"
+        android:progress="0"
+        app:layout_anchor="@+id/view_pager"
+        app:layout_anchorGravity="top" />
+
 
     <!--    <ScrollView-->
 <!--        android:id="@+id/frmReviewVotes"-->
@@ -303,12 +303,14 @@
 
 <!--    </ScrollView>-->
 
-<!--    <android.support.design.widget.FloatingActionButton-->
-<!--    android:id="@+id/fab"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_gravity="bottom|end"-->
-<!--    android:layout_margin="@dimen/fab_margin"-->
-<!--    app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSubmitVotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_send"
+        android:onClick="onClick_SubmitVotes"/>
 
 </android.support.design.widget.CoordinatorLayout>
