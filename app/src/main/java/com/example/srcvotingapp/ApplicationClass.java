@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
@@ -55,7 +56,7 @@ public class ApplicationClass extends Application {
             "Student Affairs", "Equity and Diversity Officer", "Transformation Officer"};
 
     //User Property Constants
-//    public static final String EMAIL = "email";
+    public static final String EMAIL = "email";
     public static final String NAME = "name";
     public static final String SURNAME = "surname";
     public static final String GENDER = "gender";
@@ -68,8 +69,17 @@ public class ApplicationClass extends Application {
     //Party Property Constants
     public static final String PARTY_ID = "partyID";
     public static final String PARTY_NAME = "partyName";
-    private static ProgressDialog progressDialog;
+    public static ProgressDialog progressDialog;
 
+    //SharedPreferences used to save User data
+    public static SharedPreferences myPrefs;
+    public static boolean rememberMe;
+    public static String currentUsername, currentUserPassword;
+
+    public static final String PASSWORD = "Password";
+    public static final String REMEMBER_ME = "RememberMe";
+
+    public static BackendlessUser sessionUser;
 
     @Override
     public void onCreate() {
@@ -245,12 +255,12 @@ public class ApplicationClass extends Application {
             etEmail.requestFocus();
         }
 
-//         TODO: 2019/09/13 Delete for Testing Purposes
-        else{
-            if (!email.endsWith("cut.ac.za")){
+        // TODO: 2019/09/13 Comment Out for Testing Purposes
+        else {
+            if (!email.endsWith("cut.ac.za")) {
                 isValid = false;
                 etEmail.setError("Invalid CUT Email!");
-            }else{
+            } else {
                 etEmail.setError(null);
             }
         }
@@ -310,7 +320,7 @@ public class ApplicationClass extends Application {
             if (!isMatching) {
 
                 etPassword.setError("Passwords must match!");
-                 etConfirm.setError("Passwords must match!");
+                etConfirm.setError("Passwords must match!");
 
             } else {
 
