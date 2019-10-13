@@ -463,6 +463,7 @@ public class ApplicationClass extends Application {
         android.app.AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle(title);
+        builder.setCancelable(false);
         builder.setMessage(message);
 
         return builder;

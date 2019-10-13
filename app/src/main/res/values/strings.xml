@@ -65,5 +65,6 @@
     <string name="submit_vote">Submit Votes</string>
     <string name="selected_candidate">Selected Candidate</string>
     <string name="review_votes">Review Votes</string>
+    <string name="action_show_insights">Show Insights</string>
 
 </resources>

@@ -29,7 +29,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
     private ViewPager viewPager;
     private View toastView;
-    private TabLayout tabs;
+     TabLayout tabs;
     private Button btnNext, btnPrevious;
     private TextView tvTimer;
     private ProgressBar pbVotes;

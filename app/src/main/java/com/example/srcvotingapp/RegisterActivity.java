@@ -148,7 +148,6 @@ public class RegisterActivity extends AppCompatActivity {
         rgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // TODO: 2019/08/28
                 tvGender.setError(null);
             }
         });
@@ -234,17 +233,16 @@ public class RegisterActivity extends AppCompatActivity {
 
             newUser = new BackendlessUser();
 
-            newUser.setEmail(etEmail.getText().toString().trim());
-            newUser.setPassword(etConfirm.getText().toString().trim());
             newUser.setProperty(NAME, etName.getText().toString().trim());
             newUser.setProperty(SURNAME, etSurname.getText().toString().trim());
-            newUser.setProperty(GENDER, getSelectedRadio(rbFemale, rbMale));
-            newUser.setProperty(HAS_VOTED, false);
-            newUser.setProperty(IS_CANDIDATE, false);
+            newUser.setEmail(etEmail.getText().toString().trim());
+            newUser.setPassword(etConfirm.getText().toString().trim());
 
             if (isStudent()) {
 
                 newUser.setProperty(ROLE, "Student");
+                newUser.setProperty(HAS_VOTED, false);
+                newUser.setProperty(IS_CANDIDATE, false);
 
                 if (isValidStatDetails()) {
 
@@ -273,10 +271,8 @@ public class RegisterActivity extends AppCompatActivity {
 //                @Override
 //                public void handleResponse(BackendlessUser response) {
 
-        showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
-                + " registered successfully.");
         AlertDialog.Builder builder = buildAlertDialog(RegisterActivity.this,
-                "Registration Confirmed", "User registered successfully." +
+                "Registration Submitted", getUserString(newUser)+" registered successfully." +
                         "\nPlease check your email for confirmation." +
                         "\n\nRegister another user?");
 
@@ -383,5 +379,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void onClick_GoBack(View view) {
         onBackPressed();
+    }
+
+    public void onClick_AddPicture(View view) {
     }
 }

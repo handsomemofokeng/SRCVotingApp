@@ -1,5 +1,7 @@
 package com.example.srcvotingapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -24,7 +26,9 @@ import com.backendless.exceptions.BackendlessFault;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
+import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
@@ -261,4 +265,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), VoteActivity.class));
     }
 
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = buildAlertDialog(MainActivity.this,
+                "Exit Application", "Are you sure you want to exit application?");
+
+        builder.setPositiveButton("Yes, Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.super.onBackPressed();
+//                finish();
+            }
+        });
+
+        builder.setNegativeButton("No, Stay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
+
+    }
 }
