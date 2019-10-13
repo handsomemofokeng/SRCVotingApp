@@ -158,7 +158,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         chart.groupBars(0, groupSpace, barSpace);
 
-        chart.animateXY(1500, 2000);
+        chart.animateXY(4000, 2000);
         chart.invalidate();
 
     }
@@ -168,7 +168,9 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     public void onClick_RefreshVotes(View view) {
-        drawGroupChart();
+//        drawGroupChart();
+        chart.animateXY(4000, 2000);
+        chart.invalidate();
     }
 
     public void onClick_GoBack(View view) {

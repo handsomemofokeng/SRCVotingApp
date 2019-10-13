@@ -491,6 +491,7 @@ public class ApplicationClass extends Application {
      */
     public static void validateEmailInput(final EditText etEmail, final ImageView ivScanCard,
                                           final ImageView anotherAction) {
+
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -331,9 +331,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         switchViews(frmCandidateName, frmSearchEmail);
 
-
         etName.setText(selectedParty.getCandidateByPosition(spnPortfolio.getSelectedItemPosition()));
-
 
     }
 

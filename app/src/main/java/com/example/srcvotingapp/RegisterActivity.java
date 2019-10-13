@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -37,6 +39,7 @@ import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
+import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
 import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
@@ -45,6 +48,7 @@ import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
 import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
@@ -58,9 +62,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner spnEthnicity, spnCourse;
     private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
-    private Button btnRegister;
+    //private Button btnRegister;
     private ImageView ivScanCard, ivCorrect;
-//    private LinearLayout frmPersonalDetails, frmStatisticalDetails;
+    private LinearLayout frmStatisticalDetails;// frmPersonalDetails,
 
 
     BackendlessUser newUser;
@@ -85,6 +89,30 @@ public class RegisterActivity extends AppCompatActivity {
         validatePasswordInput(etPassword);
 
         validatePasswordInput(etConfirm);
+
+        hideViews(frmStatisticalDetails);
+
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if (isStudent()) {
+                    showViews(frmStatisticalDetails);
+                } else {
+                    hideViews(frmStatisticalDetails);
+                }
+            }
+        });
 
         spnCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -127,6 +155,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    private boolean isStudent() {
+        return etEmail.getText().toString().endsWith("@stud.cut.ac.za");
+    }
+
     private void initViews() {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
@@ -144,10 +176,12 @@ public class RegisterActivity extends AppCompatActivity {
         rgGender = findViewById(R.id.rgGender);
         rbMale = findViewById(R.id.rbMale);
         rbFemale = findViewById(R.id.rbFemale);
-        btnRegister = findViewById(R.id.btnRegisterUser);
         ivCorrect = findViewById(R.id.ivCorrectRegUser);
         ivScanCard = findViewById(R.id.ivScanCardRegUser);
 
+//        btnRegister = findViewById(R.id.btnRegisterUser);
+//        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
+        frmStatisticalDetails = findViewById(R.id.frmStatisticalDetails);
     }
 
     public void onClick_ScanCard(View view) {
@@ -207,70 +241,75 @@ public class RegisterActivity extends AppCompatActivity {
             newUser.setProperty(GENDER, getSelectedRadio(rbFemale, rbMale));
             newUser.setProperty(HAS_VOTED, false);
             newUser.setProperty(IS_CANDIDATE, false);
-            newUser.setProperty(ROLE, "Student");
 
-            if (isValidStatDetails()) {
+            if (isStudent()) {
 
-                newUser.setProperty(GENDER, getSelectedRadio(rbMale, rbFemale));
-                newUser.setProperty(ETHNICITY, getSpinnerValue(spnEthnicity));
-                newUser.setProperty(COURSE, getSpinnerValue(spnCourse));
+                newUser.setProperty(ROLE, "Student");
 
+                if (isValidStatDetails()) {
 
-                showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
-                        + " registered successfully.");
+                    newUser.setProperty(GENDER, getSelectedRadio(rbMale, rbFemale));
+                    newUser.setProperty(ETHNICITY, getSpinnerValue(spnEthnicity));
+                    newUser.setProperty(COURSE, getSpinnerValue(spnCourse));
 
-                AlertDialog.Builder builder = buildAlertDialog(this,
-                        "Registration Co", "Student registered successfully." +
-                                "\n\nRegister another user?");
+                    registerNewUser();
 
-                builder.setPositiveButton("Yes, Add New", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        resetForm();
-                    }
-                });
+                } else {
+                    showCustomToast(getApplicationContext(), toastView,
+                            "Please make sure all required fields are correct.");
+                }
+            } else {
+                registerNewUser();
+            }
+        } else {
+            showCustomToast(getApplicationContext(), toastView,
+                    "Please make sure all required fields are correct.");
+        }
 
-                builder.setNegativeButton("No, Go Back", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                }).create().show();
+    }
 
-//            Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
+    private void registerNewUser() {
+        //            Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
 //                @Override
 //                public void handleResponse(BackendlessUser response) {
-//                    resetForm();
-//                    showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
-//                    + " registered successfully.");
-//
+
+        showCustomToast(getApplicationContext(), toastView, getUserString(newUser)
+                + " registered successfully.");
+        AlertDialog.Builder builder = buildAlertDialog(RegisterActivity.this,
+                "Registration Confirmed", "User registered successfully." +
+                        "\nPlease check your email for confirmation." +
+                        "\n\nRegister another user?");
+
+        builder.setPositiveButton("Yes, Add New", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                resetForm();
+            }
+        });
+
+        builder.setNegativeButton("No, Go Back", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).create().show();
+
 //                }
-//
 //                @Override
 //                public void handleFault(BackendlessFault fault) {
 //                    showCustomToast(getApplicationContext(), toastView, fault.getMessage());
 //                }
 //            });
-
-            } else {
-                showCustomToast(getApplicationContext(), toastView,
-                        "Please make sure all required fields are filled.");
-            }
-
-        } else {
-            showCustomToast(getApplicationContext(), toastView,
-                    "Please make sure all required fields are filled.");
-        }
-
     }
 
     private boolean isValidPersonalDetails() {
 
-        boolean isValid = isValidFields(etName, etSurname,etEmail,  etPassword, etConfirm);
+        boolean isValid = isValidFields(etName, etSurname, etEmail, etPassword, etConfirm);
 
         if (isValid) {
 
-            if (isEmailValid(etEmail)){
+            if (isEmailValid(etEmail)) {
+
 
                 if (!isPasswordsMatching(etPassword, etConfirm)) {
 
@@ -280,10 +319,10 @@ public class RegisterActivity extends AppCompatActivity {
                     etConfirm.requestFocus();
                 }
 
-            }else{
+            } else {
                 isValid = false;
                 showCustomToast(getApplicationContext(), toastView,
-                        "Please enter valid email");
+                        "Please enter a valid email");
             }
 
         } else {
@@ -307,25 +346,30 @@ public class RegisterActivity extends AppCompatActivity {
 
         } else {
 
-            if (!isRadioChecked(rbFemale, rbMale))
+            if (!isRadioChecked(rbFemale, rbMale)) {
                 tvGender.setError("Please specify gender");
+//                showCustomToast(this, toastView, tvGender.getError().toString());
+            }
 
-            if (!isValidSpinner(spnCourse))
+            if (!isValidSpinner(spnCourse)) {
                 tvCourse.setError("Please select Course on the dropdown list");
-
-            if (!isValidSpinner(spnEthnicity))
+//                showCustomToast(this, toastView, tvCourse.getError().toString());
+            }
+            if (!isValidSpinner(spnEthnicity)) {
                 tvEthnicity.setError("Please select Ethnicity on the dropdown list");
+//                showCustomToast(this, toastView, tvEthnicity.getError().toString());
+            }
         }
         return isValid;
     }
 
-    private void resetForm()
-    {
+    private void resetForm() {
 
         clearFields(etEmail, etName, etSurname, etPassword, etConfirm);
         clearRadioGroup(rgGender);
         clearSpinners(spnCourse, spnEthnicity);
-        switchViews(ivScanCard,ivCorrect);
+        switchViews(ivScanCard, ivCorrect);
+        hideViews(frmStatisticalDetails);
 
         etPassword.setError(null);
         etConfirm.setError(null);
@@ -333,7 +377,7 @@ public class RegisterActivity extends AppCompatActivity {
 //        tvEthnicity.setError(null);
         tvGender.setError("");
 
-        etEmail.requestFocus();
+        etName.requestFocus();
 
     }
 
