@@ -20,17 +20,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.example.srcvotingapp.BL.Vote;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import static com.example.srcvotingapp.ApplicationClass.EMAIL;
+import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.MY_SHARED_PREFERENCES_NAME;
 import static com.example.srcvotingapp.ApplicationClass.PASSWORD;
 import static com.example.srcvotingapp.ApplicationClass.REMEMBER_ME;
@@ -39,7 +38,6 @@ import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.currentUserPassword;
 import static com.example.srcvotingapp.ApplicationClass.currentUsername;
-import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordValid;
@@ -54,8 +52,6 @@ import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
-import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
-import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvResetLink;
     private CheckBox chkRememberMe;
     private ImageView ivScanCard, ivSendResetLink, ivSignIn, ivCorrect;
-    private Button btnResetPassword, btnRegister;
+    private Button btnResetPassword;//, btnRegister;
     private TextInputLayout tilPassword;
 
     @Override
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         getMyPrefs();
 
-        if (isPasswordValid(etPassword.getText().toString().trim())){
+        if (isPasswordValid(etPassword.getText().toString().trim())) {
             showViews(ivSignIn);
         }
 
@@ -94,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isEmailValid(etEmail) && isPasswordValid(etPassword.getText().toString().trim())) {
+                if (isEmailValid(etEmail) &&
+                        isPasswordValid(etPassword.getText().toString().trim())) {
 
                     if (isChecked) {
                         commitMyPrefs(etEmail.getText().toString().trim(),
@@ -103,8 +100,10 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         commitMyPrefs("", "", false);
                     }
+
                 } else {
-                    showCustomToast(MainActivity.this, toastView, "Please make sure all fields are correct.");
+                    showCustomToast(MainActivity.this, toastView,
+                            "Please make sure all fields are correct.");
                     chkRememberMe.setChecked(false);
                 }
             }
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         tvResetLink = findViewById(R.id.tvResetLink);
         ivSignIn = findViewById(R.id.ivSignIn);
         ivCorrect = findViewById(R.id.ivCorrect);
-        btnRegister = findViewById(R.id.btn_register);
+//        btnRegister = findViewById(R.id.btn_register);
         btnResetPassword = findViewById(R.id.btn_reset);
         ivScanCard = findViewById(R.id.ivScanCard);
         ivSendResetLink = findViewById(R.id.ivSendResetLink);
@@ -315,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SignIn(View view) {
+        // TODO: 2019/10/14 attemptLogIn();
         startActivity(new Intent(MainActivity.this, VoteActivity.class));
     }
 
@@ -362,10 +362,21 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             if (response.getProperty(ROLE).toString().equals("Admin")) {
-                                startActivity(new Intent(MainActivity.this, AdminActivity.class));
+                                startActivity(new Intent(MainActivity.this,
+                                        AdminActivity.class));
                             } else {
-                                if (response.getProperty(ROLE).toString().equals("Student"))
-                                    startActivity(new Intent(MainActivity.this, VoteActivity.class));
+                                if (response.getProperty(ROLE).toString().equals("Student")) {
+                                    if (!(boolean) response.getProperty(HAS_VOTED)) {
+                                        startActivity(new Intent(MainActivity.this,
+                                                VoteActivity.class));
+                                    } else {
+                                        startActivity(new Intent(MainActivity.this,
+                                                ResultsActivity.class));
+                                    }
+
+                                } else {
+                                    showUnauthorizedDialog();
+                                }
                             }
                             progressDialog.dismiss();
                         }
@@ -389,6 +400,21 @@ public class MainActivity extends AppCompatActivity {
             });
             builder.create().show();
         }
+    }
+
+    private void showUnauthorizedDialog() {
+        AlertDialog.Builder builder = buildAlertDialog(
+                MainActivity.this, "Unauthorized Access",
+                "Hmmm... seems like you haven't been granted access to use this App." +
+                        "\n\nTry entering credentials again?");
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
     }
 
     private void commitMyPrefs(String username, String password, boolean rememberMe) {
