@@ -52,6 +52,7 @@ import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
+import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+                chkRememberMe.setChecked(false);
                 if (btnResetPassword.getText().toString().equals(getString(R.string.action_go_back))) {
                     hideViews(ivCorrect);
                     if (isEmailValid(etEmail)) {
@@ -188,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                chkRememberMe.setChecked(false);
                 if (isPasswordValid(s.toString())) {
                     etPassword.setError(null);
                     if (isEmailValid(etEmail))
@@ -196,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
                         hideViews(ivSignIn);
                 } else {
                     hideViews(ivSignIn);
-                    etPassword.setError("Password length must be > 2");
+                    validatePasswordInput(etPassword);
+//                    etPassword.setError("Password length must be > 2");
                 }
             }
         });

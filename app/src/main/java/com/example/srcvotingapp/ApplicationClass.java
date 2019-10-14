@@ -276,7 +276,7 @@ public class ApplicationClass extends Application {
      */
     public static boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 2;
+        return password.length() > 4;
     }
 
     /**
@@ -550,7 +550,7 @@ public class ApplicationClass extends Application {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!isPasswordValid(s.toString())) {
-                    etPassword.setError("Password length must be > 2");
+                    etPassword.setError("Password (at least 5 characters)");
                 } else {
                     etPassword.setError(null);
                 }
