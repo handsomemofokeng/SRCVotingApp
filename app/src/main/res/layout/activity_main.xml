@@ -223,7 +223,7 @@
                     android:drawableEnd="@drawable/ic_restore"
                     android:textColor="@color/colorButtonForeground"
                     android:textStyle="bold"
-                    android:onClick="onClick_ResetPassword"/>
+                    android:onClick="onClick_ShowResetForm"/>
 
                 <Button
                     android:id="@+id/btn_register"

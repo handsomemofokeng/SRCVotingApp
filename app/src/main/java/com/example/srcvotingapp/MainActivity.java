@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Get credentials on background
         new GetDataInBackground().execute();
+        progressDialog.dismiss();
 
         getMyPrefs();
 
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (rememberMe && isPhoneConnected(MainActivity.this)) {
             if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
-                progressDialog.setMessage("Logging in, please wait...");
                 attemptLogIn();
             }
         }
@@ -248,17 +248,33 @@ public class MainActivity extends AppCompatActivity {
     public void onClick_SendResetLink(View view) {
 
         if (isValidFields(etEmail) && isEmailValid(etEmail)) {
-            // TODO: 2019/08/27 Send Reset link
-            showCustomToast(MainActivity.this, toastView,
-                    "Reset  link sent to " + etEmail.getText().toString().trim());
 
-            showProgressDialog(MainActivity.this, "Reset Password",
-                    String.format("Sending reset link to %s...", etEmail.getText().toString()),
-                    true);
+            chkRememberMe.setChecked(false);
+            showProgressDialog(MainActivity.this, "Restore Password",
+                    "Sending reset link to " + etEmail.getText().toString().trim(),
+                    false);
+            Backendless.UserService.restorePassword(etEmail.getText().toString().trim(),
+                    new AsyncCallback<Void>() {
+                        @Override
+                        public void handleResponse(Void response) {
 
-            showLoginForm();
-            clearFields(etPassword);
-            etPassword.requestFocus();
+                            progressDialog.dismiss();
+                            showMessageDialog("Success", "Reset link sent to "
+                                    + etEmail.getText().toString().trim() +
+                                    ".\n\nPlease check your email for reset instructions.");
+                            showLoginForm();
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+
+                            progressDialog.dismiss();
+                            showMessageDialog("Reset Error",fault.getMessage());
+                            showLoginForm();
+
+                        }
+                    });
+
         } else {
             showCustomToast(MainActivity.this, toastView,
                     "Please enter valid email");
@@ -281,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         showViews(ivSendResetLink, tvResetLink);
     }
 
-    public void onClick_ResetPassword(View view) {
+    public void onClick_ShowResetForm(View view) {
 
         if (btnResetPassword.getText().toString().equals(getString(R.string.action_reset_password))) {
             showResetPasswordForm();
@@ -290,22 +306,7 @@ public class MainActivity extends AppCompatActivity {
             showLoginForm();
         }
 
-//        Backendless.UserService.restorePassword(etEmail.getText().toString().trim(),
-//                new AsyncCallback<Void>() {
-//                    @Override
-//                    public void handleResponse(Void response) {
-//
-//                        showCustomToast(MainActivity.this, toastView,
-//                                "Reset link sent to "+ etEmail.getText().toString().trim());
-//                       showLoginForm();
-//                    }
-//
-//                    @Override
-//                    public void handleFault(BackendlessFault fault) {
-//                        showCustomToast(MainActivity.this, toastView, fault.getMessage());
-//                       showLoginForm();
-//                    }
-//                });
+
 
     }
 
@@ -314,8 +315,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SignIn(View view) {
-        // TODO: 2019/10/14 attemptLogIn();
-        startActivity(new Intent(MainActivity.this, VoteActivity.class));
+        attemptLogIn();
+//        startActivity(new Intent(MainActivity.this, VoteActivity.class));
     }
 
     @Override
@@ -344,7 +345,8 @@ public class MainActivity extends AppCompatActivity {
     public void attemptLogIn() {
 
         if (isPhoneConnected(MainActivity.this)) {
-            showProgressDialog(MainActivity.this, "Logging In",
+
+            showProgressDialog(MainActivity.this, "Authenticating",
                     "Please wait while we log you in...", true);
             Backendless.UserService.login(etEmail.getText().toString().trim(),
                     etPassword.getText().toString().trim(), new AsyncCallback<BackendlessUser>() {
@@ -352,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void handleResponse(BackendlessUser response) {
 
+                            progressDialog.dismiss();
                             ApplicationClass.sessionUser = response;
                             if (chkRememberMe.isChecked()) {
 
@@ -375,10 +378,12 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                 } else {
-                                    showUnauthorizedDialog();
+                                    showMessageDialog("Unauthorized Access",
+                                            "Hmmm... seems like you haven't been granted" +
+                                                    " access to use this App." +
+                                                    "\n\nTry entering credentials again?");
                                 }
                             }
-                            progressDialog.dismiss();
                         }
 
                         @Override
@@ -389,24 +394,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            AlertDialog.Builder builder = buildAlertDialog(MainActivity.this,
-                    "Connection Failure",
-                    "Please make sure WiFi or Mobile data is enabled.");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
 
-                }
-            });
-            builder.create().show();
+            showMessageDialog("Connection Failure",
+                    "Please make sure WiFi or Mobile data is enabled.");
+
         }
     }
 
-    private void showUnauthorizedDialog() {
+    private void showMessageDialog(String title, String message) {
         AlertDialog.Builder builder = buildAlertDialog(
-                MainActivity.this, "Unauthorized Access",
-                "Hmmm... seems like you haven't been granted access to use this App." +
-                        "\n\nTry entering credentials again?");
+                MainActivity.this, title, message);
         builder.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     @Override

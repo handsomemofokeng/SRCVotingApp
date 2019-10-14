@@ -35,6 +35,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     private ProgressBar pbVotes;
 
     FloatingActionButton fabSubmitVotes;
+    private Button btnSubmitVotes;
 
     int numVotesSoFar = 0;
 
@@ -59,7 +60,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         navigateTabs(btnNext, btnPrevious, viewPager);
 
-        hideViews(fabSubmitVotes);
+        hideViews(btnSubmitVotes);//fabSubmitVotes);
 
 //        pieChart.setData(setPieData("Votes"));
 //        pieChart.setRotationEnabled(false);
@@ -73,7 +74,8 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
 
-        fabSubmitVotes = findViewById(R.id.fabSubmitVotes);
+//        fabSubmitVotes = findViewById(R.id.fabSubmitVotes);
+        btnSubmitVotes = findViewById(R.id.btnSubmitVotes);
 
         viewPager = findViewById(R.id.view_pager);
         tabs = findViewById(R.id.tabs);
@@ -121,7 +123,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                     .equalsIgnoreCase("Not selected")) {
                 numVotesSoFar++;
                 if (studentVote.isVotesValid()){
-                    showViews(fabSubmitVotes);
+                    showViews(btnSubmitVotes);//fabSubmitVotes);
                     showCustomToast(getApplicationContext(), toastView, "Votes complete!");
                 }
             }
