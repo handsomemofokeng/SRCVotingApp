@@ -20,7 +20,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -45,9 +48,11 @@ import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
 import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
 import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
+import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
@@ -267,35 +272,44 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerNewUser() {
-        //            Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
-//                @Override
-//                public void handleResponse(BackendlessUser response) {
 
-        AlertDialog.Builder builder = buildAlertDialog(RegisterActivity.this,
-                "Registration Submitted", getUserString(newUser)+" registered successfully." +
-                        "\nPlease check your email for confirmation." +
-                        "\n\nRegister another user?");
-
-        builder.setPositiveButton("Yes, Add New", new DialogInterface.OnClickListener() {
+        showProgressDialog(RegisterActivity.this, "Registering New User",
+                "Please wait while we register you to our App...", false);
+        Backendless.UserService.register(newUser, new AsyncCallback<BackendlessUser>() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                resetForm();
+            public void handleResponse(BackendlessUser response) {
+
+                progressDialog.dismiss();
+                AlertDialog.Builder builder = buildAlertDialog(RegisterActivity.this,
+                        "Registration Submitted", getUserString(newUser)
+                                + " registered successfully." +
+                                "\nPlease check your email for confirmation." +
+                                "\n\nRegister another user?");
+
+                builder.setPositiveButton("Yes, Add New User",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                resetForm();
+                            }
+                        });
+
+                builder.setNegativeButton("No, Go To Sign In", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).create().show();
+
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                progressDialog.dismiss();
+                showMessageDialog("Error Registering", fault.getMessage());
+//                showCustomToast(getApplicationContext(), toastView, fault.getMessage());
             }
         });
-
-        builder.setNegativeButton("No, Go Back", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        }).create().show();
-
-//                }
-//                @Override
-//                public void handleFault(BackendlessFault fault) {
-//                    showCustomToast(getApplicationContext(), toastView, fault.getMessage());
-//                }
-//            });
     }
 
     private boolean isValidPersonalDetails() {
@@ -382,5 +396,19 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClick_AddPicture(View view) {
+    }
+
+
+    private void showMessageDialog(String title, String message) {
+        AlertDialog.Builder builder = buildAlertDialog(
+                RegisterActivity.this, title, message);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
     }
 }

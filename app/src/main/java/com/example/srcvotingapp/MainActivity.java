@@ -380,8 +380,9 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     showMessageDialog("Unauthorized Access",
                                             "Hmmm... seems like you haven't been granted" +
-                                                    " access to use this App." +
-                                                    "\n\nTry entering credentials again?");
+                                                    " access to use this App yet." +
+                                                    "\n\nPlease contact your Administrator if " +
+                                                    "the issue persists.");
                                 }
                             }
                         }
