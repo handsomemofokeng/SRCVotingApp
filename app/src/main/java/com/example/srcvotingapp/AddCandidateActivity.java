@@ -43,15 +43,10 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     //UI references
     View toastView;
-    EditText etEmail, etName, etFoundCandidate;
-    TextView tvSelectedPortfolio, tvPartyDetails;
-
-    Button btnNext, btnPrevious;
-
-    ImageView ivScanCard, ivSearch, ivResetParty, ivEditCandidate, ivSaveCandidate;
+    EditText etEmail, etFoundCandidate;
+    ImageView ivScanCard, ivSearch, ivResetParty;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
-    Spinner spnPortfolio;
     LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchEmail, frmFoundCandidate;
 
     Party selectedParty;
@@ -73,14 +68,14 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         etEmail.setError(null);
 
-        navigateSpinner(btnNext, btnPrevious, spnPortfolio);
-
+        // TODO: 2019/10/18 Get Party from Backendless
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 hideViews(rbEFFSC, rbDASO, rbSASCO);
-                showViews(ivResetParty, findViewById(checkedId), frmParty);
+
+                showViews(ivResetParty, findViewById(checkedId) , frmParty);
 
                 selectedParty = null;
 
@@ -113,8 +108,7 @@ public class AddCandidateActivity extends AppCompatActivity {
                     queryParty = selectQuery(PARTY_ID, selectedParty.getPartyID(), PARTY_ID);
 
                     // TODO: 2019/09/11 Get Selected Party from Backendless
-
-                    tvPartyDetails.setText(selectedParty.toString());
+//                    tvPartyDetails.setText(selectedParty.toString());
 
                 }
 
@@ -123,93 +117,94 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         validateEmailInput(etEmail, ivScanCard, ivSearch);
 
-        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//        spnPortfolio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                if (position > 0 && position < spnPortfolio.getAdapter().getCount())
+//                    showViews(btnNext, btnPrevious);
+//
+//                if (position > 0) {
+//
+//                    showViews(frmCandidateDetails, frmCandidateName);
+//                    hideViews(frmSearchEmail, frmFoundCandidate);
+//
+//                    tvSelectedPortfolio.setText(Portfolios[position - 1]);
+//
+//                    etName.setText(selectedParty.getCandidateByPosition(position));
+////                    switch (position) {
+////
+////                        case 1:
+////                            etName.setText(selectedParty.getPresident());
+////                            break;
+////
+////                        case 2:
+////
+////                            etName.setText(selectedParty.getDeputyPresident());
+////                            break;
+////
+////                        case 3:
+////
+////                            etName.setText(selectedParty.getSecretaryGeneral());
+////                            break;
+////
+////                        case 4:
+////                            etName.setText(selectedParty.getFinancialOfficer());
+////                            break;
+////
+////                        case 5:
+////                            etName.setText(selectedParty.getConstitutionalAndLegalAffairs());
+////                            break;
+////
+////                        case 6:
+////                            etName.setText(selectedParty.getSportsOfficer());
+////                            break;
+////
+////                        case 7:
+////                            etName.setText(selectedParty.getPublicRelationsOfficer());
+////                            break;
+////
+////                        case 8:
+////                            etName.setText(selectedParty.getHealthAndWelfareOfficer());
+////                            break;
+////
+////                        case 9:
+////                            etName.setText(selectedParty.getProjectsAndCampaignOfficer());
+////                            break;
+////
+////                        case 10:
+////                            etName.setText(selectedParty.getStudentAffairs());
+////                            break;
+////
+////                        case 11:
+////                            etName.setText(selectedParty.getEquityAndDiversityOfficer());
+////                            break;
+////
+////                        case 12:
+////                            etName.setText(selectedParty.getTransformationOfficer());
+////                            break;
+////
+////                        default:
+////
+////                            etName.setText(null);
+////                            break;
+////
+////                    }
+//
+//                } else {
+//
+//                    hideViews(frmCandidateDetails);
+//                    etName.setText(null);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (position > 0 && position < spnPortfolio.getAdapter().getCount())
-                    showViews(btnNext, btnPrevious);
-
-                if (position > 0) {
-
-                    showViews(frmCandidateDetails, frmCandidateName);
-                    hideViews(frmSearchEmail, frmFoundCandidate);
-
-                    tvSelectedPortfolio.setText(Portfolios[position - 1]);
-
-                    etName.setText(selectedParty.getCandidateByPosition(position));
-//                    switch (position) {
-//
-//                        case 1:
-//                            etName.setText(selectedParty.getPresident());
-//                            break;
-//
-//                        case 2:
-//
-//                            etName.setText(selectedParty.getDeputyPresident());
-//                            break;
-//
-//                        case 3:
-//
-//                            etName.setText(selectedParty.getSecretaryGeneral());
-//                            break;
-//
-//                        case 4:
-//                            etName.setText(selectedParty.getFinancialOfficer());
-//                            break;
-//
-//                        case 5:
-//                            etName.setText(selectedParty.getConstitutionalAndLegalAffairs());
-//                            break;
-//
-//                        case 6:
-//                            etName.setText(selectedParty.getSportsOfficer());
-//                            break;
-//
-//                        case 7:
-//                            etName.setText(selectedParty.getPublicRelationsOfficer());
-//                            break;
-//
-//                        case 8:
-//                            etName.setText(selectedParty.getHealthAndWelfareOfficer());
-//                            break;
-//
-//                        case 9:
-//                            etName.setText(selectedParty.getProjectsAndCampaignOfficer());
-//                            break;
-//
-//                        case 10:
-//                            etName.setText(selectedParty.getStudentAffairs());
-//                            break;
-//
-//                        case 11:
-//                            etName.setText(selectedParty.getEquityAndDiversityOfficer());
-//                            break;
-//
-//                        case 12:
-//                            etName.setText(selectedParty.getTransformationOfficer());
-//                            break;
-//
-//                        default:
-//
-//                            etName.setText(null);
-//                            break;
-//
-//                    }
-
-                } else {
-
-                    hideViews(frmCandidateDetails);
-                    etName.setText(null);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     private void initViews() {
@@ -218,24 +213,24 @@ public class AddCandidateActivity extends AppCompatActivity {
                 (ViewGroup) findViewById(R.id.toast_layout));
 
         etEmail = findViewById(R.id.etEmailRegCan);
-        etName = findViewById(R.id.etNameRegCan);
+//        etName = findViewById(R.id.etNameRegCan);
         etFoundCandidate = findViewById(R.id.etFoundCandidateNameRegCan);
 
-        btnNext = findViewById(R.id.btnNavigateNextPortfolio);
-        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolio);
+//        btnNext = findViewById(R.id.btnNavigateNextPortfolio);
+//        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolio);
 
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
-        ivEditCandidate = findViewById(R.id.ivEditCandidateRegCan);
-        ivSaveCandidate = findViewById(R.id.ivSaveCandidateRegCan);
+//        ivEditCandidate = findViewById(R.id.ivEditCandidateRegCan);
+//        ivSaveCandidate = findViewById(R.id.ivSaveCandidateRegCan);
         ivResetParty = findViewById(R.id.ivResetParty);
 
-        tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
-        tvPartyDetails = findViewById(R.id.tvPartyDetails);
+//        tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
+//        tvPartyDetails = findViewById(R.id.tvPartyDetails);
 
         frmParty = findViewById(R.id.frmPartyRegCan);
         frmCandidateDetails = findViewById(R.id.frmCandidateDetails);
-        frmCandidateName = findViewById(R.id.frmCandidateNameRegCan);
+//        frmCandidateName = findViewById(R.id.frmCandidateNameRegCan);
         frmSearchEmail = findViewById(R.id.frmSearchEmailRegCan);
         frmFoundCandidate = findViewById(R.id.frmFoundCandidate);
 
@@ -244,7 +239,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         rbEFFSC = findViewById(R.id.rbEFFSCRegCan);
         rbSASCO = findViewById(R.id.rbSASCORegCan);
 
-        spnPortfolio = findViewById(R.id.spnPortfolioRegCan);
+//        spnPortfolio = findViewById(R.id.spnPortfolioRegCan);
 
     }
 
@@ -277,7 +272,7 @@ public class AddCandidateActivity extends AppCompatActivity {
     public void onClick_SearchEmail(View view) {
 
         if (isEmailValid(etEmail)) {
-            switchViews(frmFoundCandidate, tvPartyDetails);
+            showViews(frmFoundCandidate);//, rvCandidates);
         }
 
     }
@@ -292,16 +287,16 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         uncheckRadioButton(rbEFFSC, rbDASO, rbSASCO);
         showViews(rbEFFSC, rbDASO, rbSASCO);
-        clearSpinners(spnPortfolio);
+//        clearSpinners(spnPortfolio);
         hideViews(ivResetParty, frmParty, frmCandidateDetails);
-        clearFields(etName);
+//        clearFields(etName);
 
     }
 
     public void onClick_EditPortfolio(View view) {
 
         switchViews(frmSearchEmail, frmCandidateName);
-        hideViews(tvPartyDetails);
+//        hideViews(rvCandidates);
         clearFields(etEmail);
 
     }
@@ -319,25 +314,20 @@ public class AddCandidateActivity extends AppCompatActivity {
 
         // TODO: 2019/09/14 Get User string for found User
 
-        selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
+//        selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
 
         showCustomToast(getApplicationContext(), toastView,
                 etEmail.getText().toString().trim() + " assigned to Portfolio: "
-                        + getSpinnerValue(spnPortfolio));
+                        + "CHECK!!");
 
-        tvPartyDetails.setText(selectedParty.toString());
+//        tvPartyDetails.setText(selectedParty.toString());
 
-        switchViews(tvPartyDetails, frmFoundCandidate);
+//        switchViews(rvCandidates, frmFoundCandidate);
 
         switchViews(frmCandidateName, frmSearchEmail);
 
-        etName.setText(selectedParty.getCandidateByPosition(spnPortfolio.getSelectedItemPosition()));
+//        etName.setText(selectedParty.getCandidateByPosition(spnPortfolio.getSelectedItemPosition()));
 
-    }
-
-    public void onClick_Navigate(View view) {
-
-        navigateSpinner(btnNext, btnPrevious, spnPortfolio);
     }
 
 }

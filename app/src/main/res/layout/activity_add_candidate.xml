@@ -5,32 +5,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/default_gap"
-    android:weightSum="10"
+    android:weightSum="12"
     tools:context=".AddCandidateActivity">
 
-<!--    <SearchView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="end"/>-->
+    <!--    <SearchView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="end"/>-->
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal"        >
 
         <ImageView
             android:id="@+id/ivResetParty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
+            android:layout_margin="2.5dp"
             android:background="@drawable/button"
             android:contentDescription="@string/prompt_email"
             android:onClick="onClick_ResetPartySelection"
             android:padding="10dp"
-            android:layout_margin="2.5dp"
             android:src="@drawable/ic_restore"
             android:visibility="gone" />
 
@@ -70,15 +69,13 @@
 
         </RadioGroup>
 
-
     </LinearLayout>
-
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="9"
         android:layout_marginTop="@dimen/default_gap">
+
         <LinearLayout
             android:id="@+id/frmPartyRegCan"
             android:layout_width="match_parent"
@@ -86,156 +83,11 @@
             android:layout_marginBottom="2dp"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/tvPartyDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginBottom="5dp"/>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:padding="2dp"
-                android:background="@drawable/spinner"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnNavigatePreviousPortfolio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button"
-                    android:onClick="onClick_Navigate"
-                    android:foregroundTint="@color/colorButtonForeground"
-                    android:foreground="@drawable/ic_navigate_back"
-                    android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvPortfolioRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="3dp"
-                    android:layout_weight="1.5"
-                    android:drawableStart="@drawable/ic_assign_candidate"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawablePadding="5dp"
-                    android:enabled="false"
-                    android:gravity="center|end"
-                    android:maxLines="1"
-                    android:text="@string/prompt_portfolio"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/text_size" />
-
-                <Spinner
-                    android:id="@+id/spnPortfolioRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="3"
-                    android:entries="@array/portfolio"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/btnNavigateNextPortfolio"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button"
-                    android:onClick="onClick_Navigate"
-                    android:foregroundTint="@color/colorButtonForeground"
-                    android:foreground="@drawable/ic_navigate_next"
-                    android:textColor="@color/colorButtonForeground"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/frmCandidateDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvSelectedPortfolioRegCan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:textSize="@dimen/text_size"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                tools:text="Portfolio"/>
-
-        <LinearLayout
-            android:id="@+id/frmCandidateNameRegCan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="2.5dp"
-            android:layout_marginBottom="2.5dp">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_weight="7">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etNameRegCan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_assign_candidate"
-                    android:drawableTint="@color/colorAccent"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/portfolio_candidate"
-                    android:imeActionId="6"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/black"
-                    android:enabled="false"
-                    android:singleLine="false" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/ivEditCandidateRegCan"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/button"
-                android:contentDescription="@string/prompt_email"
-                android:onClick="onClick_EditPortfolio"
-                android:padding="5dp"
-                android:src="@drawable/ic_edit" />
-
-            <ImageView
-                android:id="@+id/ivSaveCandidateRegCan"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/button"
-                android:contentDescription="@string/prompt_email"
-                android:onClick="onClick_SearchEmail"
-                android:padding="5sp"
-                android:src="@drawable/ic_save"
-                android:visibility="gone" />
-
-        </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/frmSearchEmailRegCan"
@@ -243,73 +95,73 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="2.5dp"
-                android:layout_marginBottom="2.5dp">
-
-                <ImageView
-                    android:id="@+id/ivGoBack"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/button"
-                    android:contentDescription="@string/prompt_email"
-                    android:onClick="onClick_GoBack"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_back" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginStart="2dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_weight="7">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etEmailRegCan"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="9"
-                        android:drawableStart="@drawable/ic_email"
-                        android:drawablePadding="5dp"
-                        android:hint="@string/search_email"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                        android:layout_marginTop="2.5dp"
+                        android:layout_marginBottom="2.5dp"
+                        android:orientation="horizontal">
 
-                </android.support.design.widget.TextInputLayout>
+                        <ImageView
+                            android:id="@+id/ivGoBack"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/button"
+                            android:contentDescription="@string/prompt_email"
+                            android:onClick="onClick_GoBack"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_back" />
 
-                <ImageView
-                    android:id="@+id/ivScanCardRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/button"
-                    android:contentDescription="@string/prompt_email"
-                    android:onClick="onClick_ScanCard"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_card" />
+                        <android.support.design.widget.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="7">
 
-                <ImageView
-                    android:id="@+id/ivSearchRegCan"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/button"
-                    android:contentDescription="@string/prompt_email"
-                    android:onClick="onClick_SearchEmail"
-                    android:padding="5sp"
-                    android:src="@drawable/ic_search"
-                    android:visibility="gone" />
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/etEmailRegCan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="9"
+                                android:drawableStart="@drawable/ic_email"
+                                android:drawablePadding="5dp"
+                                android:hint="@string/search_email"
+                                android:inputType="textEmailAddress"
+                                android:maxLines="1"
+                                android:singleLine="true" />
 
-            </LinearLayout>
+                        </android.support.design.widget.TextInputLayout>
+
+                        <ImageView
+                            android:id="@+id/ivScanCardRegCan"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/button"
+                            android:contentDescription="@string/prompt_email"
+                            android:onClick="onClick_ScanCard"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_card" />
+
+                        <ImageView
+                            android:id="@+id/ivSearchRegCan"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/button"
+                            android:contentDescription="@string/prompt_email"
+                            android:onClick="onClick_SearchEmail"
+                            android:padding="5sp"
+                            android:src="@drawable/ic_search"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/frmFoundCandidate"
@@ -321,19 +173,19 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/text_size"
-                            android:gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/found_candidate"/>
+                            android:gravity="center"
+                            android:text="@string/found_candidate"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold" />
 
                         <android.support.design.widget.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                            android:layout_marginEnd="2dp">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/etFoundCandidateNameRegCan"
@@ -341,22 +193,22 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/ic_person"
                                 android:drawablePadding="5dp"
+                                android:enabled="false"
                                 android:hint="@string/prompt_username"
                                 android:imeActionId="6"
                                 android:imeOptions="actionUnspecified"
                                 android:inputType="textPersonName"
-                                android:textColor="@android:color/black"
                                 android:maxLines="1"
-                                android:enabled="false"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:textColor="@android:color/black" />
 
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                            android:layout_marginEnd="2dp">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/etFoundCandidateCourseRegCan"
@@ -364,191 +216,47 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/ic_school"
                                 android:drawablePadding="5dp"
+                                android:enabled="false"
                                 android:hint="@string/registered_course"
                                 android:imeActionId="6"
                                 android:imeOptions="actionUnspecified"
                                 android:inputType="textPersonName"
-                                android:textColor="@android:color/black"
                                 android:maxLines="1"
-                                android:enabled="false"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:textColor="@android:color/black" />
 
                         </android.support.design.widget.TextInputLayout>
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/button"
-                        android:contentDescription="@string/prompt_email"
-                        android:layout_marginTop="2.5dp"
-                        android:padding="15dp"
-                        android:textStyle="bold"
-                        android:drawablePadding="15dp"
-                        android:text="@string/assign_portfolio"
-                        android:textColor="@color/colorButtonForeground"
-                        android:drawableEnd="@drawable/ic_assign_candidate"
-                        android:onClick="onClick_AssignCandidate"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2.5dp"
+                            android:background="@drawable/button"
+                            android:contentDescription="@string/prompt_email"
+                            android:drawableEnd="@drawable/ic_assign_candidate"
+                            android:drawablePadding="15dp"
+                            android:onClick="onClick_AssignCandidate"
+                            android:padding="15dp"
+                            android:text="@string/assign_portfolio"
+                            android:textColor="@color/colorButtonForeground"
+                            android:textStyle="bold" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/frmReview"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:textColor="@color/colorPrimaryDark"-->
-<!--                    android:textSize="@dimen/text_size"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:text="Review Your Selection:"-->
-
-<!--                    />-->
-
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="2dp">-->
-
-<!--                    <android.support.design.widget.TextInputEditText-->
-<!--                        android:id="@+id/etNameReg"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:drawableStart="@drawable/ic_person"-->
-<!--                        android:drawablePadding="5dp"-->
-<!--                        android:hint="@string/prompt_name"-->
-<!--                        android:imeActionId="6"-->
-<!--                        android:imeActionLabel="@string/action_sign_in_short"-->
-<!--                        android:imeOptions="actionUnspecified"-->
-<!--                        android:inputType="textPersonName"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:singleLine="true" />-->
-
-<!--                </android.support.design.widget.TextInputLayout>-->
-
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="2dp">-->
-
-<!--                    <android.support.design.widget.TextInputEditText-->
-<!--                        android:id="@+id/etSurnameReg"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:drawableStart="@drawable/ic_person"-->
-<!--                        android:drawablePadding="5dp"-->
-<!--                        android:hint="@string/prompt_surname"-->
-<!--                        android:imeOptions="actionUnspecified"-->
-<!--                        android:inputType="textPersonName"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:singleLine="true" />-->
-
-<!--                </android.support.design.widget.TextInputLayout>-->
-
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="2dp">-->
-
-<!--                    <android.support.design.widget.TextInputEditText-->
-<!--                        android:id="@+id/etNameReg"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:drawableStart="@drawable/ic_person"-->
-<!--                        android:drawablePadding="5dp"-->
-<!--                        android:hint="@string/prompt_name"-->
-<!--                        android:imeActionId="6"-->
-<!--                        android:imeActionLabel="@string/action_sign_in_short"-->
-<!--                        android:imeOptions="actionUnspecified"-->
-<!--                        android:inputType="textPersonName"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:singleLine="true" />-->
-
-<!--                </android.support.design.widget.TextInputLayout>-->
-
-<!--                <android.support.design.widget.TextInputLayout-->
-<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="2dp">-->
-
-<!--                    <android.support.design.widget.TextInputEditText-->
-<!--                        android:id="@+id/etSurnameReg"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:drawableStart="@drawable/ic_person"-->
-<!--                        android:drawablePadding="5dp"-->
-<!--                        android:hint="@string/prompt_surname"-->
-<!--                        android:imeOptions="actionUnspecified"-->
-<!--                        android:inputType="textPersonName"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:singleLine="true" />-->
-
-<!--                </android.support.design.widget.TextInputLayout>-->
-
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnGoBack"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="2.5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/button"-->
-<!--                        android:drawableStart="@drawable/ic_back"-->
-<!--                        android:drawablePadding="15dp"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="15dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="15dp"-->
-<!--                        android:text="@string/action_go_back"-->
-<!--                        android:textColor="@color/colorButtonForeground"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnRegisterUser"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="2.5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/button"-->
-<!--                        android:drawableEnd="@drawable/ic_refresh"-->
-<!--                        android:drawablePadding="15dp"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="15dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="15dp"-->
-<!--                        android:text="@string/action_refresh"-->
-<!--                        android:textColor="@color/colorButtonForeground"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-
         </LinearLayout>
 
     </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCandidates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/list_item"
+        android:layout_weight="6"/>
 
 </LinearLayout>
