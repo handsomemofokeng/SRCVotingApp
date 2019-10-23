@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,6 +49,7 @@ public class AddCandidateActivity extends AppCompatActivity {
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
     LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchEmail, frmFoundCandidate;
+    RecyclerView rvCandidates;
 
     Party selectedParty;
     private DataQueryBuilder queryParty;
@@ -212,6 +214,8 @@ public class AddCandidateActivity extends AppCompatActivity {
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
 
+        rvCandidates = findViewById(R.id.rvCandidates);
+
         etEmail = findViewById(R.id.etEmailRegCan);
 //        etName = findViewById(R.id.etNameRegCan);
         etFoundCandidate = findViewById(R.id.etFoundCandidateNameRegCan);
@@ -272,7 +276,7 @@ public class AddCandidateActivity extends AppCompatActivity {
     public void onClick_SearchEmail(View view) {
 
         if (isEmailValid(etEmail)) {
-            showViews(frmFoundCandidate);//, rvCandidates);
+            showViews(frmFoundCandidate, rvCandidates);
         }
 
     }

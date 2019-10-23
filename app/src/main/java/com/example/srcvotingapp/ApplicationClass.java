@@ -765,4 +765,18 @@ public class ApplicationClass extends Application {
         }
 
     }//end method
+
+    /**
+     * Saves user credentials to SharedPreferences
+     * @param username to be saved
+     * @param password to be saved
+     * @param rememberMe to be saved
+     */
+    public static void commitMyPrefs(String username, String password, boolean rememberMe) {
+        SharedPreferences.Editor editor = myPrefs.edit();
+        editor.putBoolean(REMEMBER_ME, rememberMe);
+        editor.putString(EMAIL, username);
+        editor.putString(PASSWORD, password);
+        editor.apply();
+    }
 }

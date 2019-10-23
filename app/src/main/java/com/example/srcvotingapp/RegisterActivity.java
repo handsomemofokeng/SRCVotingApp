@@ -283,10 +283,10 @@ public class RegisterActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = buildAlertDialog(RegisterActivity.this,
                         "Registration Submitted", getUserString(newUser)
                                 + " registered successfully." +
-                                "\nPlease check your email for confirmation." +
+                                "\n\nPlease check your email for confirmation." +
                                 "\n\nRegister another user?");
 
-                builder.setPositiveButton("Yes, Add New User",
+                builder.setPositiveButton("Yes, Add New",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -294,7 +294,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         });
 
-                builder.setNegativeButton("No, Go To Sign In", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No, Sign In", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();

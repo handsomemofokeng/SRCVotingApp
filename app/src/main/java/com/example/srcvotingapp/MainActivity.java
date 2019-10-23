@@ -36,6 +36,7 @@ import static com.example.srcvotingapp.ApplicationClass.REMEMBER_ME;
 import static com.example.srcvotingapp.ApplicationClass.ROLE;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
+import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.currentUserPassword;
 import static com.example.srcvotingapp.ApplicationClass.currentUsername;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
@@ -394,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void handleFault(BackendlessFault fault) {
                             progressDialog.dismiss();
-                            showCustomToast(MainActivity.this, toastView, "Error: "
+                            showMessageDialog("Unauthorized Access", "Error: "
                                     + fault.getMessage());
                         }
                     });
@@ -417,14 +418,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
-    }
-
-    private void commitMyPrefs(String username, String password, boolean rememberMe) {
-        SharedPreferences.Editor editor = myPrefs.edit();
-        editor.putBoolean(REMEMBER_ME, rememberMe);
-        editor.putString(EMAIL, username);
-        editor.putString(PASSWORD, password);
-        editor.apply();
     }
 
     /**
