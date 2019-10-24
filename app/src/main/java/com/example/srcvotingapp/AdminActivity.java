@@ -37,4 +37,8 @@ public class AdminActivity extends AppCompatActivity {
         // TODO: 2019/09/25 send notifications to students and set the timer
 
     }
+
+    public void onClick_ManageParties(View view) {
+        startActivity(new Intent(AdminActivity.this, ManagePartiesActivity.class));
+    }
 }

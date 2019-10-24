@@ -71,5 +71,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="elect_candidates">Elect Candidates</string>
+    <string name="manage_parties">Manage Parties</string>
 
 </resources>
