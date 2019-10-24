@@ -50,10 +50,19 @@ public class ApplicationClass extends Application {
             MY_SHARED_PREFERENCES_NAME = "com.example.srcvotingapp";
     public static final int REQUEST_PHONE = 123;
 
-    public static String[] Portfolios = {"President", "Deputy President", "Secretary General",
-            "Financial Officer", "Constitutional And Legal Affairs", "Sports Officer",
-            "Public Relations Officer", "Health and Welfare Officer", "Projects and Campaign Officer",
-            "Student Affairs", "Equity and Diversity Officer", "Transformation Officer"};
+    public static String[] Portfolios = {
+            "President",
+            "Deputy President",
+            "Secretary General",
+            "Financial Officer",
+            "Constitutional And Legal Affairs",
+            "Sports Officer",
+            "Public Relations Officer",
+            "Health and Welfare Officer",
+            "Projects and Campaign Officer",
+            "Student Affairs",
+            "Equity and Diversity Officer",
+            "Transformation Officer"};
 
     //User Property Constants
     public static final String EMAIL = "email";
@@ -768,8 +777,9 @@ public class ApplicationClass extends Application {
 
     /**
      * Saves user credentials to SharedPreferences
-     * @param username to be saved
-     * @param password to be saved
+     *
+     * @param username   to be saved
+     * @param password   to be saved
      * @param rememberMe to be saved
      */
     public static void commitMyPrefs(String username, String password, boolean rememberMe) {

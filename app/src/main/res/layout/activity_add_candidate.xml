@@ -94,6 +94,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/tvSelectedPortfolio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        tools:text="Assign New Candidate to\nConstitutional And Legal Affairs Portfolio:\nComrade Mathebula (current)"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -251,10 +263,11 @@
 
     </ScrollView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvCandidates"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/list_item"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvCandidates"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_item" />
 
 </LinearLayout>

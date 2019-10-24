@@ -15,28 +15,24 @@ import java.util.ArrayList;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
-public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder>
-{
+public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> {
     private ArrayList<String> candidates;
     ItemClicked activity;
 
-    public interface ItemClicked
-    {
+    public interface ItemClicked {
         void onItemClicked(int index);
     }
 
-    public PartyAdapter(Context context, ArrayList<String> list)
-    {
+    public PartyAdapter(Context context, ArrayList<String> list) {
         candidates = list;
         activity = (ItemClicked) context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPref;
         TextView tvName, tvEmail, tvPortfolio;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             tvPortfolio = itemView.findViewById(R.id.tvCandidatePortfolioRow);
@@ -47,10 +43,10 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    activity.onItemClicked(candidates.indexOf(view.getTag()));
+                    activity.onItemClicked(getAdapterPosition());
                 }
             });
+
         }
     }
 
@@ -70,8 +66,15 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder>
         viewHolder.itemView.setTag(candidates.get(i));
 
         viewHolder.tvPortfolio.setText(Portfolios[i]);
-        viewHolder.tvName.setText(candidates.get(i).split(",")[0].trim());
-        viewHolder.tvEmail.setText(candidates.get(i).split(",")[1].trim());
+        String[] details = candidates.get(i).split(",");
+
+        if (details.length > 1) {
+            viewHolder.tvName.setText(details[0]);
+            viewHolder.tvEmail.setText(details[1]);
+        }else{
+            viewHolder.tvName.setText(candidates.get(i));
+            viewHolder.tvEmail.setText(candidates.get(i));
+        }
 
         // TODO: 2019/10/24 Load Pictures
 //        if (candidates.get(i).getPreference().equals("bus"))

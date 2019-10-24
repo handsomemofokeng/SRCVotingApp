@@ -9,14 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.backendless.persistence.DataQueryBuilder;
@@ -30,12 +27,9 @@ import java.util.ArrayList;
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
-import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
-import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
-import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
@@ -50,11 +44,12 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
     //UI references
     View toastView;
-    EditText etEmail, etFoundCandidate;
+    EditText etEmail, etFoundCandidateName, etFoundCandidateCourse;
+    TextView tvSelectedPortfolio;
     ImageView ivScanCard, ivSearch, ivResetParty;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
-    LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchEmail, frmFoundCandidate;
+    LinearLayout frmParty, frmCandidateDetails, frmSearchEmail, frmFoundCandidate;//  frmCandidateName,
 
     //RecyclerView References
     RecyclerView rvCandidates;
@@ -62,8 +57,12 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> candidates;
 
-    Party selectedParty;
+    private Party selectedParty;
     private DataQueryBuilder queryParty;
+    private String selectedPortfolio = "";
+    private int selectedPosition = -1;
+    private String selectedCandidate =",";
+    String foundCandidate = ",";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,26 +76,29 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
         initViews();
 
-
-        hideViews(frmParty, frmCandidateDetails);
-
-        etEmail.setError(null);
+        resetForm();
+//        hideViews(frmCandidateDetails);//frmParty,
+//
+//        etEmail.setError(null);
 
         // TODO: 2019/10/18 Get Party from Backendless
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                hideViews(rbEFFSC, rbDASO, rbSASCO);
+                hideViews(rbEFFSC, rbDASO, rbSASCO, frmFoundCandidate);
 
-                showViews(ivResetParty, findViewById(checkedId), frmParty);
+                showViews(ivResetParty, findViewById(checkedId), frmParty, rvCandidates);
 
                 selectedParty = null;
+
 
                 switch (checkedId) {
 
                     case R.id.rbEFFSCRegCan:
 
+                        selectedPortfolio = "EFFSC";
+                        // TODO: 2019/10/24 Remove Below!
                         selectedParty = new Party("Economic Freedom Fighters Students' Command",
                                 "EFFSC");
 
@@ -104,6 +106,8 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
                     case R.id.rbDASORegCan:
 
+                        selectedPortfolio = "DASO";
+                        // TODO: 2019/10/24 Remove Below!
                         selectedParty = new Party("Democratic Alliance Student Organisation",
                                 "DASO");
 
@@ -111,6 +115,8 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
                     case R.id.rbSASCORegCan:
 
+                        selectedPortfolio = "SASCO";
+                        // TODO: 2019/10/24 Remove Below!
                         selectedParty = new Party("South African Student Congress",
                                 "SASCO");
 
@@ -129,8 +135,8 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                     candidates = new ArrayList<>();
 
                     candidates.add(selectedParty.getPresident());
-                    candidates.add( selectedParty.getDeputyPresident());
-                    candidates.add( selectedParty.getSecretaryGeneral());
+                    candidates.add(selectedParty.getDeputyPresident());
+                    candidates.add(selectedParty.getSecretaryGeneral());
                     candidates.add(selectedParty.getFinancialOfficer());
                     candidates.add(selectedParty.getConstitutionalAndLegalAffairs());
                     candidates.add(selectedParty.getSportsOfficer());
@@ -252,25 +258,17 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         rvCandidates = findViewById(R.id.rvCandidates);
         rvCandidates.setHasFixedSize(true);
 
+
         etEmail = findViewById(R.id.etEmailRegCan);
-//        etName = findViewById(R.id.etNameRegCan);
-        etFoundCandidate = findViewById(R.id.etFoundCandidateNameRegCan);
-
-//        btnNext = findViewById(R.id.btnNavigateNextPortfolio);
-//        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolio);
-
+        etFoundCandidateName = findViewById(R.id.etFoundCandidateNameRegCan);
+        etFoundCandidateCourse = findViewById(R.id.etFoundCandidateCourseRegCan);
         ivScanCard = findViewById(R.id.ivScanCardRegCan);
         ivSearch = findViewById(R.id.ivSearchRegCan);
-//        ivEditCandidate = findViewById(R.id.ivEditCandidateRegCan);
-//        ivSaveCandidate = findViewById(R.id.ivSaveCandidateRegCan);
         ivResetParty = findViewById(R.id.ivResetParty);
 
-//        tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolioRegCan);
-//        tvPartyDetails = findViewById(R.id.tvPartyDetails);
-
+        tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolio);
         frmParty = findViewById(R.id.frmPartyRegCan);
         frmCandidateDetails = findViewById(R.id.frmCandidateDetails);
-//        frmCandidateName = findViewById(R.id.frmCandidateNameRegCan);
         frmSearchEmail = findViewById(R.id.frmSearchEmailRegCan);
         frmFoundCandidate = findViewById(R.id.frmFoundCandidate);
 
@@ -278,9 +276,6 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         rbDASO = findViewById(R.id.rbDASORegCan);
         rbEFFSC = findViewById(R.id.rbEFFSCRegCan);
         rbSASCO = findViewById(R.id.rbSASCORegCan);
-
-//        spnPortfolio = findViewById(R.id.spnPortfolioRegCan);
-
     }
 
     @Override
@@ -312,7 +307,16 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     public void onClick_SearchEmail(View view) {
 
         if (isEmailValid(etEmail)) {
-            showViews(frmFoundCandidate, rvCandidates);
+
+            // TODO: 2019/10/24 If User is found populate fields
+            showViews(frmFoundCandidate);
+
+//            Backendless.Data.of(Party.class).find(selectQuery());
+//            selectedParty.assignPortfolio();
+//            etFoundCandidateName.setText();
+//            etFoundCandidateCourse.setText();
+
+
         }
 
     }
@@ -327,51 +331,57 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
         uncheckRadioButton(rbEFFSC, rbDASO, rbSASCO);
         showViews(rbEFFSC, rbDASO, rbSASCO);
-//        clearSpinners(spnPortfolio);
-        hideViews(ivResetParty, frmParty, frmCandidateDetails);
-//        clearFields(etName);
-
-    }
-
-    public void onClick_EditPortfolio(View view) {
-
-        switchViews(frmSearchEmail, frmCandidateName);
-//        hideViews(rvCandidates);
-        clearFields(etEmail);
+        clearFields(etEmail, etFoundCandidateName, etFoundCandidateCourse);
+        etEmail.setError(null);
+        hideViews(ivResetParty, frmParty, frmCandidateDetails, rvCandidates);
+        selectedParty = null;
+        selectedCandidate = "";
+        selectedPosition = -1;
+        selectedPortfolio = null;
+        foundCandidate = null;
 
     }
 
     public void onClick_GoBack(View view) {
 
         hideViews(frmFoundCandidate);
-        switchViews(rvCandidates, frmSearchEmail);
+        switchViews(rvCandidates, frmCandidateDetails);
+        clearFields(etEmail, etFoundCandidateName, etFoundCandidateCourse);
 
     }
 
     public void onClick_AssignCandidate(View view) {
 
-        //if successful...
-
-        // TODO: 2019/09/14 Get User string for found User
-
-//        selectedParty.assignPortfolio(getSpinnerValue(spnPortfolio), etEmail.getText().toString().trim());
+        // TODO: 2019/09/14 Get User string for found User if successful...
 
         showCustomToast(getApplicationContext(), toastView,
                 etEmail.getText().toString().trim() + " assigned to Portfolio: "
                         + "CHECK!!");
 
-//        tvPartyDetails.setText(selectedParty.toString());
 
-//        switchViews(rvCandidates, frmFoundCandidate);
+// TODO: 2019/10/24 REMOVE
+        selectedParty.assignPortfolio(selectedPortfolio, etEmail.getText().toString().trim() );// getUserString(foundCandidate)
 
-        switchViews(frmCandidateName, frmSearchEmail);
 
-//        etName.setText(selectedParty.getCandidateByPosition(spnPortfolio.getSelectedItemPosition()));
+        switchViews(rvCandidates, frmCandidateDetails);
+
+        candidates.set(selectedPosition, "Test, One");
+        myAdapter.notifyDataSetChanged();
 
     }
 
     @Override
     public void onItemClicked(int index) {
+
         switchViews(frmCandidateDetails, rvCandidates);
+
+        selectedCandidate = candidates.get(index);
+        selectedPosition = index;
+
+        String strCandidate = "Assign New Candidate to\n"
+                + Portfolios[index] + " Portfolio:\n"
+                + selectedCandidate.split(",")[0].trim() + " (current)";
+
+        tvSelectedPortfolio.setText(strCandidate);
     }
 }
