@@ -344,10 +344,16 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
     public void onClick_GoBack(View view) {
 
+        showCandidateList();
+
+    }
+
+    private void showCandidateList() {
+
         hideViews(frmFoundCandidate);
         switchViews(rvCandidates, frmCandidateDetails);
         clearFields(etEmail, etFoundCandidateName, etFoundCandidateCourse);
-
+        etEmail.setError(null);
     }
 
     public void onClick_AssignCandidate(View view) {
@@ -357,6 +363,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         showCustomToast(getApplicationContext(), toastView,
                 etEmail.getText().toString().trim() + " assigned to Portfolio: "
                         + "CHECK!!");
+        showCandidateList();
 
 
 // TODO: 2019/10/24 REMOVE
