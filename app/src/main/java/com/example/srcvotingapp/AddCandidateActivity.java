@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +21,24 @@ import android.widget.TextView;
 
 import com.backendless.persistence.DataQueryBuilder;
 import com.example.srcvotingapp.BL.Party;
+import com.example.srcvotingapp.BL.PartyAdapter;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.util.ArrayList;
 
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
+import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.navigateSpinner;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
+import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
@@ -40,7 +46,7 @@ import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.uncheckRadioButton;
 import static com.example.srcvotingapp.ApplicationClass.validateEmailInput;
 
-public class AddCandidateActivity extends AppCompatActivity {
+public class AddCandidateActivity extends AppCompatActivity implements PartyAdapter.ItemClicked {
 
     //UI references
     View toastView;
@@ -49,7 +55,12 @@ public class AddCandidateActivity extends AppCompatActivity {
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
     LinearLayout frmParty, frmCandidateDetails, frmCandidateName, frmSearchEmail, frmFoundCandidate;
+
+    //RecyclerView References
     RecyclerView rvCandidates;
+    RecyclerView.Adapter myAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<String> candidates;
 
     Party selectedParty;
     private DataQueryBuilder queryParty;
@@ -62,9 +73,10 @@ public class AddCandidateActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
-                    "Register New Candidate");
+                    getUserString(sessionUser));
 
         initViews();
+
 
         hideViews(frmParty, frmCandidateDetails);
 
@@ -77,7 +89,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 
                 hideViews(rbEFFSC, rbDASO, rbSASCO);
 
-                showViews(ivResetParty, findViewById(checkedId) , frmParty);
+                showViews(ivResetParty, findViewById(checkedId), frmParty);
 
                 selectedParty = null;
 
@@ -108,6 +120,29 @@ public class AddCandidateActivity extends AppCompatActivity {
                 if (selectedParty != null) {
 
                     queryParty = selectQuery(PARTY_ID, selectedParty.getPartyID(), PARTY_ID);
+
+                    layoutManager = new LinearLayoutManager(AddCandidateActivity.this,
+                            LinearLayout.VERTICAL, false);
+
+                    rvCandidates.setLayoutManager(layoutManager);
+
+                    candidates = new ArrayList<>();
+
+                    candidates.add(selectedParty.getPresident());
+                    candidates.add( selectedParty.getDeputyPresident());
+                    candidates.add( selectedParty.getSecretaryGeneral());
+                    candidates.add(selectedParty.getFinancialOfficer());
+                    candidates.add(selectedParty.getConstitutionalAndLegalAffairs());
+                    candidates.add(selectedParty.getSportsOfficer());
+                    candidates.add(selectedParty.getPublicRelationsOfficer());
+                    candidates.add(selectedParty.getHealthAndWelfareOfficer());
+                    candidates.add(selectedParty.getProjectsAndCampaignOfficer());
+                    candidates.add(selectedParty.getStudentAffairs());
+                    candidates.add(selectedParty.getEquityAndDiversityOfficer());
+                    candidates.add(selectedParty.getTransformationOfficer());
+
+                    myAdapter = new PartyAdapter(AddCandidateActivity.this, candidates);
+                    rvCandidates.setAdapter(myAdapter);
 
                     // TODO: 2019/09/11 Get Selected Party from Backendless
 //                    tvPartyDetails.setText(selectedParty.toString());
@@ -215,6 +250,7 @@ public class AddCandidateActivity extends AppCompatActivity {
                 (ViewGroup) findViewById(R.id.toast_layout));
 
         rvCandidates = findViewById(R.id.rvCandidates);
+        rvCandidates.setHasFixedSize(true);
 
         etEmail = findViewById(R.id.etEmailRegCan);
 //        etName = findViewById(R.id.etNameRegCan);
@@ -308,7 +344,7 @@ public class AddCandidateActivity extends AppCompatActivity {
     public void onClick_GoBack(View view) {
 
         hideViews(frmFoundCandidate);
-        switchViews(frmCandidateName, frmSearchEmail);
+        switchViews(rvCandidates, frmSearchEmail);
 
     }
 
@@ -334,4 +370,8 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemClicked(int index) {
+        switchViews(frmCandidateDetails, rvCandidates);
+    }
 }

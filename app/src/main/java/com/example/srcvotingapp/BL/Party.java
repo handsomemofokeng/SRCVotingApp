@@ -23,18 +23,18 @@ public class Party {
         PartyName = partyName;
         PartyID = partyID;
 
-        setPresident("Not set");
-        setDeputyPresident("Not set");
-        setSecretaryGeneral("Not set");
-        setFinancialOfficer("Not set");
-        setConstitutionalAndLegalAffairs("Not set");
-        setSportsOfficer("Not set");
-        setPublicRelationsOfficer("Not set");
-        setHealthAndWelfareOfficer("Not set");
-        setProjectsAndCampaignOfficer("Not set");
-        setStudentAffairs("Not set");
-        setEquityAndDiversityOfficer("Not set");
-        setTransformationOfficer("Not set");
+        setPresident("Not set, Not set");
+        setDeputyPresident("Not set, Not set");
+        setSecretaryGeneral("Not set, Not set");
+        setFinancialOfficer("Not set, Not set");
+        setConstitutionalAndLegalAffairs("Not set, Not set");
+        setSportsOfficer("Not set, Not set");
+        setPublicRelationsOfficer("Not set, Not set");
+        setHealthAndWelfareOfficer("Not set, Not set");
+        setProjectsAndCampaignOfficer("Not set, Not set");
+        setStudentAffairs("Not set, Not set");
+        setEquityAndDiversityOfficer("Not set, Not set");
+        setTransformationOfficer("Not set, Not set");
     }
 
     public String getPartyName() {
@@ -198,56 +198,56 @@ public class Party {
     }
 
     public String getCandidateByPosition(int position){
-        String candidate = "Not set";
+        String candidate = "Not set, Not set";
         switch (position) {
 
-            case 1:
+            case 0:
                 candidate = getPresident();
                 break;
 
-            case 2:
+            case 1:
 
                 candidate =getDeputyPresident();
                 break;
 
-            case 3:
+            case 2:
 
                 candidate =getSecretaryGeneral();
                 break;
 
-            case 4:
+            case 3:
                 candidate =getFinancialOfficer();
                 break;
 
-            case 5:
+            case 4:
                 candidate =getConstitutionalAndLegalAffairs();
                 break;
 
-            case 6:
+            case 5:
                 candidate =getSportsOfficer();
                 break;
 
-            case 7:
+            case 6:
                 candidate =getPublicRelationsOfficer();
                 break;
 
-            case 8:
+            case 7:
                 candidate =getHealthAndWelfareOfficer();
                 break;
 
-            case 9:
+            case 8:
                 candidate =getProjectsAndCampaignOfficer();
                 break;
 
-            case 10:
+            case 9:
                 candidate =getStudentAffairs();
                 break;
 
-            case 11:
+            case 10:
                 candidate =getEquityAndDiversityOfficer();
                 break;
 
-            case 12:
+            case 11:
                 candidate =getTransformationOfficer();
                 break;
 

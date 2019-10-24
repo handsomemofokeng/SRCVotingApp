@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.srcvotingapp">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ApplicationClass"
         android:allowBackup="true"
@@ -10,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InsightsActivity"></activity>
+        <activity android:name=".InsightsActivity" />
         <activity android:name=".ResultsActivity" />
         <activity
             android:name=".AddCandidateActivity"
@@ -36,8 +39,5 @@
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

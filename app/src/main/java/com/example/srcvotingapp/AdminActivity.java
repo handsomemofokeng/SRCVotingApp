@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import static com.example.srcvotingapp.ApplicationClass.getUserString;
+import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 
 public class AdminActivity extends AppCompatActivity {
@@ -17,8 +19,8 @@ public class AdminActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
-            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
-                    "Admin Menu");
+            setupActionBar(getSupportActionBar(), "Admin Menu",
+                    getUserString(sessionUser));
     }
 
     public void onClick_ViewResults(View view) {
@@ -33,5 +35,6 @@ public class AdminActivity extends AppCompatActivity {
 
     public void onClick_StartElections(View view) {
         // TODO: 2019/09/25 send notifications to students and set the timer
+
     }
 }

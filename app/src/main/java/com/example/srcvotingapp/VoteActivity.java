@@ -94,7 +94,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
         AlertDialog.Builder builder = buildAlertDialog(this, "Discard Changes",
                 "Are you sure you want to exit without saving?" +
-                        "\nAll progress will be lost!");
+                        "\n\nAll progress will be lost!");
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -124,7 +124,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                 numVotesSoFar++;
                 if (studentVote.isVotesValid()){
                     showViews(btnSubmitVotes);//fabSubmitVotes);
-                    showCustomToast(getApplicationContext(), toastView, "Votes complete!");
+                    showCustomToast(getApplicationContext(), toastView, "Elections complete!");
                 }
             }
         } else {

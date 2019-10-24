@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (rememberMe && isPhoneConnected(MainActivity.this)) {
             if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
-                attemptLogIn();
+                // TODO: 2019/10/23  attemptLogIn();
             }
         }
 
@@ -320,8 +320,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SignIn(View view) {
-        attemptLogIn();
-//        startActivity(new Intent(MainActivity.this, VoteActivity.class));
+        // TODO: 2019/10/23  attemptLogIn();
+        startActivity(new Intent(MainActivity.this, VoteActivity.class));
     }
 
     @Override
