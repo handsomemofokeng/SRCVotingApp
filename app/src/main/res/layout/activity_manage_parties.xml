@@ -5,8 +5,166 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/default_gap"
     tools:context=".ManagePartiesActivity">
 
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvSelectedPortfolio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_size"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="Select Party" />
+
+            <CheckBox
+                android:id="@+id/chkSelectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2.5dp"
+                android:background="@drawable/spinner"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_size"
+                android:textStyle="bold"
+                android:text="@string/select_all" />
+
+
+            <CheckBox
+                android:id="@+id/chkDASO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2.5dp"
+                android:background="@drawable/spinner"
+                android:drawableStart="@mipmap/ic_daso_round"
+                android:drawablePadding="@dimen/default_gap"
+                android:padding="2.5dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/daso" />
+
+            <CheckBox
+                android:id="@+id/chkEFFSC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2.5dp"
+                android:background="@drawable/spinner"
+                android:drawableStart="@mipmap/ic_effsc_round"
+                android:drawablePadding="@dimen/default_gap"
+                android:layout_marginStart="@dimen/default_gap"
+                android:padding="2.5dp"
+                android:text="@string/effsc" />
+
+            <CheckBox
+                android:id="@+id/rbSASCORegCan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2.5dp"
+                android:background="@drawable/spinner"
+                android:drawableStart="@mipmap/ic_sasco_round"
+                android:drawablePadding="@dimen/default_gap"
+                android:layout_marginStart="@dimen/default_gap"
+                android:padding="2.5dp"
+                android:text="@string/sasco" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnAddCandidateAdm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_add_person"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="25dp"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/btnManageParties"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_group"
+                    android:drawableTint="@color/colorButtonForeground"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="25dp"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnStartElectionsAdm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_timer"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="25dp"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/btnViewResultsAdm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_poll"
+                    android:gravity="center"
+                    android:paddingStart="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="25dp"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

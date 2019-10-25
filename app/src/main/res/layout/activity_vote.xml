@@ -45,13 +45,13 @@
                     android:textColor="@android:color/white" />
 
                 <TextView
-                    android:id="@+id/subtitle"
+                    android:id="@+id/tvSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingStart="@dimen/appbar_padding"
                     android:paddingEnd="@dimen/appbar_padding"
-                    android:text="Student Name"
+                    tools:text="Student Name"
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
                     android:textColor="@android:color/white" />
 

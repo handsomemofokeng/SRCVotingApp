@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
-import static com.example.srcvotingapp.ApplicationClass.getUserString;
+import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
@@ -72,7 +72,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
-                    getUserString(sessionUser));
+                    getUserFullName(sessionUser));
 
         initViews();
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
@@ -20,7 +21,7 @@ public class AdminActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             setupActionBar(getSupportActionBar(), "Admin Menu",
-                    getUserString(sessionUser));
+                    getUserFullName(sessionUser));
     }
 
     public void onClick_ViewResults(View view) {

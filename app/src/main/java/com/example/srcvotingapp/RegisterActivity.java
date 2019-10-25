@@ -41,6 +41,7 @@ import static com.example.srcvotingapp.ApplicationClass.clearSpinners;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
+import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
@@ -281,7 +282,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 AlertDialog.Builder builder = buildAlertDialog(RegisterActivity.this,
-                        "Registration Submitted", getUserString(newUser)
+                        "Registration Submitted", getUserFullName(newUser)
                                 + " registered successfully." +
                                 "\n\nPlease check your email for confirmation." +
                                 "\n\nRegister another user?");

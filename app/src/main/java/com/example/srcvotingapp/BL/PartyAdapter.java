@@ -69,11 +69,11 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
         String[] details = candidates.get(i).split(",");
 
         if (details.length > 1) {
-            viewHolder.tvName.setText(details[0]);
-            viewHolder.tvEmail.setText(details[1]);
+            viewHolder.tvName.setText(details[0].trim());
+            viewHolder.tvEmail.setText(details[1].trim());
         }else{
-            viewHolder.tvName.setText(candidates.get(i));
-            viewHolder.tvEmail.setText(candidates.get(i));
+            viewHolder.tvName.setText(candidates.get(i).trim());
+            viewHolder.tvEmail.setText(candidates.get(i).trim());
         }
 
         // TODO: 2019/10/24 Load Pictures

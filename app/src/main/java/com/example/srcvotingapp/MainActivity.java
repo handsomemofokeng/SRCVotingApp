@@ -114,30 +114,27 @@ public class MainActivity extends AppCompatActivity {
 
         if (rememberMe && isPhoneConnected(MainActivity.this)) {
             if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
-                // TODO: 2019/10/23  attemptLogIn();
+                // TODO: 2019/10/23
+                 attemptLogIn();
             }
         }
 
-        // TODO: 2019/10/06 Authenticate Admin
-        ivSignIn.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                startActivity(new Intent(MainActivity.this, AdminActivity.class));
-                return false;
-            }
-        });
+        // TODO: 2019/10/06 Offline Authenticate Admin
+//        ivSignIn.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                startActivity(new Intent(MainActivity.this, AdminActivity.class));
+//                return false;
+//            }
+//        });
 
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //showScanButton();
-//                switchViews(ivScanCard, ivCorrect);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //showScanButton();
-//                switchViews(ivScanCard, ivCorrect);
             }
 
             @Override
@@ -147,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 if (btnResetPassword.getText().toString().equals(getString(R.string.action_go_back))) {
                     hideViews(ivCorrect);
                     if (isEmailValid(etEmail)) {
-                        //showSearchButton();
                         switchViews(ivSendResetLink, ivScanCard);
                         if (isPasswordValid(etPassword.getText().toString()))
                             showViews(ivSignIn);
@@ -155,14 +151,12 @@ public class MainActivity extends AppCompatActivity {
                             hideViews(ivSignIn);
 
                     } else {
-                        //showScanButton();
                         switchViews(ivScanCard, ivSendResetLink);
                         hideViews(ivSignIn);
                     }
 
                 } else {
                     if (isEmailValid(etEmail)) {
-                        //showSearchButton();
                         switchViews(ivCorrect, ivScanCard);
                         if (isPasswordValid(etPassword.getText().toString()))
                             showViews(ivSignIn);
@@ -170,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
                             hideViews(ivSignIn);
 
                     } else {
-                        //showScanButton();
                         switchViews(ivScanCard, ivCorrect);
                         hideViews(ivSignIn);
                     }
@@ -320,8 +313,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SignIn(View view) {
-        // TODO: 2019/10/23  attemptLogIn();
-        startActivity(new Intent(MainActivity.this, VoteActivity.class));
+        // TODO: 2019/10/23 startActivity(new Intent(MainActivity.this, VoteActivity.class)); //Offine
+        attemptLogIn();
+
     }
 
     @Override
@@ -376,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (response.getProperty(ROLE).toString().equals("Student")) {
                                     if (!(boolean) response.getProperty(HAS_VOTED)) {
                                         startActivity(new Intent(MainActivity.this,
-                                                VoteActivity.class));
+                                                StudentActivity.class));
                                     } else {
                                         startActivity(new Intent(MainActivity.this,
                                                 ResultsActivity.class));

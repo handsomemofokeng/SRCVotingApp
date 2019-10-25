@@ -356,6 +356,10 @@ public class ApplicationClass extends Application {
         return userStr;
     }
 
+    public static String getUserFullName(BackendlessUser user) {
+        return user.getProperty(NAME) + " " + user.getProperty(SURNAME);
+    }
+
     /**
      * This method sets up an Action Bar for any given Activity
      *

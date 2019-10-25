@@ -18,9 +18,11 @@ import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
 import static com.example.srcvotingapp.ApplicationClass.reverseTimer;
+import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
@@ -31,7 +33,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     private View toastView;
      TabLayout tabs;
     private Button btnNext, btnPrevious;
-    private TextView tvTimer;
+    private TextView tvTimer, tvSubtitle;
     private ProgressBar pbVotes;
 
     FloatingActionButton fabSubmitVotes;
@@ -58,6 +60,9 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                 getSupportFragmentManager());
         viewPager.setAdapter(sectionsPagerAdapter);
 
+
+        tvSubtitle.setText(getUserFullName(sessionUser));
+
         navigateTabs(btnNext, btnPrevious, viewPager);
 
         hideViews(btnSubmitVotes);//fabSubmitVotes);
@@ -81,6 +86,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         tvTimer = findViewById(R.id.tvTimer);
+        tvSubtitle = findViewById(R.id.tvSubtitle);
         btnNext = findViewById(R.id.btnNavigateNextVote);
         btnPrevious = findViewById(R.id.btnNavigatePreviousVote);
         pbVotes = findViewById(R.id.pbVotes);
