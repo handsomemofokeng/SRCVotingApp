@@ -1,6 +1,5 @@
 package com.example.srcvotingapp;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -368,14 +367,8 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 if (response.getProperty(ROLE).toString().toLowerCase()
                                         .contains("student")) {
-                                    if (!(boolean) response.getProperty(HAS_VOTED)) {
-                                        startActivity(new Intent(MainActivity.this,
-                                                VoteActivity.class));
-                                    } else {
-                                        startActivity(new Intent(MainActivity.this,
-                                                ResultsActivity.class));
-                                    }
-
+                                    startActivity(new Intent(MainActivity.this,
+                                            StudentActivity.class));
                                 } else {
                                     showMessageDialog("Unauthorized Access",
                                             "Hmmm... seems like you haven't been granted" +
@@ -417,7 +410,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Async Task to get settings on the background before executing
      */
-    @SuppressLint("StaticFieldLeak")
     private class GetDataInBackground extends AsyncTask<Void, Void, Void> {
 
         private String errors;
