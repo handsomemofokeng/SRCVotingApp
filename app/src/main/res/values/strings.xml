@@ -76,5 +76,7 @@
     <string name="daso">DASO\nDemocratic Alliance Student Organisation</string>
     <string name="effsc">EFFSC\nEconomic Freedom Fighters Students\' Command</string>
     <string name="sasco">SASCO\nSouth African Student Congress</string>
+    <string name="action_go_to_profile">Go to Profile</string>
+    <string name="action_go_home">Go To Home Page</string>
 
 </resources>

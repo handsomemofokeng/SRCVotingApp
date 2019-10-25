@@ -1,5 +1,6 @@
 package com.example.srcvotingapp;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -25,6 +26,9 @@ import java.util.ArrayList;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
+import static com.example.srcvotingapp.ApplicationClass.ROLE;
+import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
+import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
@@ -44,8 +48,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
-            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
-                    "Live Results");
+            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name), getUserFullName(sessionUser));
 
         initViews();
 
@@ -108,8 +111,8 @@ public class ResultsActivity extends AppCompatActivity {
         //Generate Random Entries
         for (int i = 1; i <= 12; i++) {
             entriesDASO.add(new BarEntry(i, (float) Math.random() * 1000f));
-            entriesEFFSC.add(new BarEntry(i, (float) Math.random()  * 1000f));
-            entriesSASCO.add(new BarEntry(i, (float) Math.random()  * 1000f));
+            entriesEFFSC.add(new BarEntry(i, (float) Math.random() * 1000f));
+            entriesSASCO.add(new BarEntry(i, (float) Math.random() * 1000f));
         }
 
         BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
@@ -167,14 +170,17 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_RefreshVotes(View view) {
-//        drawGroupChart();
-        chart.animateXY(4000, 2000);
-        chart.invalidate();
-    }
-
     public void onClick_GoBack(View view) {
         finish();
     }
 
+    public void onClick_GoHome(View view) {
+
+        if (sessionUser.getProperty(ROLE).toString().toLowerCase().contains("admin")) {
+            startActivity(new Intent(ResultsActivity.this, AdminActivity.class));
+        } else {
+            startActivity(new Intent(ResultsActivity.this, StudentActivity.class));
+        }
+        finish();
+    }
 }

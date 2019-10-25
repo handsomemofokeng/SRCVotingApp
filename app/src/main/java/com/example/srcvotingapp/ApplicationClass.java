@@ -218,6 +218,29 @@ public class ApplicationClass extends Application {
     }
 
     /**
+     * This method disable views
+     *
+     * @param views to be disabled
+     */
+    public static void disableViews(View... views) {
+        for (View view : views) {
+            view.setEnabled(false);
+        }
+    }
+
+    /**
+     * This method endisable views
+     *
+     * @param views to be enabled
+     */
+    public static void enableViews(View... views) {
+        for (View view : views) {
+            view.setEnabled(true);
+        }
+    }
+
+
+    /**
      * This method clears text fields
      *
      * @param fields to be cleared

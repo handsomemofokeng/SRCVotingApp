@@ -1,9 +1,9 @@
 package com.example.srcvotingapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -35,7 +35,6 @@ import static com.example.srcvotingapp.ApplicationClass.PASSWORD;
 import static com.example.srcvotingapp.ApplicationClass.REMEMBER_ME;
 import static com.example.srcvotingapp.ApplicationClass.ROLE;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
-import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.currentUserPassword;
 import static com.example.srcvotingapp.ApplicationClass.currentUsername;
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         if (rememberMe && isPhoneConnected(MainActivity.this)) {
             if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
                 // TODO: 2019/10/23
-                 attemptLogIn();
+                attemptLogIn();
             }
         }
 
@@ -267,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                         public void handleFault(BackendlessFault fault) {
 
                             progressDialog.dismiss();
-                            showMessageDialog("Reset Error",fault.getMessage());
+                            showMessageDialog("Reset Error", fault.getMessage());
                             showLoginForm();
 
                         }
@@ -303,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             showLoginForm();
         }
-
 
 
     }
@@ -363,14 +361,16 @@ public class MainActivity extends AppCompatActivity {
                                         chkRememberMe.isChecked());
                             }
 
-                            if (response.getProperty(ROLE).toString().equals("Admin")) {
+                            if (response.getProperty(ROLE).toString().toLowerCase()
+                                    .contains("admin")) {
                                 startActivity(new Intent(MainActivity.this,
                                         AdminActivity.class));
                             } else {
-                                if (response.getProperty(ROLE).toString().equals("Student")) {
+                                if (response.getProperty(ROLE).toString().toLowerCase()
+                                        .contains("student")) {
                                     if (!(boolean) response.getProperty(HAS_VOTED)) {
                                         startActivity(new Intent(MainActivity.this,
-                                                StudentActivity.class));
+                                                VoteActivity.class));
                                     } else {
                                         startActivity(new Intent(MainActivity.this,
                                                 ResultsActivity.class));
@@ -417,6 +417,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Async Task to get settings on the background before executing
      */
+    @SuppressLint("StaticFieldLeak")
     private class GetDataInBackground extends AsyncTask<Void, Void, Void> {
 
         private String errors;

@@ -55,8 +55,8 @@
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
                     android:textColor="@android:color/white" />
 
-
             </LinearLayout>
+
         </LinearLayout>
 
         <HorizontalScrollView

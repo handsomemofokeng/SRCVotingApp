@@ -42,7 +42,6 @@ import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
 import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
-import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.isPasswordsMatching;
@@ -398,7 +397,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void onClick_AddPicture(View view) {
     }
-
 
     private void showMessageDialog(String title, String message) {
         AlertDialog.Builder builder = buildAlertDialog(
