@@ -17,20 +17,15 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
-import static com.example.srcvotingapp.ApplicationClass.ROLE;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
-import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 
 public class ResultsActivity extends AppCompatActivity {
 
@@ -39,7 +34,7 @@ public class ResultsActivity extends AppCompatActivity {
     BarChart chart;
 
     //    Button btnNext, btnPrevious;
-    Spinner spnPortfolio;
+    //    Spinner spnPortfolio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,11 +171,11 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void onClick_GoHome(View view) {
 
-        if (sessionUser.getProperty(ROLE).toString().toLowerCase().contains("admin")) {
-            startActivity(new Intent(ResultsActivity.this, AdminActivity.class));
-        } else {
-            startActivity(new Intent(ResultsActivity.this, StudentActivity.class));
-        }
+//        if (sessionUser.getProperty(ROLE).toString().toLowerCase().contains("admin")) {
+//            startActivity(new Intent(ResultsActivity.this, AdminActivity.class));
+//        } else {
+//            startActivity(new Intent(ResultsActivity.this, StudentActivity.class));
+//        }
         finish();
     }
 }

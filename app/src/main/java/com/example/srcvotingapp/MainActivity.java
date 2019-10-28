@@ -370,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(new Intent(MainActivity.this,
                                             StudentActivity.class));
                                 } else {
-                                    showMessageDialog("Unauthorized Access",
+                                    showMessageDialog("Unauthorized",
                                             "Hmmm... seems like you haven't been granted" +
                                                     " access to use this App yet." +
                                                     "\n\nPlease contact your Administrator if " +
@@ -382,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void handleFault(BackendlessFault fault) {
                             progressDialog.dismiss();
-                            showMessageDialog("Unauthorized Access", "Error: "
+                            showMessageDialog("Unauthorized", "Error: "
                                     + fault.getMessage());
                         }
                     });

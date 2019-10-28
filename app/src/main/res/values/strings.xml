@@ -66,7 +66,7 @@
     <string name="selected_candidate">Selected Candidate</string>
     <string name="review_votes">Review Votes</string>
     <string name="action_show_insights">Show Insights</string>
-    <string name="title_activity_student">StudentActivity</string>
+    <string name="title_activity_student">Student Profile</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -78,5 +78,6 @@
     <string name="sasco">SASCO\nSouth African Student Congress</string>
     <string name="action_go_to_profile">Go to Profile</string>
     <string name="action_go_home">Go To Home Page</string>
+    <string name="sign_off">Sign Off</string>
 
 </resources>

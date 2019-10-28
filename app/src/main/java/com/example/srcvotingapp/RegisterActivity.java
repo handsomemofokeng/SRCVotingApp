@@ -396,7 +396,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClick_AddPicture(View view) {
-        showCustomToast(this, toastView, "Show Picture Dialog");
+        showCustomToast(this, toastView, "Show Picture Dialog... to be implemented");
     }
 
     private void showMessageDialog(String title, String message) {

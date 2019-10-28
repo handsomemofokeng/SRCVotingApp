@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_edit" />
 
     <android.support.design.widget.FloatingActionButton
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_restore" />
 
     <android.support.design.widget.FloatingActionButton
@@ -50,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_poll" />
 
     <android.support.design.widget.FloatingActionButton
@@ -58,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_save" />
 
 </android.support.design.widget.CoordinatorLayout>
