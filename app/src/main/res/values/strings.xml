@@ -78,6 +78,9 @@
     <string name="sasco">SASCO\nSouth African Student Congress</string>
     <string name="action_go_to_profile">Go to Profile</string>
     <string name="action_go_home">Go To Home Page</string>
-    <string name="sign_off">Sign Off</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="select_party">Select Party</string>
+    <string name="register_party">Register Party/s</string>
+    <string name="reset_party">Reset Party/s</string>
 
 </resources>

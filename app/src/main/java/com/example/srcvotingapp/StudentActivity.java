@@ -3,7 +3,6 @@ package com.example.srcvotingapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -27,24 +26,16 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
-import static com.example.srcvotingapp.ApplicationClass.EMAIL;
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
-import static com.example.srcvotingapp.ApplicationClass.MY_SHARED_PREFERENCES_NAME;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
-import static com.example.srcvotingapp.ApplicationClass.PASSWORD;
-import static com.example.srcvotingapp.ApplicationClass.REMEMBER_ME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
-import static com.example.srcvotingapp.ApplicationClass.currentUserPassword;
-import static com.example.srcvotingapp.ApplicationClass.currentUsername;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
-import static com.example.srcvotingapp.ApplicationClass.myPrefs;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
-import static com.example.srcvotingapp.ApplicationClass.rememberMe;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
@@ -77,7 +68,8 @@ public class StudentActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
-            setupActionBar(getSupportActionBar(), getResources().getString(R.string.title_activity_student),
+            setupActionBar(getSupportActionBar(),
+                    getResources().getString(R.string.title_activity_student),
                     getUserFullName(sessionUser));
 
         initViews();
@@ -90,7 +82,7 @@ public class StudentActivity extends AppCompatActivity {
         etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
 
 
-        hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave);//,                ivAddPhoto);
+        hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave);//, ivAddPhoto);
 
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +106,11 @@ public class StudentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if ((Boolean) sessionUser.getProperty(HAS_VOTED))
-                    startActivity(new Intent(StudentActivity.this, ResultsActivity.class));
+                    startActivity(new Intent(StudentActivity.this,
+                            ResultsActivity.class));
                 else
-                    startActivity(new Intent(StudentActivity.this, VoteActivity.class));
+                    startActivity(new Intent(StudentActivity.this,
+                            VoteActivity.class));
             }
         });
 
@@ -130,17 +124,17 @@ public class StudentActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         showProgressDialog(StudentActivity.this, "Restore Password",
-                                "Sending reset link to " + etEmail.getText().toString().trim(),
-                                false);
+                                "Sending reset link to " +
+                                        etEmail.getText().toString().trim(), false);
                         Backendless.UserService.restorePassword(etEmail.getText().toString().trim(),
                                 new AsyncCallback<Void>() {
                                     @Override
                                     public void handleResponse(Void response) {
 
                                         progressDialog.dismiss();
-                                        showMessageDialog("Success", "Reset link sent to "
-                                                + sessionUser.getEmail() +
-                                                ".\n\nPlease check your email for reset instructions.");
+                                        showMessageDialog("Success", "Reset link " +
+                                                "sent to " + sessionUser.getEmail() + ".\n\n" +
+                                                "Please check your email for reset instructions.");
 
                                     }
 
@@ -259,7 +253,8 @@ public class StudentActivity extends AppCompatActivity {
                             sessionUser.getEmail()
                                     + " signed out successfully.");
 
-//                    commitMyPrefs("", "", false);
+                    commitMyPrefs(sessionUser.getEmail(), sessionUser.getPassword(),
+                            false);
                     finish();
                 }
 
@@ -271,7 +266,8 @@ public class StudentActivity extends AppCompatActivity {
                 }
             });
         } catch (Exception ex) {
-            showCustomToast(getApplicationContext(), toastView, "Error: " + ex.getMessage());
+            showCustomToast(getApplicationContext(), toastView,
+                    "Error: " + ex.getMessage());
         }
 
         //return feedBack;

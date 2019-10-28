@@ -43,7 +43,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
-            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name), getUserFullName(sessionUser));
+            setupActionBar(getSupportActionBar(), "Vote Results", getUserFullName(sessionUser));
 
         initViews();
 

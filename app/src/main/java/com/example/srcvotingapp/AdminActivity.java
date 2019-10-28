@@ -10,12 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TimePicker;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
@@ -84,7 +86,8 @@ public class AdminActivity extends AppCompatActivity {
                             sessionUser.getEmail()
                                     + " signed out successfully.");
 
-//                    commitMyPrefs("", "", false);
+                    commitMyPrefs(sessionUser.getEmail(), sessionUser.getPassword(),
+                            false);
                     finish();
                 }
 
@@ -132,12 +135,24 @@ public class AdminActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_StartElections(View view) {
+    public void onClick_StartElections(View view)
+    {
         // TODO: 2019/09/25 send notifications to students and set the timer
+        TimePicker timePicker = new TimePicker(AdminActivity.this);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+
+            }
+        });
 
     }
 
     public void onClick_ManageParties(View view) {
         startActivity(new Intent(AdminActivity.this, ManagePartiesActivity.class));
+    }
+
+    public void onClick_SendResetLink(View view) {
+
     }
 }

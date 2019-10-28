@@ -71,7 +71,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
-            setupActionBar(getSupportActionBar(), getResources().getString(R.string.app_name),
+            setupActionBar(getSupportActionBar(), "Assign Candidates",
                     getUserFullName(sessionUser));
 
         initViews();
