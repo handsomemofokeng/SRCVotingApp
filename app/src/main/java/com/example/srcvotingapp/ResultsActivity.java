@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
+import static com.example.srcvotingapp.ApplicationClass.ROLE;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
@@ -47,10 +48,8 @@ public class ResultsActivity extends AppCompatActivity {
 
         initViews();
 
-
         drawGroupChart();
 
-//        // TODO: 2019/09/30 Show Candidate Name and Current Votes
 //        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
 //            @Override
 //            public void onValueSelected(Entry e, Highlight h) {
@@ -172,8 +171,10 @@ public class ResultsActivity extends AppCompatActivity {
     public void onClick_GoHome(View view) {
 
 //        if (sessionUser.getProperty(ROLE).toString().toLowerCase().contains("admin")) {
-//            startActivity(new Intent(ResultsActivity.this, AdminActivity.class));
+////            startActivity(new Intent(ResultsActivity.this, AdminActivity.class));
+//            finish();
 //        } else {
+//
 //            startActivity(new Intent(ResultsActivity.this, StudentActivity.class));
 //        }
         finish();

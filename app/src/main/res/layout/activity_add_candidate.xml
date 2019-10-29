@@ -101,7 +101,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
                         android:gravity="center"
-                        tools:text="Assign New Candidate to\nConstitutional And Legal Affairs Portfolio:\nComrade Mathebula (current)"
+                        tools:text="Assign New Candidate to\nConstitutional And Legal Affairs
+                         Portfolio:\nComrade Mathebula (current)"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/text_size"
                         android:textStyle="bold" />

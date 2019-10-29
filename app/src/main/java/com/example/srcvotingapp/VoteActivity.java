@@ -2,6 +2,7 @@ package com.example.srcvotingapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -13,14 +14,20 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.example.srcvotingapp.BL.Vote;
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
+import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
+import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.reverseTimer;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
@@ -31,7 +38,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
     private ViewPager viewPager;
     private View toastView;
-     TabLayout tabs;
+    TabLayout tabs;
     private Button btnNext, btnPrevious;
     private TextView tvTimer, tvSubtitle;
     private ProgressBar pbVotes;
@@ -128,7 +135,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
             if (!studentVote.getCandidateByPortfolio(portfolio)
                     .equalsIgnoreCase("Not selected")) {
                 numVotesSoFar++;
-                if (studentVote.isVotesValid()){
+                if (studentVote.isVotesValid()) {
                     showViews(btnSubmitVotes);//fabSubmitVotes);
                     showCustomToast(getApplicationContext(), toastView, "Elections complete!");
                 }
@@ -166,7 +173,34 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
                 // TODO: 2019/10/10 Register Votes to Backendless and Set hasVoted for User to True
                 showProgressDialog(VoteActivity.this, "Submitting Votes",
-                        "Please wait while we submit your selections...", true);
+                        "Please wait while we submit your selections...", false);
+                Backendless.Data.of(Vote.class).save(studentVote, new AsyncCallback<Vote>() {
+                    @Override
+                    public void handleResponse(Vote response) {
+                        sessionUser.setProperty(HAS_VOTED, true);
+                        progressDialog.setMessage("Updating your vote status...");
+                        Backendless.Data.of(BackendlessUser.class).save(sessionUser,
+                                new AsyncCallback<BackendlessUser>() {
+                                    @Override
+                                    public void handleResponse(BackendlessUser response) {
+                                        progressDialog.dismiss();
+                                        showVoteConfirmedDialog();
+                                    }
+
+                                    @Override
+                                    public void handleFault(BackendlessFault fault) {
+                                        progressDialog.dismiss();
+                                        showMessageDialog("Vote Status Error", fault.getMessage());
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        progressDialog.dismiss();
+                        showMessageDialog("Voting Error", fault.getMessage());
+                    }
+                });
 
             }
         });
@@ -174,10 +208,54 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         builder.setNegativeButton("No, Change", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                viewPager.setCurrentItem(0, true);
             }
         });
 
+        builder.create().show();
+    }
+
+    private void showVoteConfirmedDialog() {
+        AlertDialog.Builder builder = buildAlertDialog(VoteActivity.this,
+                "Vote Saved",
+                "Your votes have been submitted successfully." +
+                        "\n\nWhere to from here?");
+
+        builder.setPositiveButton("View Results", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(VoteActivity.this,
+                        ResultsActivity.class));
+
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("View Profile",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog.dismiss();
+                        startActivity(new Intent(VoteActivity.this,
+                                StudentActivity.class));
+
+                        finish();
+                    }
+                });
+
+        builder.create().show();
+    }
+
+    private void showMessageDialog(String title, String message) {
+        AlertDialog.Builder builder = buildAlertDialog(
+                VoteActivity.this, title, message);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
         builder.create().show();
     }
 }

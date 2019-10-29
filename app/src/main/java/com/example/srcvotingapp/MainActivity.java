@@ -105,14 +105,15 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     showCustomToast(MainActivity.this, toastView,
                             "Please make sure all fields are correct.");
-                    chkRememberMe.setChecked(false);
+                    commitMyPrefs("", "", false);
+//                    chkRememberMe.setChecked(false);
                 }
             }
         });
 
         if (rememberMe && isPhoneConnected(MainActivity.this)) {
             if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
-                // TODO: 2019/10/23
+
                 attemptLogIn();
             }
         }
