@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
@@ -36,14 +37,21 @@ import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
+import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
+import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
+import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
+import static com.example.srcvotingapp.ApplicationClass.isValidFields;
+import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setSelectedSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
+import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 
 public class StudentActivity extends AppCompatActivity {
@@ -60,7 +68,7 @@ public class StudentActivity extends AppCompatActivity {
     private ImageView ivScanCard, ivCorrect, ivAddPhoto;
     private LinearLayout frmStatisticalDetails;// frmPersonalDetails,
 
-    FloatingActionButton fabSave, fabEdit, fabVote, fabRestore;
+    FloatingActionButton fabSave, fabEdit, fabVote, fabRestore, fabCancel;
 
 
     @Override
@@ -78,36 +86,70 @@ public class StudentActivity extends AppCompatActivity {
 
         initViews();
 
-        disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale);
+        disableForm();//(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale, ivAddPhoto);
 
-        etEmail.setText(sessionUser.getEmail());
-        etName.setText(sessionUser.getProperty(NAME).toString().trim());
-        etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
-        if ( sessionUser.getProperty(GENDER).toString().contains("Female")){
-            rbFemale.setChecked(true);
-        }else {
-            rbMale.setChecked(true);
-        }
-        setSelectedSpinnerValue(spnCourse, sessionUser.getProperty(COURSE).toString());
-        setSelectedSpinnerValue(spnEthnicity, sessionUser.getProperty(ETHNICITY).toString());
+        populateForm();
 
-
-        hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave);//, ivAddPhoto);
+        hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave, fabCancel);//, ivAddPhoto);
 
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                enableViews(etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale);
-                switchViews(fabSave, fabEdit);
-
+                enableForm();
             }
         });
 
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                disableViews(etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale);
-                switchViews(fabEdit, fabSave);
+
+                if (isValidSpinner(spnCourse, spnEthnicity) && isRadioChecked(rbFemale, rbMale)
+                        && isValidFields(etName, etSurname)) {
+
+                    AlertDialog.Builder builder = buildAlertDialog(StudentActivity.this,
+                            "Update User", "Are you sure you want to update details" +
+                                    " for " + sessionUser.getEmail() + "?");
+                    builder.setPositiveButton("Yes, Update", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            updateUser();
+                        }
+                    });
+
+                    builder.setNegativeButton("No, Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.create().show();
+                } else {
+
+                    isValidFields(etName, etSurname);
+
+                    if (!isRadioChecked(rbFemale, rbMale)) {
+                        tvGender.setError("Please specify gender");
+//                showCustomToast(this, toastView, tvGender.getError().toString());
+                    }
+
+                    if (!isValidSpinner(spnCourse)) {
+                        tvCourse.setError("Please select Course on the dropdown list");
+//                showCustomToast(this, toastView, tvCourse.getError().toString());
+                    }
+                    if (!isValidSpinner(spnEthnicity)) {
+                        tvEthnicity.setError("Please select Ethnicity on the dropdown list");
+//                showCustomToast(this, toastView, tvEthnicity.getError().toString());
+                    }
+                }
+
+            }
+        });
+
+        fabCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                disableForm();
+                populateForm();
             }
         });
 
@@ -175,6 +217,62 @@ public class StudentActivity extends AppCompatActivity {
 
     }
 
+    private void updateUser() {
+
+        sessionUser.setProperty(NAME, etName.getText().toString().trim());
+        sessionUser.setProperty(SURNAME, etSurname.getText().toString().trim());
+        sessionUser.setProperty(GENDER, getSelectedRadio(rbMale, rbFemale));
+        sessionUser.setProperty(ETHNICITY, getSpinnerValue(spnEthnicity));
+        sessionUser.setProperty(COURSE, getSpinnerValue(spnCourse));
+
+        showProgressDialog(StudentActivity.this, "Update User",
+                "Please wait while we update your details...", false);
+        Backendless.Data.of(BackendlessUser.class).save(sessionUser,
+                new AsyncCallback<BackendlessUser>() {
+                    @Override
+                    public void handleResponse(BackendlessUser response) {
+                        progressDialog.dismiss();
+                        showCustomToast(StudentActivity.this, toastView,
+                                getUserString(response) + " updated successfully.");
+                        sessionUser = response;
+                        populateForm();
+                        disableForm();
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        progressDialog.dismiss();
+                        showMessageDialog("Error Updating", fault.getMessage());
+                    }
+                });
+    }
+
+    private void populateForm() {
+        etEmail.setText(sessionUser.getEmail());
+        etName.setText(sessionUser.getProperty(NAME).toString().trim());
+        etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
+        if (sessionUser.getProperty(GENDER).toString().contains("Female")) {
+            rbFemale.setChecked(true);
+        } else {
+            rbMale.setChecked(true);
+        }
+        setSelectedSpinnerValue(spnCourse, sessionUser.getProperty(COURSE).toString());
+        setSelectedSpinnerValue(spnEthnicity, sessionUser.getProperty(ETHNICITY).toString());
+    }
+
+    private void enableForm() {
+        enableViews(etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale, ivAddPhoto);
+        switchViews(fabSave, fabEdit);
+        hideViews(fabVote, fabRestore);
+        showViews(fabCancel);
+    }
+
+    private void disableForm() {
+        disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale, ivAddPhoto);
+        switchViews(fabEdit, fabSave);
+        hideViews(fabCancel);
+        showViews(fabVote, fabRestore);
+    }
 
     private void initViews() {
 
@@ -205,6 +303,7 @@ public class StudentActivity extends AppCompatActivity {
         fabSave = findViewById(R.id.fabSave);
         fabVote = findViewById(R.id.fabVote);
         fabRestore = findViewById(R.id.fabRestorePassword);
+        fabCancel = findViewById(R.id.fabCancelEditStudent);
     }
 
     public void onClick_AddPicture(View view) {
