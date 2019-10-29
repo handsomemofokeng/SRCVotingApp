@@ -167,7 +167,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         AlertDialog.Builder builder = buildAlertDialog(this, "Submit Votes",
                 "Are you happy with your current selections?");
 
-        builder.setPositiveButton("Yes, Vote!", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Yes, Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

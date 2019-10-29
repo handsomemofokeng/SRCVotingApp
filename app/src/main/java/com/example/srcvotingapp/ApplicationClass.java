@@ -459,6 +459,21 @@ public class ApplicationClass extends Application {
     }
 
     /**
+     *Sets preset Spinner selection
+     * @param spinner to be looped through
+     * @param value to look for
+     */
+    public static void setSelectedSpinnerValue(Spinner spinner, String value){
+        for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
+            spinner.setSelection(i,true);
+            if (getSpinnerValue(spinner).contains(value)){
+                spinner.setSelection(spinner.getSelectedItemPosition(), true);
+                break;
+            }
+        }
+    }
+
+    /**
      * This method sets the text of an editText to a selected spinner value
      *
      * @param spinner to extract a prefix text

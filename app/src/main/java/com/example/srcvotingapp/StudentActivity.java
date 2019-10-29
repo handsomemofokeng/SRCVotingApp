@@ -26,6 +26,9 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
+import static com.example.srcvotingapp.ApplicationClass.COURSE;
+import static com.example.srcvotingapp.ApplicationClass.ETHNICITY;
+import static com.example.srcvotingapp.ApplicationClass.GENDER;
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
@@ -37,6 +40,7 @@ import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
+import static com.example.srcvotingapp.ApplicationClass.setSelectedSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
@@ -74,12 +78,18 @@ public class StudentActivity extends AppCompatActivity {
 
         initViews();
 
-        etName.clearFocus();
         disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale);
 
         etEmail.setText(sessionUser.getEmail());
         etName.setText(sessionUser.getProperty(NAME).toString().trim());
         etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
+        if ( sessionUser.getProperty(GENDER).toString().contains("Female")){
+            rbFemale.setChecked(true);
+        }else {
+            rbMale.setChecked(true);
+        }
+        setSelectedSpinnerValue(spnCourse, sessionUser.getProperty(COURSE).toString());
+        setSelectedSpinnerValue(spnEthnicity, sessionUser.getProperty(ETHNICITY).toString());
 
 
         hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave);//, ivAddPhoto);

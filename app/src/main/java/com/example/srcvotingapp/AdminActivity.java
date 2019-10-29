@@ -10,14 +10,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
+import static com.example.srcvotingapp.ApplicationClass.NAME;
+import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
+import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
@@ -28,6 +32,7 @@ import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 public class AdminActivity extends AppCompatActivity {
 
     View toastView;
+    private EditText etEmail, etName, etSurname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +44,21 @@ public class AdminActivity extends AppCompatActivity {
             setupActionBar(getSupportActionBar(), "Admin Menu",
                     getUserFullName(sessionUser));
         initViews();
+        disableViews(etEmail, etName, etSurname);
+
+        etEmail.setText(sessionUser.getEmail());
+        etName.setText(sessionUser.getProperty(NAME).toString());
+        etSurname.setText(sessionUser.getProperty(SURNAME).toString());
+
     }
 
     private void initViews() {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
+        etEmail = findViewById(R.id.etEmailAdmin);
+        etName = findViewById(R.id.etNameAdmin);
+        etSurname = findViewById(R.id.etSurnameAdmin);
     }
 
     @Override
