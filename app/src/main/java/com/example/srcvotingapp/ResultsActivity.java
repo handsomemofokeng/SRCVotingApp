@@ -169,14 +169,6 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     public void onClick_GoHome(View view) {
-
-//        if (sessionUser.getProperty(ROLE).toString().toLowerCase().contains("admin")) {
-////            startActivity(new Intent(ResultsActivity.this, AdminActivity.class));
-//            finish();
-//        } else {
-//
-//            startActivity(new Intent(ResultsActivity.this, StudentActivity.class));
-//        }
         finish();
     }
 }

@@ -398,14 +398,11 @@ public class StudentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ab_sign_off:
-                showSignOutDialog();
-                break;
-            default:
-                showCustomToast(StudentActivity.this, toastView,
-                        "Unexpected value: " + item.getItemId());
-                break;
+        if (item.getItemId() == R.id.ab_sign_off) {
+            showSignOutDialog();
+        } else {
+            showCustomToast(StudentActivity.this, toastView,
+                    "Unexpected value: " + item.getItemId());
         }
         return super.onOptionsItemSelected(item);
     }

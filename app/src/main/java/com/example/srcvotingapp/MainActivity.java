@@ -28,7 +28,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import static com.example.srcvotingapp.ApplicationClass.EMAIL;
-import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.MY_SHARED_PREFERENCES_NAME;
 import static com.example.srcvotingapp.ApplicationClass.PASSWORD;
 import static com.example.srcvotingapp.ApplicationClass.REMEMBER_ME;

@@ -19,26 +19,18 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
-import static com.example.srcvotingapp.ApplicationClass.COURSE;
-import static com.example.srcvotingapp.ApplicationClass.ETHNICITY;
-import static com.example.srcvotingapp.ApplicationClass.GENDER;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
-import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
-import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
-import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
 import static com.example.srcvotingapp.ApplicationClass.isValidFields;
-import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
-import static com.example.srcvotingapp.ApplicationClass.setSelectedSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
@@ -67,20 +59,6 @@ public class AdminActivity extends AppCompatActivity {
         disableForm();
 
         populateForm();
-
-//        disableViews(etEmail, etName, etSurname);
-//
-//        etEmail.setText(sessionUser.getEmail());
-//        etName.setText(sessionUser.getProperty(NAME).toString());
-//        etSurname.setText(sessionUser.getProperty(SURNAME).toString());
-
-//        fabRestore.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
 
     }
 
@@ -114,7 +92,6 @@ public class AdminActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes, Sign Out", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                StudentActivity.super.onBackPressed();
                 logOutUser();
             }
         });
@@ -122,7 +99,6 @@ public class AdminActivity extends AppCompatActivity {
         builder.setNegativeButton("No, Stay", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         }).create().show();
     }
@@ -180,14 +156,11 @@ public class AdminActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.ab_sign_off:
-                showSignOutDialog();
-                break;
-            default:
-                showCustomToast(AdminActivity.this, toastView,
-                        "Unexpected value: " + item.getItemId());
-                break;
+        if (item.getItemId() == R.id.ab_sign_off) {
+            showSignOutDialog();
+        } else {
+            showCustomToast(AdminActivity.this, toastView,
+                    "Unexpected value: " + item.getItemId());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -348,9 +321,5 @@ public class AdminActivity extends AppCompatActivity {
                     });
             builder.create().show();
         }
-//        else {
-//
-//            isValidFields(etName, etSurname);
-//        }
     }
 }

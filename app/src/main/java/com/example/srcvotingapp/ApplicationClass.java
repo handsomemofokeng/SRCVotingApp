@@ -506,7 +506,7 @@ public class ApplicationClass extends Application {
      */
     public static void clearSpinners(Spinner... spinners) {
         for (Spinner spinner : spinners) {
-            spinner.setSelection(0);
+            spinner.setSelection(0,true);
         }
     }
 
