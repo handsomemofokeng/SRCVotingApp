@@ -19,6 +19,8 @@ public class Party {
     private String EquityAndDiversityOfficer;
     private String TransformationOfficer;
 
+    public Party(){}
+
     public Party(String partyName, String partyID) {
         PartyName = partyName;
         PartyID = partyID;

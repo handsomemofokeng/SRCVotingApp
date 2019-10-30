@@ -64,6 +64,19 @@ public class ApplicationClass extends Application {
             "Equity and Diversity Officer",
             "Transformation Officer"};
 
+    public static final String SELECTED_President = "selectedPresident";
+    public static final String SELECTED_DeputyPresident = "selectedDeputyPresident";
+    public static final String SELECTED_SecretaryGeneral = "selectedSecretaryGeneral";
+    public static final String SELECTED_FinancialOfficer = "selectedFinancialOfficer";
+    public static final String SELECTED_ConstitutionalAndLegalAffairs = "selectedConstitutionalAndLegalAffairs";
+    public static final String SELECTED_SportsOfficer = "selectedSportsOfficer";
+    public static final String SELECTED_PublicRelationsOfficer = "selectedPublicRelationsOfficer";
+    public static final String SELECTED_HealthAndWelfareOfficer = "selectedHealthAndWelfareOfficer";
+    public static final String SELECTED_ProjectsAndCampaignOfficer = "selectedProjectsAndCampaignOfficer";
+    public static final String SELECTED_StudentAffairs = "selectedStudentAffairs";
+    public static final String SELECTED_EquityAndDiversityOfficer = "selectedEquityAndDiversityOfficer";
+    public static final String SELECTED_TransformationOfficer = "selectedTransformationOfficer";
+
     //User Property Constants
     public static final String EMAIL = "email";
     public static final String NAME = "name";
@@ -459,14 +472,15 @@ public class ApplicationClass extends Application {
     }
 
     /**
-     *Sets preset Spinner selection
+     * Sets preset Spinner selection
+     *
      * @param spinner to be looped through
-     * @param value to look for
+     * @param value   to look for
      */
-    public static void setSelectedSpinnerValue(Spinner spinner, String value){
+    public static void setSelectedSpinnerValue(Spinner spinner, String value) {
         for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
-            spinner.setSelection(i,true);
-            if (getSpinnerValue(spinner).contains(value)){
+            spinner.setSelection(i, true);
+            if (getSpinnerValue(spinner).contains(value)) {
                 spinner.setSelection(spinner.getSelectedItemPosition(), true);
                 break;
             }
@@ -506,7 +520,7 @@ public class ApplicationClass extends Application {
      */
     public static void clearSpinners(Spinner... spinners) {
         for (Spinner spinner : spinners) {
-            spinner.setSelection(0,true);
+            spinner.setSelection(0, true);
         }
     }
 

@@ -1,16 +1,20 @@
 package com.example.srcvotingapp;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.example.srcvotingapp.BL.Vote;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,19 +24,39 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
-import static com.example.srcvotingapp.ApplicationClass.ROLE;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_DeputyPresident;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_EquityAndDiversityOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_FinancialOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_HealthAndWelfareOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_President;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_ProjectsAndCampaignOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_PublicRelationsOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_SecretaryGeneral;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_SportsOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_StudentAffairs;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_TransformationOfficer;
+import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
+import static com.example.srcvotingapp.ApplicationClass.progressDialog;
+import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
+import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
+
 
 public class ResultsActivity extends AppCompatActivity {
 
     //UI references
     View toastView;
     BarChart chart;
+    List<Vote> currentVotes;
 
     //    Button btnNext, btnPrevious;
     //    Spinner spnPortfolio;
@@ -48,7 +72,10 @@ public class ResultsActivity extends AppCompatActivity {
 
         initViews();
 
-        drawGroupChart();
+        currentVotes = new ArrayList<>();
+
+        getCurrentVotes();
+
 
 //        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
 //            @Override
@@ -84,29 +111,19 @@ public class ResultsActivity extends AppCompatActivity {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
-
-//        btnNext = findViewById(R.id.btnNavigateNextPortfolioResults);
-//        btnPrevious = findViewById(R.id.btnNavigatePreviousPortfolioResults);
-
         chart = findViewById(R.id.barChart);
-
-//        spnPortfolio = findViewById(R.id.spnPortfolioResults);
-
     }
 
-    // TODO: 2019/09/30 Get Votes from Backendless and pass them as Parameters
-    private void drawGroupChart() {
+    private void drawGroupChart(List<Vote> voteList) {
 
         ArrayList<BarEntry> entriesDASO = new ArrayList<>();
         ArrayList<BarEntry> entriesEFFSC = new ArrayList<>();
         ArrayList<BarEntry> entriesSASCO = new ArrayList<>();
 
-        // TODO: 2019/09/30 Comment out when connected to Backendless
-        //Generate Random Entries
         for (int i = 1; i <= 12; i++) {
-            entriesDASO.add(new BarEntry(i, (float) Math.random() * 1000f));
-            entriesEFFSC.add(new BarEntry(i, (float) Math.random() * 1000f));
-            entriesSASCO.add(new BarEntry(i, (float) Math.random() * 1000f));
+            entriesDASO.add(new BarEntry(i, calcNumVotes("DASO", i, voteList)));
+            entriesEFFSC.add(new BarEntry(i, calcNumVotes("EFFSC", i, voteList)));
+            entriesSASCO.add(new BarEntry(i, calcNumVotes("SASCO", i, voteList)));
         }
 
         BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
@@ -160,8 +177,146 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
-    private void countVotes(Vote... votes) {
+    private int calcNumVotes(String partyID, int portfolioPosition, List<Vote> voteList) {
 
+        int voteCount = 0;
+
+        if (!voteList.isEmpty()) {
+            for (int i = 0; i < voteList.size(); i++) {
+                Vote vote = voteList.get(i);
+                showCustomToast(getApplicationContext(), toastView, vote.toString());
+                switch (portfolioPosition) {
+                    case 1:
+                        if (voteList.get(i).getSelectedPresident().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 2:
+                        if (vote.getSelectedDeputyPresident().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 3:
+                        if (vote.getSelectedSecretaryGeneral().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 4:
+                        if (vote.getSelectedFinancialOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 5:
+                        if (vote.getSelectedConstitutionalAndLegalAffairs().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 6:
+                        if (vote.getSelectedSportsOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 7:
+                        if (vote.getSelectedPublicRelationsOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 8:
+                        if (vote.getSelectedHealthAndWelfareOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 9:
+                        if (vote.getSelectedProjectsAndCampaignOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 10:
+                        if (vote.getSelectedStudentAffairs().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 11:
+                        if (vote.getSelectedEquityAndDiversityOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                    case 12:
+                        if (vote.getSelectedTransformationOfficer().contains(partyID)) {
+                            voteCount++;
+                        }
+                        break;
+                }
+            }
+        } else {
+            showCustomToast(ResultsActivity.this, toastView, "No votes yet.");
+        }
+
+        return voteCount;
+    }
+
+    private void getCurrentVotes() {
+
+        showProgressDialog(ResultsActivity.this, "Retrieving Votes",
+                "Please wait while we get votes...", false);
+        Backendless.Data.of("Vote").find(selectAllQuery("created"),
+                new AsyncCallback<List<Map>>() {
+                    @Override
+                    public void handleResponse(List<Map> response) {
+                        progressDialog.dismiss();
+
+                        currentVotes.clear();
+                        for (Map vMap : response) {
+                            currentVotes.add(new Vote(vMap.get(SELECTED_President).toString(),
+                                    vMap.get(SELECTED_DeputyPresident).toString(),
+                                    vMap.get(SELECTED_SecretaryGeneral).toString(),
+                                    vMap.get(SELECTED_FinancialOfficer).toString(),
+                                    vMap.get(SELECTED_ConstitutionalAndLegalAffairs).toString(),
+                                    vMap.get(SELECTED_SportsOfficer).toString(),
+                                    vMap.get(SELECTED_PublicRelationsOfficer).toString(),
+                                    vMap.get(SELECTED_HealthAndWelfareOfficer).toString(),
+                                    vMap.get(SELECTED_ProjectsAndCampaignOfficer).toString(),
+                                    vMap.get(SELECTED_StudentAffairs).toString(),
+                                    vMap.get(SELECTED_EquityAndDiversityOfficer).toString(),
+                                    vMap.get(SELECTED_TransformationOfficer).toString()
+                            ));
+                        }
+                        if (!currentVotes.isEmpty())
+                            drawGroupChart(currentVotes);
+                        else
+                            showMessageDialog("Votes Empty", "No votes yet...");
+
+
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        progressDialog.dismiss();
+                        showMessageDialog("Error", fault.getMessage());
+                    }
+                });
+
+//                .find(selectAllQuery("created"),
+//                new AsyncCallback<List<Vote>>() {
+//                    @Override
+//                    public void handleResponse(List<Vote> response) {
+//
+//                        progressDialog.dismiss();
+//                        showCustomToast(ResultsActivity.this, toastView,
+//                                "Votes:" + response.size());
+//
+//                        for (Vote vote : response) {
+//                            showMessageDialog("Vote", vote.toString());
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void handleFault(BackendlessFault fault) {
+//                        progressDialog.dismiss();
+//                        showMessageDialog("Error getting Votes", fault.getMessage());
+//                    }
+//                });
     }
 
     public void onClick_GoBack(View view) {
@@ -170,5 +325,18 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void onClick_GoHome(View view) {
         finish();
+    }
+
+    private void showMessageDialog(String title, String message) {
+        AlertDialog.Builder builder = buildAlertDialog(
+                ResultsActivity.this, title, message);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
     }
 }

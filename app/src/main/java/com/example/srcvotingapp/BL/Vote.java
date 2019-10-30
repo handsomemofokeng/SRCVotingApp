@@ -4,21 +4,6 @@ import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
 public class Vote {
 
-    public Vote() {
-        SelectedPresident = "Not selected";
-        SelectedDeputyPresident = "Not selected";
-        SelectedSecretaryGeneral = "Not selected";
-        SelectedFinancialOfficer = "Not selected";
-        SelectedConstitutionalAndLegalAffairs = "Not selected";
-        SelectedSportsOfficer = "Not selected";
-        SelectedPublicRelationsOfficer = "Not selected";
-        SelectedHealthAndWelfareOfficer = "Not selected";
-        SelectedProjectsAndCampaignOfficer = "Not selected";
-        SelectedStudentAffairs = "Not selected";
-        SelectedEquityAndDiversityOfficer = "Not selected";
-        SelectedTransformationOfficer = "Not selected";
-    }
-
     private String SelectedPresident;
     private String SelectedDeputyPresident;
     private String SelectedSecretaryGeneral;
@@ -31,6 +16,18 @@ public class Vote {
     private String SelectedStudentAffairs;
     private String SelectedEquityAndDiversityOfficer;
     private String SelectedTransformationOfficer;
+
+    public Vote(){}
+
+//    private Boolean votesValid;
+//
+//    public Boolean getVotesValid() {
+//        return votesValid;
+//    }
+//
+//    public void setVotesValid(Boolean votesValid) {
+//        this.votesValid = votesValid;
+//    }
 
     public String getSelectedPresident() {
         return SelectedPresident;
@@ -131,23 +128,38 @@ public class Vote {
     @Override
     public String toString() {
         return "Vote{" +
-                "SelectedPresident='" + SelectedPresident + '\'' +
-                ", SelectedDeputyPresident='" + SelectedDeputyPresident + '\'' +
-                ", SelectedSecretaryGeneral='" + SelectedSecretaryGeneral + '\'' +
-                ", SelectedFinancialOfficer='" + SelectedFinancialOfficer + '\'' +
-                ", SelectedConstitutionalAndLegalAffairs='" + SelectedConstitutionalAndLegalAffairs + '\'' +
-                ", SelectedSportsOfficer='" + SelectedSportsOfficer + '\'' +
-                ", SelectedPublicRelationsOfficer='" + SelectedPublicRelationsOfficer + '\'' +
-                ", SelectedHealthAndWelfareOfficer='" + SelectedHealthAndWelfareOfficer + '\'' +
-                ", SelectedProjectsAndCampaignOfficer='" + SelectedProjectsAndCampaignOfficer + '\'' +
-                ", SelectedStudentAffairs='" + SelectedStudentAffairs + '\'' +
-                ", SelectedEquityAndDiversityOfficer='" + SelectedEquityAndDiversityOfficer + '\'' +
-                ", SelectedTransformationOfficer='" + SelectedTransformationOfficer + '\'' +
+                "SelectedPresident='" + getSelectedPresident() + '\'' +
+                ", SelectedDeputyPresident='" + getSelectedDeputyPresident() + '\'' +
+                ", SelectedSecretaryGeneral='" + getSelectedSecretaryGeneral() + '\'' +
+                ", SelectedFinancialOfficer='" + getSelectedFinancialOfficer() + '\'' +
+                ", SelectedConstitutionalAndLegalAffairs='" + getSelectedConstitutionalAndLegalAffairs() + '\'' +
+                ", SelectedSportsOfficer='" + getSelectedSportsOfficer() + '\'' +
+                ", SelectedPublicRelationsOfficer='" + getSelectedPublicRelationsOfficer() + '\'' +
+                ", SelectedHealthAndWelfareOfficer='" + getSelectedHealthAndWelfareOfficer() + '\'' +
+                ", SelectedProjectsAndCampaignOfficer='" + getSelectedProjectsAndCampaignOfficer() + '\'' +
+                ", SelectedStudentAffairs='" + getSelectedStudentAffairs() + '\'' +
+                ", SelectedEquityAndDiversityOfficer='" + getSelectedEquityAndDiversityOfficer ()+ '\'' +
+                ", SelectedTransformationOfficer='" + getSelectedTransformationOfficer ()+ '\'' +
                 '}';
     }
 
     public boolean isVotesValid() {
         return !this.toString().contains("Not selected");
+    }
+
+    public Vote(String selectedPresident, String selectedDeputyPresident, String selectedSecretaryGeneral, String selectedFinancialOfficer, String selectedConstitutionalAndLegalAffairs, String selectedSportsOfficer, String selectedPublicRelationsOfficer, String selectedHealthAndWelfareOfficer, String selectedProjectsAndCampaignOfficer, String selectedStudentAffairs, String selectedEquityAndDiversityOfficer, String selectedTransformationOfficer) {
+        SelectedPresident = selectedPresident;
+        SelectedDeputyPresident = selectedDeputyPresident;
+        SelectedSecretaryGeneral = selectedSecretaryGeneral;
+        SelectedFinancialOfficer = selectedFinancialOfficer;
+        SelectedConstitutionalAndLegalAffairs = selectedConstitutionalAndLegalAffairs;
+        SelectedSportsOfficer = selectedSportsOfficer;
+        SelectedPublicRelationsOfficer = selectedPublicRelationsOfficer;
+        SelectedHealthAndWelfareOfficer = selectedHealthAndWelfareOfficer;
+        SelectedProjectsAndCampaignOfficer = selectedProjectsAndCampaignOfficer;
+        SelectedStudentAffairs = selectedStudentAffairs;
+        SelectedEquityAndDiversityOfficer = selectedEquityAndDiversityOfficer;
+        SelectedTransformationOfficer = selectedTransformationOfficer;
     }
 
     public void assignVotes(String selectedPortfolio, String selectedPartyID) {

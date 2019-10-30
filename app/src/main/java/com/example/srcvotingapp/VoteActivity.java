@@ -23,6 +23,7 @@ import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
+import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
@@ -57,7 +58,22 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
 
+
         studentVote = new Vote();
+
+        studentVote.setSelectedPresident("Not selected");
+        studentVote.setSelectedDeputyPresident("Not selected");
+        studentVote.setSelectedSecretaryGeneral("Not selected");
+        studentVote.setSelectedFinancialOfficer("Not selected");
+        studentVote.setSelectedConstitutionalAndLegalAffairs("Not selected");
+        studentVote.setSelectedSportsOfficer("Not selected");
+        studentVote.setSelectedPublicRelationsOfficer("Not selected");
+        studentVote.setSelectedHealthAndWelfareOfficer("Not selected");
+        studentVote.setSelectedProjectsAndCampaignOfficer("Not selected");
+        studentVote.setSelectedStudentAffairs("Not selected");
+        studentVote.setSelectedEquityAndDiversityOfficer("Not selected");
+        studentVote.setSelectedTransformationOfficer("Not selected");
+
 
         initViews();
 //      28800s = 8h
