@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Get credentials on background
         new GetDataInBackground().execute();
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
 
         getMyPrefs();
 
@@ -343,6 +343,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isPhoneConnected(MainActivity.this)) {
 
+            progressDialog.dismiss();
             showProgressDialog(MainActivity.this, "Authenticating",
                     "Please wait while we log you in...", true);
             Backendless.UserService.login(etEmail.getText().toString().trim(),
@@ -439,15 +440,15 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void handleResponse(Integer integer) {
 
-                    getMyPrefs();
                     progressDialog.dismiss();
+                    getMyPrefs();
                 }
 
                 @Override
                 public void handleFault(BackendlessFault backendlessFault) {
-                    errors += "Settings Error: " + backendlessFault.getMessage() + "\n";
-                    showCustomToast(MainActivity.this, toastView, errors);
                     progressDialog.dismiss();
+                    errors += "Settings Error: " + backendlessFault.getMessage() + "\n";
+                    showMessageDialog("Error", errors);
                 }
             });
             return null;
@@ -473,6 +474,7 @@ public class MainActivity extends AppCompatActivity {
         etEmail.setText(currentUsername);
         etPassword.setText(currentUserPassword);
         chkRememberMe.setChecked(rememberMe);
+
 
     }
 }

@@ -16,9 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -62,11 +60,10 @@ public class StudentActivity extends AppCompatActivity {
     private View toastView;
     private TextView tvCourse, tvEthnicity, tvGender;
     private Spinner spnEthnicity, spnCourse;
-    private RadioGroup rgGender;
     private RadioButton rbMale, rbFemale;
     private Button btnRegister, btnGoBack;
     private ImageView ivScanCard, ivCorrect, ivAddPhoto;
-    private LinearLayout frmStatisticalDetails;// frmPersonalDetails,
+//    private LinearLayout frmStatisticalDetails;// frmPersonalDetails,
 
     FloatingActionButton fabSave, fabEdit, fabVote, fabRestore, fabCancel;
 
@@ -86,11 +83,12 @@ public class StudentActivity extends AppCompatActivity {
 
         initViews();
 
-        disableForm();//(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale, ivAddPhoto);
+        disableForm();
 
         populateForm();
 
-        hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave, fabCancel);//, ivAddPhoto);
+        hideViews(etPassword, etConfirm, ivScanCard, ivCorrect, btnRegister, btnGoBack, fabSave,
+                fabCancel);
 
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,19 +107,21 @@ public class StudentActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = buildAlertDialog(StudentActivity.this,
                             "Update User", "Are you sure you want to update details" +
                                     " for " + sessionUser.getEmail() + "?");
-                    builder.setPositiveButton("Yes, Update", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            updateUser();
-                        }
-                    });
+                    builder.setPositiveButton("Yes, Update",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    updateUser();
+                                }
+                            });
 
-                    builder.setNegativeButton("No, Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    builder.setNegativeButton("No, Cancel",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
+                                }
+                            });
                     builder.create().show();
                 } else {
 
@@ -217,6 +217,38 @@ public class StudentActivity extends AppCompatActivity {
 
     }
 
+    private void initViews() {
+
+        toastView = getLayoutInflater().inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.toast_layout));
+        etEmail = findViewById(R.id.etEmailReg);
+        etName = findViewById(R.id.etNameReg);
+        etSurname = findViewById(R.id.etSurnameReg);
+        tvGender = findViewById(R.id.tvGenderReg);
+        etPassword = findViewById(R.id.tilPasswordReg);
+        etConfirm = findViewById(R.id.tilConfirmPassword);
+        spnCourse = findViewById(R.id.spnCourseReg);
+        spnEthnicity = findViewById(R.id.spnEthnicityReg);
+        tvCourse = findViewById(R.id.tvCourse);
+        tvEthnicity = findViewById(R.id.tvEthnicity);
+//        rgGender = findViewById(R.id.rgGender);
+        rbMale = findViewById(R.id.rbMale);
+        rbFemale = findViewById(R.id.rbFemale);
+        ivCorrect = findViewById(R.id.ivCorrectRegUser);
+        ivScanCard = findViewById(R.id.ivScanCardRegUser);
+        ivAddPhoto = findViewById(R.id.ivAddPicture);
+        btnRegister = findViewById(R.id.btnRegisterUser);
+        btnGoBack = findViewById(R.id.btnGoBack);
+//        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
+//        frmStatisticalDetails = findViewById(R.id.frmStatisticalDetails);
+
+        fabEdit = findViewById(R.id.fabEdit);
+        fabSave = findViewById(R.id.fabSave);
+        fabVote = findViewById(R.id.fabVote);
+        fabRestore = findViewById(R.id.fabRestorePassword);
+        fabCancel = findViewById(R.id.fabCancelEditStudent);
+    }
+
     private void updateUser() {
 
         sessionUser.setProperty(NAME, etName.getText().toString().trim());
@@ -248,6 +280,13 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     private void populateForm() {
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            setupActionBar(getSupportActionBar(),
+                    getResources().getString(R.string.title_activity_student),
+                    getUserFullName(sessionUser));
+
         etEmail.setText(sessionUser.getEmail());
         etName.setText(sessionUser.getProperty(NAME).toString().trim());
         etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
@@ -265,6 +304,7 @@ public class StudentActivity extends AppCompatActivity {
         switchViews(fabSave, fabEdit);
         hideViews(fabVote, fabRestore);
         showViews(fabCancel);
+        etName.requestFocus();
     }
 
     private void disableForm() {
@@ -274,40 +314,13 @@ public class StudentActivity extends AppCompatActivity {
         showViews(fabVote, fabRestore);
     }
 
-    private void initViews() {
-
-        toastView = getLayoutInflater().inflate(R.layout.custom_toast,
-                (ViewGroup) findViewById(R.id.toast_layout));
-        etEmail = findViewById(R.id.etEmailReg);
-        etName = findViewById(R.id.etNameReg);
-        etSurname = findViewById(R.id.etSurnameReg);
-        tvGender = findViewById(R.id.tvGenderReg);
-        etPassword = findViewById(R.id.tilPasswordReg);
-        etConfirm = findViewById(R.id.tilConfirmPassword);
-        spnCourse = findViewById(R.id.spnCourseReg);
-        spnEthnicity = findViewById(R.id.spnEthnicityReg);
-        tvCourse = findViewById(R.id.tvCourse);
-        tvEthnicity = findViewById(R.id.tvEthnicity);
-        rgGender = findViewById(R.id.rgGender);
-        rbMale = findViewById(R.id.rbMale);
-        rbFemale = findViewById(R.id.rbFemale);
-        ivCorrect = findViewById(R.id.ivCorrectRegUser);
-        ivScanCard = findViewById(R.id.ivScanCardRegUser);
-        ivAddPhoto = findViewById(R.id.ivAddPicture);
-        btnRegister = findViewById(R.id.btnRegisterUser);
-        btnGoBack = findViewById(R.id.btnGoBack);
-//        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
-        frmStatisticalDetails = findViewById(R.id.frmStatisticalDetails);
-
-        fabEdit = findViewById(R.id.fabEdit);
-        fabSave = findViewById(R.id.fabSave);
-        fabVote = findViewById(R.id.fabVote);
-        fabRestore = findViewById(R.id.fabRestorePassword);
-        fabCancel = findViewById(R.id.fabCancelEditStudent);
-    }
-
     public void onClick_AddPicture(View view) {
         showCustomToast(this, toastView, "Show Picture Dialog");
+    }
+
+    @Override
+    public void onBackPressed() {
+        showSignOutDialog();
     }
 
     private void showMessageDialog(String title, String message) {
@@ -321,11 +334,6 @@ public class StudentActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        showSignOutDialog();
     }
 
     private void showSignOutDialog() {

@@ -3,6 +3,7 @@ package com.example.srcvotingapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,25 +15,42 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
+import static com.example.srcvotingapp.ApplicationClass.COURSE;
+import static com.example.srcvotingapp.ApplicationClass.ETHNICITY;
+import static com.example.srcvotingapp.ApplicationClass.GENDER;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
+import static com.example.srcvotingapp.ApplicationClass.enableViews;
+import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
+import static com.example.srcvotingapp.ApplicationClass.getSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
+import static com.example.srcvotingapp.ApplicationClass.getUserString;
+import static com.example.srcvotingapp.ApplicationClass.hideViews;
+import static com.example.srcvotingapp.ApplicationClass.isRadioChecked;
+import static com.example.srcvotingapp.ApplicationClass.isValidFields;
+import static com.example.srcvotingapp.ApplicationClass.isValidSpinner;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
+import static com.example.srcvotingapp.ApplicationClass.setSelectedSpinnerValue;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
+import static com.example.srcvotingapp.ApplicationClass.showViews;
+import static com.example.srcvotingapp.ApplicationClass.switchViews;
 
 public class AdminActivity extends AppCompatActivity {
 
     View toastView;
     private EditText etEmail, etName, etSurname;
+    FloatingActionButton fabSave, fabEdit, fabResults, fabRestore, fabCancel, fabManageParties,
+            fabStartElections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +61,26 @@ public class AdminActivity extends AppCompatActivity {
         if (actionBar != null)
             setupActionBar(getSupportActionBar(), "Admin Menu",
                     getUserFullName(sessionUser));
-        initViews();
-        disableViews(etEmail, etName, etSurname);
 
-        etEmail.setText(sessionUser.getEmail());
-        etName.setText(sessionUser.getProperty(NAME).toString());
-        etSurname.setText(sessionUser.getProperty(SURNAME).toString());
+        initViews();
+
+        disableForm();
+
+        populateForm();
+
+//        disableViews(etEmail, etName, etSurname);
+//
+//        etEmail.setText(sessionUser.getEmail());
+//        etName.setText(sessionUser.getProperty(NAME).toString());
+//        etSurname.setText(sessionUser.getProperty(SURNAME).toString());
+
+//        fabRestore.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+
 
     }
 
@@ -59,6 +91,14 @@ public class AdminActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmailAdmin);
         etName = findViewById(R.id.etNameAdmin);
         etSurname = findViewById(R.id.etSurnameAdmin);
+
+        fabEdit = findViewById(R.id.fabEditAdmin);
+        fabSave = findViewById(R.id.fabSaveAdmin);
+        fabResults = findViewById(R.id.fabResultsAdmin);
+        fabRestore = findViewById(R.id.fabRestorePasswordAdmin);
+        fabCancel = findViewById(R.id.fabCancelEditAdmin);
+        fabManageParties = findViewById(R.id.fabAddParty);
+        fabStartElections = findViewById(R.id.fabStartElections);
     }
 
     @Override
@@ -85,6 +125,19 @@ public class AdminActivity extends AppCompatActivity {
 
             }
         }).create().show();
+    }
+
+    private void showMessageDialog(String title, String message) {
+        AlertDialog.Builder builder = buildAlertDialog(
+                AdminActivity.this, title, message);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
     }
 
     public void logOutUser() {
@@ -149,8 +202,7 @@ public class AdminActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_StartElections(View view)
-    {
+    public void onClick_StartElections(View view) {
         // TODO: 2019/09/25 send notifications to students and set the timer
         TimePicker timePicker = new TimePicker(AdminActivity.this);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -167,6 +219,138 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void onClick_SendResetLink(View view) {
+        AlertDialog.Builder builder = buildAlertDialog(AdminActivity.this,
+                "Restore Password", "Send Reset Password link to "
+                        + sessionUser.getEmail() + "?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showProgressDialog(AdminActivity.this, "Restore Password",
+                        "Sending reset link to " +
+                                etEmail.getText().toString().trim(), false);
+                Backendless.UserService.restorePassword(etEmail.getText().toString().trim(),
+                        new AsyncCallback<Void>() {
+                            @Override
+                            public void handleResponse(Void response) {
 
+                                progressDialog.dismiss();
+                                showMessageDialog("Success", "Reset link " +
+                                        "sent to " + sessionUser.getEmail() + ".\n\n" +
+                                        "Please check your email for reset instructions.");
+
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+
+                                progressDialog.dismiss();
+                                showMessageDialog("Reset Error", fault.getMessage());
+
+
+                            }
+                        });
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.create().show();
+
+    }
+
+    private void updateUser() {
+
+        sessionUser.setProperty(NAME, etName.getText().toString().trim());
+        sessionUser.setProperty(SURNAME, etSurname.getText().toString().trim());
+
+        showProgressDialog(AdminActivity.this, "Update User",
+                "Please wait while we update your details...", false);
+        Backendless.Data.of(BackendlessUser.class).save(sessionUser,
+                new AsyncCallback<BackendlessUser>() {
+                    @Override
+                    public void handleResponse(BackendlessUser response) {
+                        progressDialog.dismiss();
+                        showCustomToast(AdminActivity.this, toastView,
+                                getUserString(response) + " updated successfully.");
+                        sessionUser = response;
+                        populateForm();
+                        disableForm();
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        progressDialog.dismiss();
+                        showMessageDialog("Error Updating", fault.getMessage());
+                    }
+                });
+    }
+
+    private void populateForm() {
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            setupActionBar(getSupportActionBar(), "Admin Menu",
+                    getUserFullName(sessionUser));
+
+        etEmail.setText(sessionUser.getEmail());
+        etName.setText(sessionUser.getProperty(NAME).toString().trim());
+        etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
+    }
+
+    private void enableForm() {
+        enableViews(etName, etSurname);
+        switchViews(fabSave, fabEdit);
+        hideViews(fabResults, fabRestore, fabManageParties, fabStartElections);
+        showViews(fabCancel);
+        etName.requestFocus();
+    }
+
+    private void disableForm() {
+        disableViews(etEmail, etName, etSurname);
+        switchViews(fabEdit, fabSave);
+        hideViews(fabCancel);
+        showViews(fabResults, fabRestore, fabManageParties, fabStartElections);
+    }
+
+    public void onClick_CancelEdit(View view) {
+        disableForm();
+    }
+
+    public void onClick_EditUser(View view) {
+        enableForm();
+    }
+
+    public void onClick_SaveUser(View view) {
+        if (isValidFields(etName, etSurname)) {
+
+            AlertDialog.Builder builder = buildAlertDialog(AdminActivity.this,
+                    "Update User", "Are you sure you want to update details" +
+                            " for " + sessionUser.getEmail() + "?");
+            builder.setPositiveButton("Yes, Update",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            updateUser();
+                        }
+                    });
+
+            builder.setNegativeButton("No, Cancel",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+            builder.create().show();
+        }
+//        else {
+//
+//            isValidFields(etName, etSurname);
+//        }
     }
 }
