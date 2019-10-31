@@ -8,281 +8,307 @@
     android:padding="8dp"
     tools:context=".AdminActivity">
 
-    <ImageView
-        android:layout_width="@dimen/dimen_175dp"
-        android:layout_height="@dimen/dimen_175dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/appbar_padding_top"
-        android:layout_marginBottom="@dimen/appbar_padding_top"
-        android:background="@drawable/spinner"
-        android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_launcher_foreground" />
-
-    <LinearLayout
-        android:id="@+id/frmPersonalDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5">
+            android:orientation="vertical">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabCancelEditAdmin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:layout_margin="@dimen/default_gap"
-                app:srcCompat="@drawable/ic_cancel"
-                android:visibility="visible"
-                android:onClick="onClick_CancelEdit"/>
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabRestorePasswordAdmin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/default_gap"
-                android:backgroundTint="@color/colorPrimaryDark"
-                app:srcCompat="@drawable/ic_restore"
-                android:onClick="onClick_SendResetLink"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
+            <ImageView
+                android:layout_width="@dimen/dimen_175dp"
+                android:layout_height="@dimen/dimen_175dp"
                 android:layout_gravity="center"
-                android:text="@string/personal_details"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/appbar_padding_top"
+                android:layout_marginBottom="@dimen/appbar_padding_top"
+                android:background="@drawable/spinner"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_launcher_foreground" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabEditAdmin"
+            <LinearLayout
+                android:id="@+id/frmPersonalDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/default_gap"
-                android:backgroundTint="@color/colorPrimaryDark"
-                app:srcCompat="@drawable/ic_edit"
-                android:onClick="onClick_EditUser"/>
+                android:orientation="vertical">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabSaveAdmin"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fabCancelEditAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|start"
+                        android:layout_margin="@dimen/default_gap"
+                        android:onClick="onClick_CancelEdit"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_cancel" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fabRestorePasswordAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_gap"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:onClick="onClick_SendResetLink"
+                        app:srcCompat="@drawable/ic_restore" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:text="@string/personal_details"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fabEditAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/default_gap"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:onClick="onClick_EditUser"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/fabSaveAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="@dimen/default_gap"
+                        android:onClick="onClick_SaveUser"
+                        android:visibility="visible"
+                        app:srcCompat="@drawable/ic_save" />
+
+                </LinearLayout>
+                <!--Divider-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etEmailAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_email"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etNameAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_name"
+                        android:imeActionId="6"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etSurnameAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_surname"
+                        android:imeActionId="6"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/default_gap"
-                app:srcCompat="@drawable/ic_save"
-                android:visibility="visible"
-                android:onClick="onClick_SaveUser"/>
+                android:layout_gravity="center"
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fabStartElections"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|start"
+                    android:layout_margin="@dimen/default_gap"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:onClick="onClick_StartElections"
+                    app:srcCompat="@drawable/ic_timer" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fabAddParty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/default_gap"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:onClick="onClick_ManageParties"
+                    app:srcCompat="@drawable/ic_assign_candidate" />
+
+<!--                <Button-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@drawable/button"-->
+<!--                    android:contentDescription="@string/prompt_email"-->
+<!--                    android:drawableEnd="@drawable/ic_add_group"-->
+<!--                    android:drawablePadding="15dp"-->
+<!--                    android:onClick="onClick_ManageParties"-->
+<!--                    android:padding="15dp"-->
+<!--                    android:text="@string/manage_parties"-->
+<!--                    android:textColor="@color/colorButtonForeground"-->
+<!--                    android:textStyle="bold" />-->
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fabResultsAdmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_margin="@dimen/default_gap"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:onClick="onClick_ViewResults"
+                    app:srcCompat="@drawable/ic_poll" />
+
+            </LinearLayout>
 
         </LinearLayout>
-        <!--Divider-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/colorPrimary" />
 
+    </android.support.v4.widget.NestedScrollView>
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:orientation="horizontal">-->
 
-        <android.support.design.widget.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            app:passwordToggleEnabled="true">
+    <!--                    <Button-->
+    <!--                        android:id="@+id/btnManageParties"-->
+    <!--                        android:layout_width="0dp"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginTop="8dp"-->
+    <!--                        android:layout_marginEnd="2.5dp"-->
+    <!--                        android:layout_weight="1"-->
+    <!--                        android:background="@drawable/button"-->
+    <!--                        android:drawableEnd="@drawable/ic_group"-->
+    <!--                        android:drawableTint="@color/colorButtonForeground"-->
+    <!--                        android:gravity="center"-->
+    <!--                        android:onClick="onClick_ManageParties"-->
+    <!--                        android:paddingStart="15dp"-->
+    <!--                        android:paddingTop="25dp"-->
+    <!--                        android:paddingEnd="15dp"-->
+    <!--                        android:paddingBottom="25dp"-->
+    <!--                        android:text="@string/manage_parties"-->
+    <!--                        android:textColor="@color/colorButtonForeground"-->
+    <!--                        android:textStyle="bold" />-->
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/etEmailAdmin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_email"
-                android:drawablePadding="5dp"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true" />
+    <!--                    <Button-->
+    <!--                        android:id="@+id/btnAddCandidateAdm"-->
+    <!--                        android:layout_width="0dp"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginTop="8dp"-->
+    <!--                        android:layout_marginEnd="2.5dp"-->
+    <!--                        android:layout_weight="1"-->
+    <!--                        android:background="@drawable/button"-->
+    <!--                        android:drawableEnd="@drawable/ic_add_person"-->
+    <!--                        android:gravity="center"-->
+    <!--                        android:onClick="onClick_AddCandidate"-->
+    <!--                        android:paddingStart="15dp"-->
+    <!--                        android:paddingTop="25dp"-->
+    <!--                        android:paddingEnd="15dp"-->
+    <!--                        android:paddingBottom="25dp"-->
+    <!--                        android:text="@string/action_add_candidate"-->
+    <!--                        android:textColor="@color/colorButtonForeground"-->
+    <!--                        android:textStyle="bold" />-->
 
-        </android.support.design.widget.TextInputLayout>
+    <!--                </LinearLayout>-->
 
-        <android.support.design.widget.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            app:passwordToggleEnabled="true">
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:orientation="horizontal">-->
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/etNameAdmin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_person"
-                android:drawablePadding="5dp"
-                android:hint="@string/prompt_name"
-                android:imeActionId="6"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:singleLine="true" />
+    <!--                    <Button-->
+    <!--                        android:id="@+id/btnStartElectionsAdm"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="match_parent"-->
+    <!--                        android:layout_marginTop="8dp"-->
+    <!--                        android:layout_marginEnd="2.5dp"-->
+    <!--                        android:layout_weight="1"-->
+    <!--                        android:background="@drawable/button"-->
+    <!--                        android:drawableEnd="@drawable/ic_timer"-->
+    <!--                        android:gravity="center"-->
+    <!--                        android:onClick="onClick_StartElections"-->
+    <!--                        android:paddingStart="15dp"-->
+    <!--                        android:paddingTop="25dp"-->
+    <!--                        android:paddingEnd="15dp"-->
+    <!--                        android:paddingBottom="25dp"-->
+    <!--                        android:text="@string/action_set_election_period"-->
+    <!--                        android:textColor="@color/colorButtonForeground"-->
+    <!--                        android:textStyle="bold" />-->
 
-        </android.support.design.widget.TextInputLayout>
+    <!--                    <Button-->
+    <!--                        android:id="@+id/btnViewResultsAdm"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="match_parent"-->
+    <!--                        android:layout_marginTop="8dp"-->
+    <!--                        android:layout_marginEnd="2.5dp"-->
+    <!--                        android:layout_weight="1"-->
+    <!--                        android:background="@drawable/button"-->
+    <!--                        android:drawableEnd="@drawable/ic_poll"-->
+    <!--                        android:gravity="center"-->
+    <!--                        android:onClick="onClick_ViewResults"-->
+    <!--                        android:paddingStart="15dp"-->
+    <!--                        android:paddingTop="25dp"-->
+    <!--                        android:paddingEnd="15dp"-->
+    <!--                        android:paddingBottom="25dp"-->
+    <!--                        android:text="@string/action_view_results"-->
+    <!--                        android:textColor="@color/colorButtonForeground"-->
+    <!--                        android:textStyle="bold" />-->
 
-        <android.support.design.widget.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            app:passwordToggleEnabled="true">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/etSurnameAdmin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_person"
-                android:drawablePadding="5dp"
-                android:hint="@string/prompt_surname"
-                android:imeActionId="6"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:singleLine="true" />
-
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center|bottom"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabStartElections"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_margin="@dimen/default_gap"
-            android:backgroundTint="@color/colorPrimaryDark"
-            app:srcCompat="@drawable/ic_timer"
-            android:onClick="onClick_StartElections"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabAddParty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/default_gap"
-            android:backgroundTint="@color/colorPrimaryDark"
-            app:srcCompat="@drawable/ic_add_group"
-            android:onClick="onClick_ManageParties"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabResultsAdmin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_margin="@dimen/default_gap"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:onClick="onClick_ViewResults"
-            app:srcCompat="@drawable/ic_poll" />
-
-    </LinearLayout>
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnManageParties"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginEnd="2.5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/button"-->
-<!--                        android:drawableEnd="@drawable/ic_group"-->
-<!--                        android:drawableTint="@color/colorButtonForeground"-->
-<!--                        android:gravity="center"-->
-<!--                        android:onClick="onClick_ManageParties"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="25dp"-->
-<!--                        android:text="@string/manage_parties"-->
-<!--                        android:textColor="@color/colorButtonForeground"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnAddCandidateAdm"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginEnd="2.5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/button"-->
-<!--                        android:drawableEnd="@drawable/ic_add_person"-->
-<!--                        android:gravity="center"-->
-<!--                        android:onClick="onClick_AddCandidate"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="25dp"-->
-<!--                        android:text="@string/action_add_candidate"-->
-<!--                        android:textColor="@color/colorButtonForeground"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnStartElectionsAdm"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginEnd="2.5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/button"-->
-<!--                        android:drawableEnd="@drawable/ic_timer"-->
-<!--                        android:gravity="center"-->
-<!--                        android:onClick="onClick_StartElections"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="25dp"-->
-<!--                        android:text="@string/action_set_election_period"-->
-<!--                        android:textColor="@color/colorButtonForeground"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnViewResultsAdm"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginEnd="2.5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:background="@drawable/button"-->
-<!--                        android:drawableEnd="@drawable/ic_poll"-->
-<!--                        android:gravity="center"-->
-<!--                        android:onClick="onClick_ViewResults"-->
-<!--                        android:paddingStart="15dp"-->
-<!--                        android:paddingTop="25dp"-->
-<!--                        android:paddingEnd="15dp"-->
-<!--                        android:paddingBottom="25dp"-->
-<!--                        android:text="@string/action_view_results"-->
-<!--                        android:textColor="@color/colorButtonForeground"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                </LinearLayout>-->
+    <!--                </LinearLayout>-->
 
 </LinearLayout>

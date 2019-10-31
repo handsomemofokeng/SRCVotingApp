@@ -29,7 +29,7 @@
             android:contentDescription="@string/prompt_email"
             android:onClick="onClick_ResetPartySelection"
             android:padding="10dp"
-            android:src="@drawable/ic_restore"
+            android:src="@drawable/ic_back"
             android:visibility="gone" />
 
         <RadioGroup
@@ -70,7 +70,7 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_gap">
@@ -262,7 +262,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
      <android.support.v7.widget.RecyclerView
             android:id="@+id/rvCandidates"

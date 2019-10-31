@@ -276,7 +276,7 @@ public class ResultsActivity extends AppCompatActivity {
                         currentVotes.clear();
 
                         for (Map vMap : response) {
-                            if((Boolean) vMap.get(HAS_VOTED))
+
                             currentVotes.add(new Vote(vMap.get(SELECTED_President).toString(),
                                     vMap.get(SELECTED_DeputyPresident).toString(),
                                     vMap.get(SELECTED_SecretaryGeneral).toString(),
