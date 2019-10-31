@@ -22,6 +22,7 @@ import com.backendless.exceptions.BackendlessFault;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.clearErrors;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
@@ -129,8 +130,8 @@ public class AdminActivity extends AppCompatActivity {
                             sessionUser.getEmail()
                                     + " signed out successfully.");
 
-                    commitMyPrefs(sessionUser.getEmail(), sessionUser.getPassword(),
-                            false);
+//                    commitMyPrefs(sessionUser.getEmail(), sessionUser.getPassword(), false);
+
                     finish();
                 }
 
@@ -273,6 +274,7 @@ public class AdminActivity extends AppCompatActivity {
         etEmail.setText(sessionUser.getEmail());
         etName.setText(sessionUser.getProperty(NAME).toString().trim());
         etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
+        clearErrors(etEmail, etName, etSurname);
     }
 
     private void enableForm() {
@@ -292,6 +294,7 @@ public class AdminActivity extends AppCompatActivity {
 
     public void onClick_CancelEdit(View view) {
         disableForm();
+        populateForm();
     }
 
     public void onClick_EditUser(View view) {

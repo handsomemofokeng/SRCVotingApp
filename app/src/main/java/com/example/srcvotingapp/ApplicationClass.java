@@ -325,6 +325,25 @@ public class ApplicationClass extends Application {
     }
 
     /**
+     * Clears errors of listed views
+     *
+     * @param views to be cleared of errors
+     */
+    public static void clearErrors(View... views) {
+        for (View view : views) {
+
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                textView.setError(null);
+            }
+            if (view instanceof EditText) {
+                EditText editText = (EditText) view;
+                editText.setError(null);
+            }
+        }
+    }
+
+    /**
      * This method checks if all field provided in parameters have values
      *
      * @param fields to be checked for validity

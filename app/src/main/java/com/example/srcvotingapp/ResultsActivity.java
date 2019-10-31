@@ -4,13 +4,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
@@ -23,10 +22,12 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
 import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
@@ -55,6 +56,8 @@ public class ResultsActivity extends AppCompatActivity {
 
     //UI references
     View toastView;
+    TextView tvNumVotes;
+
     BarChart chart;
     List<Vote> currentVotes;
 
@@ -112,79 +115,84 @@ public class ResultsActivity extends AppCompatActivity {
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
         chart = findViewById(R.id.barChart);
+        tvNumVotes = findViewById(R.id.tvNumVotes);
     }
 
     private void drawGroupChart(List<Vote> voteList) {
 
-        ArrayList<BarEntry> entriesDASO = new ArrayList<>();
-        ArrayList<BarEntry> entriesEFFSC = new ArrayList<>();
-        ArrayList<BarEntry> entriesSASCO = new ArrayList<>();
+        if (!voteList.isEmpty()) {
+            ArrayList<BarEntry> entriesDASO = new ArrayList<>();
+            ArrayList<BarEntry> entriesEFFSC = new ArrayList<>();
+            ArrayList<BarEntry> entriesSASCO = new ArrayList<>();
 
-        for (int i = 1; i <= 12; i++) {
-            entriesDASO.add(new BarEntry(i, calcNumVotes("DASO", i, voteList)));
-            entriesEFFSC.add(new BarEntry(i, calcNumVotes("EFFSC", i, voteList)));
-            entriesSASCO.add(new BarEntry(i, calcNumVotes("SASCO", i, voteList)));
+            for (int i = 1; i <= 12; i++) {
+                entriesDASO.add(new BarEntry(i, calcNumVotes("DASO", i, voteList)));
+                entriesEFFSC.add(new BarEntry(i, calcNumVotes("EFFSC", i, voteList)));
+                entriesSASCO.add(new BarEntry(i, calcNumVotes("SASCO", i, voteList)));
+            }
+
+            BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
+            setDASO.setColor(Color.BLUE);
+            BarDataSet setEFFSC = new BarDataSet(entriesEFFSC, "EFFSC");
+            setEFFSC.setColor(Color.RED);
+            BarDataSet setSASCO = new BarDataSet(entriesSASCO, "SASCO");
+            setSASCO.setColor(Color.YELLOW);
+
+            BarData barData = new BarData(setDASO, setEFFSC, setSASCO);
+            chart.setData(barData);
+
+            XAxis xAxis = chart.getXAxis();
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(Portfolios));
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setGranularity(1f);
+            xAxis.setGranularityEnabled(true);
+
+            xAxis.setCenterAxisLabels(true);
+            xAxis.setDrawGridLines(true);
+            xAxis.setTextColor(Color.BLACK);
+            xAxis.setTextSize(12);
+            xAxis.setAxisLineColor(Color.WHITE);
+            xAxis.setAxisMinimum(1f);
+
+            chart.setDragEnabled(true);
+
+            Configuration configuration = this.getResources().getConfiguration();
+            if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                chart.setVisibleXRangeMaximum(1);
+            } else {
+                chart.setVisibleXRangeMaximum(2);
+            }
+
+            chart.getDescription().setPosition(0f, 1000f);
+
+            float barSpace = 0.02f, groupSpace = 0.1f, barWidth = 0.28f;
+            int numBars = 12;
+            barData.setBarWidth(barWidth);
+
+            chart.getXAxis().setAxisMinimum(0);
+
+            chart.getXAxis().setAxisMaximum(0 + chart.getBarData().getGroupWidth(groupSpace,
+                    barWidth) * numBars);
+            chart.getAxisLeft().setAxisMinimum(0);
+
+            chart.groupBars(0, groupSpace, barSpace);
+
+            chart.animateXY(4000, 2000);
+            chart.invalidate();
+        }else{
+            showMessageDialog("No Data", "Votes are empty, no data to display yet.");
         }
-
-        BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
-        setDASO.setColor(Color.BLUE);
-        BarDataSet setEFFSC = new BarDataSet(entriesEFFSC, "EFFSC");
-        setEFFSC.setColor(Color.RED);
-        BarDataSet setSASCO = new BarDataSet(entriesSASCO, "SASCO");
-        setSASCO.setColor(Color.YELLOW);
-
-        BarData barData = new BarData(setDASO, setEFFSC, setSASCO);
-        chart.setData(barData);
-
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(Portfolios));
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
-
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setDrawGridLines(true);
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setTextSize(12);
-        xAxis.setAxisLineColor(Color.WHITE);
-        xAxis.setAxisMinimum(1f);
-
-        chart.setDragEnabled(true);
-
-        Configuration configuration = this.getResources().getConfiguration();
-        if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            chart.setVisibleXRangeMaximum(1);
-        } else {
-            chart.setVisibleXRangeMaximum(2);
-        }
-
-        chart.getDescription().setPosition(0f, 1000f);
-
-        float barSpace = 0.02f, groupSpace = 0.1f, barWidth = 0.28f;
-        int numBars = 12;
-        barData.setBarWidth(barWidth);
-
-        chart.getXAxis().setAxisMinimum(0);
-
-        chart.getXAxis().setAxisMaximum(0 + chart.getBarData().getGroupWidth(groupSpace,
-                barWidth) * numBars);
-        chart.getAxisLeft().setAxisMinimum(0);
-
-        chart.groupBars(0, groupSpace, barSpace);
-
-        chart.animateXY(4000, 2000);
-        chart.invalidate();
 
     }
 
     private int calcNumVotes(String partyID, int portfolioPosition, List<Vote> voteList) {
 
+        tvNumVotes.setText(MessageFormat.format("Vote/s so far: {0}", currentVotes.size()));
         int voteCount = 0;
 
         if (!voteList.isEmpty()) {
             for (int i = 0; i < voteList.size(); i++) {
                 Vote vote = voteList.get(i);
-                showCustomToast(getApplicationContext(), toastView, vote.toString());
                 switch (portfolioPosition) {
                     case 1:
                         if (voteList.get(i).getSelectedPresident().contains(partyID)) {
@@ -266,7 +274,9 @@ public class ResultsActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         currentVotes.clear();
+
                         for (Map vMap : response) {
+                            if((Boolean) vMap.get(HAS_VOTED))
                             currentVotes.add(new Vote(vMap.get(SELECTED_President).toString(),
                                     vMap.get(SELECTED_DeputyPresident).toString(),
                                     vMap.get(SELECTED_SecretaryGeneral).toString(),
@@ -295,7 +305,6 @@ public class ResultsActivity extends AppCompatActivity {
                         showMessageDialog("Error", fault.getMessage());
                     }
                 });
-
 //                .find(selectAllQuery("created"),
 //                new AsyncCallback<List<Vote>>() {
 //                    @Override
@@ -317,10 +326,11 @@ public class ResultsActivity extends AppCompatActivity {
 //                        showMessageDialog("Error getting Votes", fault.getMessage());
 //                    }
 //                });
+
     }
 
-    public void onClick_GoBack(View view) {
-        finish();
+    public void onClick_RefreshVotes(View view) {
+        getCurrentVotes();
     }
 
     public void onClick_GoHome(View view) {

@@ -32,6 +32,7 @@ import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
+import static com.example.srcvotingapp.ApplicationClass.clearErrors;
 import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
@@ -297,6 +298,7 @@ public class StudentActivity extends AppCompatActivity {
         }
         setSelectedSpinnerValue(spnCourse, sessionUser.getProperty(COURSE).toString());
         setSelectedSpinnerValue(spnEthnicity, sessionUser.getProperty(ETHNICITY).toString());
+        clearErrors(etEmail, etName, etSurname,tvCourse, tvEthnicity, tvGender);
     }
 
     private void enableForm() {
@@ -370,8 +372,8 @@ public class StudentActivity extends AppCompatActivity {
                             sessionUser.getEmail()
                                     + " signed out successfully.");
 
-                    commitMyPrefs(sessionUser.getEmail(), sessionUser.getPassword(),
-                            false);
+//                    commitMyPrefs(sessionUser.getEmail(), sessionUser.getPassword(), false);
+
                     finish();
                 }
 
