@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.srcvotingapp.BL.Vote;
@@ -50,6 +51,7 @@ import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
+import static com.example.srcvotingapp.ApplicationClass.switchViews;
 
 
 public class ResultsActivity extends AppCompatActivity {
@@ -177,9 +179,9 @@ public class ResultsActivity extends AppCompatActivity {
 
             chart.groupBars(0, groupSpace, barSpace);
 
-            chart.animateXY(4000, 2000);
+            chart.animateY(2000);
             chart.invalidate();
-        }else{
+        } else {
             showMessageDialog("No Data", "Votes are empty, no data to display yet.");
         }
 
@@ -191,11 +193,11 @@ public class ResultsActivity extends AppCompatActivity {
         int voteCount = 0;
 
         if (!voteList.isEmpty()) {
-            for (int i = 0; i < voteList.size(); i++) {
-                Vote vote = voteList.get(i);
-                switch (portfolioPosition) {
+
+            for (Vote vote : voteList) {
+                switch (portfolioPosition){
                     case 1:
-                        if (voteList.get(i).getSelectedPresident().contains(partyID)) {
+                        if (vote.getSelectedPresident().contains(partyID)) {
                             voteCount++;
                         }
                         break;
@@ -256,6 +258,73 @@ public class ResultsActivity extends AppCompatActivity {
                         break;
                 }
             }
+
+//            for (int i = 0; i < voteList.size(); i++) {
+//                Vote vote = voteList.get(i);
+//                switch (portfolioPosition) {
+//                    case 1:
+//                        if (voteList.get(i).getSelectedPresident().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 2:
+//                        if (vote.getSelectedDeputyPresident().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 3:
+//                        if (vote.getSelectedSecretaryGeneral().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 4:
+//                        if (vote.getSelectedFinancialOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 5:
+//                        if (vote.getSelectedConstitutionalAndLegalAffairs().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 6:
+//                        if (vote.getSelectedSportsOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 7:
+//                        if (vote.getSelectedPublicRelationsOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 8:
+//                        if (vote.getSelectedHealthAndWelfareOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 9:
+//                        if (vote.getSelectedProjectsAndCampaignOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 10:
+//                        if (vote.getSelectedStudentAffairs().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 11:
+//                        if (vote.getSelectedEquityAndDiversityOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                    case 12:
+//                        if (vote.getSelectedTransformationOfficer().contains(partyID)) {
+//                            voteCount++;
+//                        }
+//                        break;
+//                }
+//            }
+
         } else {
             showCustomToast(ResultsActivity.this, toastView, "No votes yet.");
         }
@@ -267,63 +336,72 @@ public class ResultsActivity extends AppCompatActivity {
 
         showProgressDialog(ResultsActivity.this, "Retrieving Votes",
                 "Please wait while we get votes...", false);
-        Backendless.Data.of("Vote").find(selectAllQuery("created"),
-                new AsyncCallback<List<Map>>() {
+        Backendless.Data.of(Vote.class).find(selectAllQuery("created"),
+                new AsyncCallback<List<Vote>>() {
                     @Override
-                    public void handleResponse(List<Map> response) {
+                    public void handleResponse(List<Vote> response) {
+
                         progressDialog.dismiss();
 
+                        //Add only Valid Votes
                         currentVotes.clear();
-
-                        for (Map vMap : response) {
-
-                            currentVotes.add(new Vote(vMap.get(SELECTED_President).toString(),
-                                    vMap.get(SELECTED_DeputyPresident).toString(),
-                                    vMap.get(SELECTED_SecretaryGeneral).toString(),
-                                    vMap.get(SELECTED_FinancialOfficer).toString(),
-                                    vMap.get(SELECTED_ConstitutionalAndLegalAffairs).toString(),
-                                    vMap.get(SELECTED_SportsOfficer).toString(),
-                                    vMap.get(SELECTED_PublicRelationsOfficer).toString(),
-                                    vMap.get(SELECTED_HealthAndWelfareOfficer).toString(),
-                                    vMap.get(SELECTED_ProjectsAndCampaignOfficer).toString(),
-                                    vMap.get(SELECTED_StudentAffairs).toString(),
-                                    vMap.get(SELECTED_EquityAndDiversityOfficer).toString(),
-                                    vMap.get(SELECTED_TransformationOfficer).toString()
-                            ));
+                        for (Vote vote : response) {
+                            if (vote.isVotesValid())
+                                currentVotes.add(vote);
                         }
+
                         if (!currentVotes.isEmpty())
-                            drawGroupChart(currentVotes);
+                            drawGroupChart(response);
                         else
                             showMessageDialog("Votes Empty", "No votes yet...");
-
 
                     }
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
                         progressDialog.dismiss();
-                        showMessageDialog("Error", fault.getMessage());
+                        showMessageDialog("Error getting Votes", fault.getMessage());
                     }
                 });
+
 //                .find(selectAllQuery("created"),
-//                new AsyncCallback<List<Vote>>() {
+//                new AsyncCallback<List<Map>>() {
 //                    @Override
-//                    public void handleResponse(List<Vote> response) {
-//
+//                    public void handleResponse(List<Map> response) {
 //                        progressDialog.dismiss();
-//                        showCustomToast(ResultsActivity.this, toastView,
-//                                "Votes:" + response.size());
 //
-//                        for (Vote vote : response) {
-//                            showMessageDialog("Vote", vote.toString());
+//                        currentVotes.clear();
+//
+//                        Backendless.Data.mapTableToClass("Vote", Vote.class);
+//
+//                        for (Map vMap : response) {
+//
+//                            currentVotes.add(new Vote(vMap.get(SELECTED_President).toString(),
+//                                    vMap.get(SELECTED_DeputyPresident).toString(),
+//                                    vMap.get(SELECTED_SecretaryGeneral).toString(),
+//                                    vMap.get(SELECTED_FinancialOfficer).toString(),
+//                                    vMap.get(SELECTED_ConstitutionalAndLegalAffairs).toString(),
+//                                    vMap.get(SELECTED_SportsOfficer).toString(),
+//                                    vMap.get(SELECTED_PublicRelationsOfficer).toString(),
+//                                    vMap.get(SELECTED_HealthAndWelfareOfficer).toString(),
+//                                    vMap.get(SELECTED_ProjectsAndCampaignOfficer).toString(),
+//                                    vMap.get(SELECTED_StudentAffairs).toString(),
+//                                    vMap.get(SELECTED_EquityAndDiversityOfficer).toString(),
+//                                    vMap.get(SELECTED_TransformationOfficer).toString()
+//                            ));
 //                        }
+//                        if (!currentVotes.isEmpty())
+//                            drawGroupChart(currentVotes);
+//                        else
+//                            showMessageDialog("Votes Empty", "No votes yet...");
+//
 //
 //                    }
 //
 //                    @Override
 //                    public void handleFault(BackendlessFault fault) {
 //                        progressDialog.dismiss();
-//                        showMessageDialog("Error getting Votes", fault.getMessage());
+//                        showMessageDialog("Error", fault.getMessage());
 //                    }
 //                });
 

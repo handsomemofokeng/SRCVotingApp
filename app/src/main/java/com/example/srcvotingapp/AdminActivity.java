@@ -319,7 +319,8 @@ public class AdminActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            disableForm();
+                            populateForm();
                         }
                     });
             builder.create().show();

@@ -99,7 +99,6 @@
                     android:layout_marginBottom="5dp"
                     android:background="@color/colorPrimary" />
 
-
                 <android.support.design.widget.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"

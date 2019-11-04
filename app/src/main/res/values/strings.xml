@@ -82,5 +82,6 @@
     <string name="select_party">Select Party</string>
     <string name="register_party">Register Party/s</string>
     <string name="reset_party">Reset Party/s</string>
+    <string name="voted">Voted:</string>
 
 </resources>

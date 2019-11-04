@@ -21,9 +21,14 @@ public class ManagePartiesActivity extends AppCompatActivity {
         if (actionBar != null)
             setupActionBar(getSupportActionBar(), "Manage Parties",
                     getUserFullName(sessionUser));
+
     }
 
     public void onClick_AddCandidate(View view) {
         startActivity(new Intent(ManagePartiesActivity.this, AddCandidateActivity.class));
+    }
+
+    public void onClick_GoHome(View view) {
+        finish();
     }
 }

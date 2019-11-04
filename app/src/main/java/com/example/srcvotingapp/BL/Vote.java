@@ -1,23 +1,63 @@
 package com.example.srcvotingapp.BL;
 
+import weborb.service.MapToProperty;
+
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_DeputyPresident;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_EquityAndDiversityOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_FinancialOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_HealthAndWelfareOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_President;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_ProjectsAndCampaignOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_PublicRelationsOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_SecretaryGeneral;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_SportsOfficer;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_StudentAffairs;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_TransformationOfficer;
 
 public class Vote {
 
+    private String objectId;
+
+    @MapToProperty(property = SELECTED_President)
     private String SelectedPresident;
+
+    @MapToProperty(property = SELECTED_DeputyPresident)
     private String SelectedDeputyPresident;
+
+    @MapToProperty(property = SELECTED_SecretaryGeneral)
     private String SelectedSecretaryGeneral;
+
+    @MapToProperty(property = SELECTED_FinancialOfficer)
     private String SelectedFinancialOfficer;
+
+    @MapToProperty(property = SELECTED_ConstitutionalAndLegalAffairs)
     private String SelectedConstitutionalAndLegalAffairs;
+
+    @MapToProperty(property = SELECTED_SportsOfficer)
     private String SelectedSportsOfficer;
+
+    @MapToProperty(property = SELECTED_PublicRelationsOfficer)
     private String SelectedPublicRelationsOfficer;
+
+    @MapToProperty(property = SELECTED_HealthAndWelfareOfficer)
     private String SelectedHealthAndWelfareOfficer;
+
+    @MapToProperty(property = SELECTED_ProjectsAndCampaignOfficer)
     private String SelectedProjectsAndCampaignOfficer;
+
+    @MapToProperty(property = SELECTED_StudentAffairs)
     private String SelectedStudentAffairs;
+
+    @MapToProperty(property = SELECTED_EquityAndDiversityOfficer)
     private String SelectedEquityAndDiversityOfficer;
+
+    @MapToProperty(property = SELECTED_TransformationOfficer)
     private String SelectedTransformationOfficer;
 
-    public Vote(){}
+    public Vote() {
+    }
 
 //    private Boolean votesValid;
 //
@@ -138,8 +178,8 @@ public class Vote {
                 ", SelectedHealthAndWelfareOfficer='" + getSelectedHealthAndWelfareOfficer() + '\'' +
                 ", SelectedProjectsAndCampaignOfficer='" + getSelectedProjectsAndCampaignOfficer() + '\'' +
                 ", SelectedStudentAffairs='" + getSelectedStudentAffairs() + '\'' +
-                ", SelectedEquityAndDiversityOfficer='" + getSelectedEquityAndDiversityOfficer ()+ '\'' +
-                ", SelectedTransformationOfficer='" + getSelectedTransformationOfficer ()+ '\'' +
+                ", SelectedEquityAndDiversityOfficer='" + getSelectedEquityAndDiversityOfficer() + '\'' +
+                ", SelectedTransformationOfficer='" + getSelectedTransformationOfficer() + '\'' +
                 '}';
     }
 
@@ -147,20 +187,26 @@ public class Vote {
         return !this.toString().contains("Not selected");
     }
 
-    public Vote(String selectedPresident, String selectedDeputyPresident, String selectedSecretaryGeneral, String selectedFinancialOfficer, String selectedConstitutionalAndLegalAffairs, String selectedSportsOfficer, String selectedPublicRelationsOfficer, String selectedHealthAndWelfareOfficer, String selectedProjectsAndCampaignOfficer, String selectedStudentAffairs, String selectedEquityAndDiversityOfficer, String selectedTransformationOfficer) {
-        SelectedPresident = selectedPresident;
-        SelectedDeputyPresident = selectedDeputyPresident;
-        SelectedSecretaryGeneral = selectedSecretaryGeneral;
-        SelectedFinancialOfficer = selectedFinancialOfficer;
-        SelectedConstitutionalAndLegalAffairs = selectedConstitutionalAndLegalAffairs;
-        SelectedSportsOfficer = selectedSportsOfficer;
-        SelectedPublicRelationsOfficer = selectedPublicRelationsOfficer;
-        SelectedHealthAndWelfareOfficer = selectedHealthAndWelfareOfficer;
-        SelectedProjectsAndCampaignOfficer = selectedProjectsAndCampaignOfficer;
-        SelectedStudentAffairs = selectedStudentAffairs;
-        SelectedEquityAndDiversityOfficer = selectedEquityAndDiversityOfficer;
-        SelectedTransformationOfficer = selectedTransformationOfficer;
-    }
+//    public Vote(String selectedPresident, String selectedDeputyPresident,
+//                String selectedSecretaryGeneral, String selectedFinancialOfficer,
+//                String selectedConstitutionalAndLegalAffairs, String selectedSportsOfficer,
+//                String selectedPublicRelationsOfficer, String selectedHealthAndWelfareOfficer,
+//                String selectedProjectsAndCampaignOfficer, String selectedStudentAffairs,
+//                String selectedEquityAndDiversityOfficer, String selectedTransformationOfficer) {
+//
+//        SelectedPresident = selectedPresident;
+//        SelectedDeputyPresident = selectedDeputyPresident;
+//        SelectedSecretaryGeneral = selectedSecretaryGeneral;
+//        SelectedFinancialOfficer = selectedFinancialOfficer;
+//        SelectedConstitutionalAndLegalAffairs = selectedConstitutionalAndLegalAffairs;
+//        SelectedSportsOfficer = selectedSportsOfficer;
+//        SelectedPublicRelationsOfficer = selectedPublicRelationsOfficer;
+//        SelectedHealthAndWelfareOfficer = selectedHealthAndWelfareOfficer;
+//        SelectedProjectsAndCampaignOfficer = selectedProjectsAndCampaignOfficer;
+//        SelectedStudentAffairs = selectedStudentAffairs;
+//        SelectedEquityAndDiversityOfficer = selectedEquityAndDiversityOfficer;
+//        SelectedTransformationOfficer = selectedTransformationOfficer;
+//    }
 
     public void assignVotes(String selectedPortfolio, String selectedPartyID) {
 

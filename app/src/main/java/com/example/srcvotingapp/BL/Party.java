@@ -1,11 +1,19 @@
 package com.example.srcvotingapp.BL;
 
+import weborb.service.MapToProperty;
+
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
 
 public class Party {
 
+    public String objectId;
+
+    @MapToProperty( property = "partyName" )
     private String PartyName;
+    @MapToProperty( property = "partyID" )
     private String PartyID;
+    @MapToProperty( property = "partyName" )
     private String President;
     private String DeputyPresident;
     private String SecretaryGeneral;
@@ -22,6 +30,7 @@ public class Party {
     public Party(){}
 
     public Party(String partyName, String partyID) {
+
         PartyName = partyName;
         PartyID = partyID;
 

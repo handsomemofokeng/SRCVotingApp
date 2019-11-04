@@ -33,7 +33,6 @@ import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearErrors;
-import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
@@ -59,7 +58,7 @@ public class StudentActivity extends AppCompatActivity {
     private EditText etEmail, etName, etSurname;
     private TextInputLayout etPassword, etConfirm;
     private View toastView;
-    private TextView tvCourse, tvEthnicity, tvGender;
+    private TextView tvCourse, tvEthnicity, tvGender, tvHasVoted, tvNotVoted;
     private Spinner spnEthnicity, spnCourse;
     private RadioButton rbMale, rbFemale;
     private Button btnRegister, btnGoBack;
@@ -83,6 +82,12 @@ public class StudentActivity extends AppCompatActivity {
                     getUserFullName(sessionUser));
 
         initViews();
+
+        if ((Boolean) sessionUser.getProperty(HAS_VOTED)){
+            switchViews(tvHasVoted, tvNotVoted);
+        }else{
+            switchViews(tvNotVoted, tvHasVoted);
+        }
 
         disableForm();
 
@@ -120,7 +125,8 @@ public class StudentActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
+                                    disableForm();
+                                    populateForm();
                                 }
                             });
                     builder.create().show();
@@ -232,6 +238,8 @@ public class StudentActivity extends AppCompatActivity {
         spnEthnicity = findViewById(R.id.spnEthnicityReg);
         tvCourse = findViewById(R.id.tvCourse);
         tvEthnicity = findViewById(R.id.tvEthnicity);
+        tvHasVoted= findViewById(R.id.tvVoteStatusPositive);
+        tvNotVoted = findViewById(R.id.tvVoteStatusNegative);
 //        rgGender = findViewById(R.id.rgGender);
         rbMale = findViewById(R.id.rbMale);
         rbFemale = findViewById(R.id.rbFemale);
@@ -298,7 +306,7 @@ public class StudentActivity extends AppCompatActivity {
         }
         setSelectedSpinnerValue(spnCourse, sessionUser.getProperty(COURSE).toString());
         setSelectedSpinnerValue(spnEthnicity, sessionUser.getProperty(ETHNICITY).toString());
-        clearErrors(etEmail, etName, etSurname,tvCourse, tvEthnicity, tvGender);
+        clearErrors(etEmail, etName, etSurname, tvCourse, tvEthnicity, tvGender);
     }
 
     private void enableForm() {
@@ -340,8 +348,9 @@ public class StudentActivity extends AppCompatActivity {
 
     private void showSignOutDialog() {
         AlertDialog.Builder builder = buildAlertDialog(StudentActivity.this,
-                "Sign Out", sessionUser.getEmail() + " is about to be signed out\n" +
-                        "\nContinue signing out?");
+                "Sign Out", sessionUser.getEmail()
+                        + " is about to be signed out of the App.\n"
+                        + "\nContinue signing out?");
 
         builder.setPositiveButton("Yes, Sign Out", new DialogInterface.OnClickListener() {
             @Override

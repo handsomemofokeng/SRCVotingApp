@@ -20,11 +20,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_student"
+    <include
+        layout="@layout/content_student"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+        android:layout_marginBottom="?attr/actionBarSize" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabEdit"
@@ -68,5 +69,32 @@
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/default_gap"
         app:srcCompat="@drawable/ic_cancel" />
+
+    <TextView
+        android:id="@+id/tvVoteStatusNegative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginTop="?actionBarSize"
+        android:drawablePadding="@dimen/default_gap"
+        android:text="@string/voted"
+        android:drawableEnd="@drawable/ic_uncheck" />
+
+    <TextView
+        android:id="@+id/tvVoteStatusPositive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:layout_marginTop="?actionBarSize"
+        android:drawablePadding="@dimen/default_gap"
+        android:text="@string/voted"
+        android:visibility="gone"
+        android:drawableEnd="@drawable/ic_check"/>
 
 </android.support.design.widget.CoordinatorLayout>

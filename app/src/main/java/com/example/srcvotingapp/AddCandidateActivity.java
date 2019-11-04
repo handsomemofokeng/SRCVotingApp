@@ -92,6 +92,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
                 selectedParty = null;
 
+                etEmail.setError(null);
 
                 switch (checkedId) {
 
@@ -372,6 +373,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
         switchViews(rvCandidates, frmCandidateDetails);
 
+// TODO: 2019/11/04 get userString
         candidates.set(selectedPosition, "Test, One");
         myAdapter.notifyDataSetChanged();
 
