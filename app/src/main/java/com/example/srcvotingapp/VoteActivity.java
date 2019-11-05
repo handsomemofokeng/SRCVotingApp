@@ -93,7 +93,6 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 //        pieChart.setRotationEnabled(false);
 //        pieChart.animateY(1000, Easing.EasingOption.EaseInOutBounce);
 
-
     }
 
     private void initViews() {

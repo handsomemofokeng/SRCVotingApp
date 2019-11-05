@@ -72,6 +72,8 @@ public class VoteFragment extends Fragment {
         rbEFFSC = root.findViewById(R.id.rbEFFSC);
         rbSASCO = root.findViewById(R.id.rbSASCO);
 
+
+
         rgCandidateParty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

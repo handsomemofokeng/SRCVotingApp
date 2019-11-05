@@ -239,7 +239,7 @@ public class StudentActivity extends AppCompatActivity {
         rbFemale = findViewById(R.id.rbFemale);
         ivCorrect = findViewById(R.id.ivCorrectRegUser);
         ivScanCard = findViewById(R.id.ivScanCardRegUser);
-        ivAddPhoto = findViewById(R.id.ivAddPicture);
+//        ivAddPhoto = findViewById(R.id.ivAddPicture);
         btnRegister = findViewById(R.id.btnRegisterUser);
         btnGoBack = findViewById(R.id.btnGoBack);
 //        frmPersonalDetails = findViewById(R.id.frmPersonalDetails);
@@ -312,7 +312,7 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     private void enableForm() {
-        enableViews(etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale, ivAddPhoto);
+        enableViews(etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale);//, ivAddPhoto);
         switchViews(fabSave, fabEdit);
         hideViews(fabVote, fabRestore);
         showViews(fabCancel);
@@ -320,8 +320,7 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     private void disableForm() {
-        disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale,
-                ivAddPhoto);
+        disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale);
         switchViews(fabEdit, fabSave);
         hideViews(fabCancel);
         showViews(fabVote, fabRestore);
