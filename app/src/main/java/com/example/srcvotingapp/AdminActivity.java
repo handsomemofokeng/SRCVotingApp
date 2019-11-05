@@ -77,7 +77,7 @@ public class AdminActivity extends AppCompatActivity {
         fabRestore = findViewById(R.id.fabRestorePasswordAdmin);
         fabCancel = findViewById(R.id.fabCancelEditAdmin);
         fabManageParties = findViewById(R.id.fabAddParty);
-        fabStartElections = findViewById(R.id.fabStartElections);
+//        fabStartElections = findViewById(R.id.fabStartElections);
     }
 
     @Override
@@ -280,7 +280,7 @@ public class AdminActivity extends AppCompatActivity {
     private void enableForm() {
         enableViews(etName, etSurname);
         switchViews(fabSave, fabEdit);
-        hideViews(fabResults, fabRestore, fabManageParties, fabStartElections);
+        hideViews(fabResults, fabRestore, fabManageParties);//, fabStartElections);
         showViews(fabCancel);
         etName.requestFocus();
     }
@@ -289,7 +289,7 @@ public class AdminActivity extends AppCompatActivity {
         disableViews(etEmail, etName, etSurname);
         switchViews(fabEdit, fabSave);
         hideViews(fabCancel);
-        showViews(fabResults, fabRestore, fabManageParties, fabStartElections);
+        showViews(fabResults, fabRestore, fabManageParties);//, fabStartElections);
     }
 
     public void onClick_CancelEdit(View view) {

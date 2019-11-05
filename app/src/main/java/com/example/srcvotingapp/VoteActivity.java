@@ -23,7 +23,6 @@ import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
-import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
@@ -44,7 +43,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     private TextView tvTimer, tvSubtitle;
     private ProgressBar pbVotes;
 
-    FloatingActionButton fabSubmitVotes;
+//    FloatingActionButton fabSubmitVotes;
     private Button btnSubmitVotes;
 
     int numVotesSoFar = 0;
@@ -269,7 +268,6 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
         builder.create().show();

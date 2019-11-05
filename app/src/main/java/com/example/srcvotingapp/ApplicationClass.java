@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -863,5 +864,36 @@ public class ApplicationClass extends Application {
         editor.putString(EMAIL, username);
         editor.putString(PASSWORD, password);
         editor.apply();
+    }
+
+    /**
+     * Checks listed checkboxes
+     * @param checkBoxes to be checked
+     */
+    public static void selectCheckBoxes(CheckBox... checkBoxes) {
+        for (CheckBox box : checkBoxes) {
+            box.setChecked(true);
+        }
+    }
+
+    /**
+     * Unchecks listed checkboxes
+     * @param checkBoxes to be unchecked
+     */
+    public static void deselectCheckBoxes(CheckBox... checkBoxes) {
+        for (CheckBox box : checkBoxes) {
+            box.setChecked(false);
+        }
+    }
+
+    public static boolean isCheckBoxSelected(CheckBox... checkBoxes){
+        boolean isChecked = false;
+        for (CheckBox box: checkBoxes             ) {
+            if (box.isChecked()){
+                isChecked = true;
+                break;
+            }
+        }
+        return isChecked;
     }
 }

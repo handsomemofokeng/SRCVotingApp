@@ -1,5 +1,7 @@
 package com.example.srcvotingapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
@@ -49,7 +52,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     ImageView ivScanCard, ivSearch, ivResetParty;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
-    LinearLayout frmParty, frmCandidateDetails, frmSearchEmail, frmFoundCandidate;//  frmCandidateName,
+    LinearLayout frmParty, frmCandidateDetails, frmSearchEmail, frmFoundCandidate;//frmCandidateName,
 
     //RecyclerView References
     RecyclerView rvCandidates;
@@ -392,5 +395,18 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                 + selectedCandidate.split(",")[0].trim() + " (current)";
 
         tvSelectedPortfolio.setText(strCandidate);
+    }
+
+    private void showMessageDialog(String title, String message) {
+        AlertDialog.Builder builder = buildAlertDialog(
+                AddCandidateActivity.this, title, message);
+        builder.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.create().show();
     }
 }

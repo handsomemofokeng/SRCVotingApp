@@ -27,12 +27,26 @@
 
     <string-array name="course">
         <item>-- Select enrolled Course --</item>
-        <item>Information Technology</item>
+        <item>Accounting</item>
+        <item>Agricultural Management</item>
+        <item>Biomedical Technology</item>
         <item>Civil Engineering</item>
-        <item>Electrical Engineering</item>
-        <item>Radiography</item>
+        <item>Dental Assisting</item>
+        <item>Design Technology</item>
         <item>Education</item>
+        <item>Electrical Engineering</item>
+        <item>Environmental Health</item>
+        <item>Information Technology</item>
+        <item>Health Management</item>
         <item>Hospitality</item>
+        <item>Human Resources Management</item>
+        <item>Internal Auditing</item>
+        <item>Mechanical Engineering</item>
+        <item>Radiography</item>
+        <item>Language Practice and Media Studies</item>
+        <item>Somatology</item>
+        <item>Quantity Surveying</item>
+        <item>Radiography in Diagnostics</item>
     </string-array>
 
 </resources>

@@ -83,12 +83,6 @@ public class StudentActivity extends AppCompatActivity {
 
         initViews();
 
-        if ((Boolean) sessionUser.getProperty(HAS_VOTED)){
-            switchViews(tvHasVoted, tvNotVoted);
-        }else{
-            switchViews(tvNotVoted, tvHasVoted);
-        }
-
         disableForm();
 
         populateForm();
@@ -299,11 +293,19 @@ public class StudentActivity extends AppCompatActivity {
         etEmail.setText(sessionUser.getEmail());
         etName.setText(sessionUser.getProperty(NAME).toString().trim());
         etSurname.setText(sessionUser.getProperty(SURNAME).toString().trim());
+
         if (sessionUser.getProperty(GENDER).toString().contains("Female")) {
             rbFemale.setChecked(true);
         } else {
             rbMale.setChecked(true);
         }
+
+        if ((Boolean) sessionUser.getProperty(HAS_VOTED)){
+            switchViews(tvHasVoted, tvNotVoted);
+        }else{
+            switchViews(tvNotVoted, tvHasVoted);
+        }
+
         setSelectedSpinnerValue(spnCourse, sessionUser.getProperty(COURSE).toString());
         setSelectedSpinnerValue(spnEthnicity, sessionUser.getProperty(ETHNICITY).toString());
         clearErrors(etEmail, etName, etSurname, tvCourse, tvEthnicity, tvGender);
@@ -318,7 +320,8 @@ public class StudentActivity extends AppCompatActivity {
     }
 
     private void disableForm() {
-        disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale, ivAddPhoto);
+        disableViews(etEmail, etName, etSurname, spnEthnicity, spnCourse, rbMale, rbFemale,
+                ivAddPhoto);
         switchViews(fabEdit, fabSave);
         hideViews(fabCancel);
         showViews(fabVote, fabRestore);
@@ -356,7 +359,7 @@ public class StudentActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                StudentActivity.super.onBackPressed();
-                logOutUser();
+                signOutUser();
             }
         });
 
@@ -368,7 +371,7 @@ public class StudentActivity extends AppCompatActivity {
         }).create().show();
     }
 
-    public void logOutUser() {
+    public void signOutUser() {
 
         try {
             showProgressDialog(StudentActivity.this, "Signing Out",
