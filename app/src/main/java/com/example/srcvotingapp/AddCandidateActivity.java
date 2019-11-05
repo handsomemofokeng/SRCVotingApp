@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
@@ -30,18 +31,19 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.srcvotingapp.ApplicationClass.EMAIL;
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
+import static com.example.srcvotingapp.ApplicationClass.ROLE;
+import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
-import static com.example.srcvotingapp.ApplicationClass.disableViews;
-import static com.example.srcvotingapp.ApplicationClass.enableViews;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
+import static com.example.srcvotingapp.ApplicationClass.getUserString;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
-import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
@@ -117,27 +119,18 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                     case R.id.rbEFFSCRegCan:
 
                         selectedPartyID = "EFFSC";
-                        // TODO: 2019/10/24 Remove Below!
-                        selectedParty = new Party("Economic Freedom Fighters Students' Command",
-                                "EFFSC");
 
                         break;
 
                     case R.id.rbDASORegCan:
 
                         selectedPartyID = "DASO";
-                        // TODO: 2019/10/24 Remove Below!
-                        selectedParty = new Party("Democratic Alliance Student Organisation",
-                                "DASO");
 
                         break;
 
                     case R.id.rbSASCORegCan:
 
                         selectedPartyID = "SASCO";
-                        // TODO: 2019/10/24 Remove Below!
-                        selectedParty = new Party("South African Student Congress",
-                                "SASCO");
 
                         break;
                 }
@@ -239,57 +232,6 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
     }
 
-    private void getSelectedPartyFromBackendless(String selectedPartyID) {
-
-        queryParty = selectQuery(PARTY_ID, selectedPartyID, PARTY_ID);
-
-        showProgressDialog(AddCandidateActivity.this, "Getting Party",
-                "Getting " + selectedPartyID + " Party details, please wait...",
-                false);
-        Backendless.Data.of(Party.class).find(queryParty, new AsyncCallback<List<Party>>() {
-            @Override
-            public void handleResponse(List<Party> response) {
-                progressDialog.dismiss();
-                if (!response.isEmpty()) {
-                    selectedParty = response.get(0);
-
-                    if (selectedParty != null) {
-
-                        layoutManager = new LinearLayoutManager(AddCandidateActivity.this,
-                                LinearLayout.VERTICAL, false);
-
-                        rvCandidates.setLayoutManager(layoutManager);
-
-                        candidates = new ArrayList<>();
-
-                        candidates.add(selectedParty.getPresident());
-                        candidates.add(selectedParty.getDeputyPresident());
-                        candidates.add(selectedParty.getSecretaryGeneral());
-                        candidates.add(selectedParty.getFinancialOfficer());
-                        candidates.add(selectedParty.getConstitutionalAndLegalAffairs());
-                        candidates.add(selectedParty.getSportsOfficer());
-                        candidates.add(selectedParty.getPublicRelationsOfficer());
-                        candidates.add(selectedParty.getHealthAndWelfareOfficer());
-                        candidates.add(selectedParty.getProjectsAndCampaignOfficer());
-                        candidates.add(selectedParty.getStudentAffairs());
-                        candidates.add(selectedParty.getEquityAndDiversityOfficer());
-                        candidates.add(selectedParty.getTransformationOfficer());
-
-                        myAdapter = new PartyAdapter(AddCandidateActivity.this, candidates);
-                        rvCandidates.setAdapter(myAdapter);
-                    }
-
-                }
-            }
-
-            @Override
-            public void handleFault(BackendlessFault fault) {
-                progressDialog.dismiss();
-                showMessageDialog("Error loading", fault.getMessage());
-            }
-        });
-    }
-
 //    private void getParties() {
 //        showProgressDialog(AddCandidateActivity.this, "Getting Parties",
 //                "Please wait while we load Parties....", false);
@@ -368,18 +310,92 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         showCustomToast(getApplicationContext(), toastView, "Scan Student Card");
     }
 
+    private void getSelectedPartyFromBackendless(String selectedPartyID) {
+
+        queryParty = selectQuery(PARTY_ID, selectedPartyID, PARTY_ID);
+
+        showProgressDialog(AddCandidateActivity.this, "Getting Party",
+                "Getting " + selectedPartyID + " Party details, please wait...",
+                false);
+        Backendless.Data.of(Party.class).find(queryParty, new AsyncCallback<List<Party>>() {
+            @Override
+            public void handleResponse(List<Party> response) {
+                progressDialog.dismiss();
+                if (!response.isEmpty()) {
+                    selectedParty = response.get(0);
+
+                    if (selectedParty != null) {
+
+                        layoutManager = new LinearLayoutManager(AddCandidateActivity.this,
+                                LinearLayout.VERTICAL, false);
+
+                        rvCandidates.setLayoutManager(layoutManager);
+
+                        candidates = new ArrayList<>();
+
+                        candidates.add(selectedParty.getPresident());
+                        candidates.add(selectedParty.getDeputyPresident());
+                        candidates.add(selectedParty.getSecretaryGeneral());
+                        candidates.add(selectedParty.getFinancialOfficer());
+                        candidates.add(selectedParty.getConstitutionalAndLegalAffairs());
+                        candidates.add(selectedParty.getSportsOfficer());
+                        candidates.add(selectedParty.getPublicRelationsOfficer());
+                        candidates.add(selectedParty.getHealthAndWelfareOfficer());
+                        candidates.add(selectedParty.getProjectsAndCampaignOfficer());
+                        candidates.add(selectedParty.getStudentAffairs());
+                        candidates.add(selectedParty.getEquityAndDiversityOfficer());
+                        candidates.add(selectedParty.getTransformationOfficer());
+
+                        myAdapter = new PartyAdapter(AddCandidateActivity.this, candidates);
+                        rvCandidates.setAdapter(myAdapter);
+                    }
+
+                }
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                progressDialog.dismiss();
+                showMessageDialog("Error loading", fault.getMessage());
+            }
+        });
+    }
+
     public void onClick_SearchEmail(View view) {
 
         if (isEmailValid(etEmail)) {
 
-            // TODO: 2019/10/24 If User is found populate fields
-            showViews(frmFoundCandidate);
+            String email = etEmail.getText().toString().trim();
+            showProgressDialog(AddCandidateActivity.this, "Search User",
+                    "Searching for " + etEmail.getText().toString() + ", please wait...",
+                    false);
+            Backendless.Data.of(BackendlessUser.class).find(selectQuery(EMAIL, email, EMAIL),
+                    new AsyncCallback<List<BackendlessUser>>() {
+                        @Override
+                        public void handleResponse(List<BackendlessUser> response) {
+                            progressDialog.dismiss();
 
-//            Backendless.Data.of(Party.class).find(selectQuery());
-//            selectedParty.assignPortfolio();
-//            etFoundCandidateName.setText();
-//            etFoundCandidateCourse.setText();
+                            BackendlessUser foundUser = response.get(0);
 
+                            if (foundUser.getProperty(ROLE).toString().contains("Student")) {
+                                foundCandidate = getUserString(foundUser);
+
+                                showViews(frmFoundCandidate);
+                                etFoundCandidateName.setText(getUserFullName(foundUser));
+                                etFoundCandidateCourse.setText(foundUser.getProperty("course").toString());
+                            } else {
+                                showMessageDialog("Not Student", getUserFullName(foundUser) +
+                                        " not registered as Student.\n\nPlease try again.");
+                            }
+                        }
+
+                        @Override
+                        public void handleFault(BackendlessFault fault) {
+
+                            progressDialog.dismiss();
+                            showMessageDialog("User Not Found", fault.getMessage());
+                        }
+                    });
 
         }
 
@@ -406,7 +422,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
     }
 
-    public void onClick_GoBack(View view) {
+    public void onClick_GoBackToList(View view) {
 
         showCandidateList();
 
@@ -422,23 +438,30 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
     public void onClick_AssignCandidate(View view) {
 
-        // TODO: 2019/09/14 Get User string for found User if successful...
+        selectedParty.assignPortfolio(selectedPortfolio, foundCandidate);
+        showProgressDialog(AddCandidateActivity.this, "Assigning Candidate",
+                "Assigning " + foundCandidate + " to " + selectedPortfolio +
+                        ", please wait...", false);
+        Backendless.Persistence.save(selectedParty, new AsyncCallback<Party>() {
+            @Override
+            public void handleResponse(Party response) {
+                progressDialog.dismiss();
+                showCustomToast(getApplicationContext(), toastView,
+                        etEmail.getText().toString().trim() + " assigned to Portfolio: "
+                                + "CHECK!!");
+                switchViews(rvCandidates, frmCandidateDetails);
+                candidates.set(selectedPosition, selectedParty.getCandidateByPosition(selectedPosition));
+                myAdapter.notifyDataSetChanged();
+                showCandidateList();
+            }
 
-        showCustomToast(getApplicationContext(), toastView,
-                etEmail.getText().toString().trim() + " assigned to Portfolio: "
-                        + "CHECK!!");
-        showCandidateList();
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                progressDialog.dismiss();
+                showMessageDialog("Error Assigning", fault.getMessage());
+            }
+        });
 
-
-// TODO: 2019/10/24 REMOVE
-        selectedParty.assignPortfolio(selectedPortfolio, etEmail.getText().toString().trim());// getUserString(foundCandidate)
-
-
-        switchViews(rvCandidates, frmCandidateDetails);
-
-// TODO: 2019/11/04 get userString
-        candidates.set(selectedPosition, "Test, One");
-        myAdapter.notifyDataSetChanged();
 
     }
 
@@ -449,6 +472,8 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
         selectedCandidate = candidates.get(index);
         selectedPosition = index;
+
+        selectedPortfolio = Portfolios[index];
 
         String strCandidate = "Assign New Candidate to\n"
                 + Portfolios[index] + " Portfolio:\n"
