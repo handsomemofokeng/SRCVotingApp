@@ -9,25 +9,37 @@ public class Party {
 
     public String objectId;
 
-    @MapToProperty( property = "partyName" )
+    @MapToProperty(property = "partyName")
     private String PartyName;
-    @MapToProperty( property = "partyID" )
+    @MapToProperty(property = "partyID")
     private String PartyID;
-    @MapToProperty( property = "partyName" )
+    @MapToProperty(property = "president")
     private String President;
+    @MapToProperty(property = "deputyPresident")
     private String DeputyPresident;
+    @MapToProperty(property = "secretaryGeneral")
     private String SecretaryGeneral;
+    @MapToProperty(property = "financialOfficer")
     private String FinancialOfficer;
+    @MapToProperty(property = "constitutionalAndLegalAffairs")
     private String ConstitutionalAndLegalAffairs;
+    @MapToProperty(property = "sportsOfficer")
     private String SportsOfficer;
+    @MapToProperty(property = "publicRelationsOfficer")
     private String PublicRelationsOfficer;
+    @MapToProperty(property = "healthAndWelfareOfficer")
     private String HealthAndWelfareOfficer;
+    @MapToProperty(property = "projectsAndCampaignOfficer")
     private String ProjectsAndCampaignOfficer;
+    @MapToProperty(property = "studentAffairs")
     private String StudentAffairs;
+    @MapToProperty(property = "equityAndDiversityOfficer")
     private String EquityAndDiversityOfficer;
+    @MapToProperty(property = "transformationOfficer")
     private String TransformationOfficer;
 
-    public Party(){}
+    public Party() {
+    }
 
     public Party(String partyName, String partyID) {
 
@@ -60,9 +72,9 @@ public class Party {
         return PartyID;
     }
 
-    public void setPartyID(String partyID) {
-        PartyID = partyID;
-    }
+//    public void setPartyID(String partyID) {
+//        PartyID = partyID;
+//    }
 
     public String getPresident() {
         return President;
@@ -192,23 +204,23 @@ public class Party {
     public String toString() {
 
         return "Party Details" + "\n" +
-                "PartyName: " + PartyName  + "\n" +
-                "PartyID: " + PartyID  + "\n" +
-                "President: " + President  + "\n" +
-                "Deputy President: " + DeputyPresident  + "\n" +
-                "Secretary General: " + SecretaryGeneral  + "\n" +
-                "Financial Officer: " + FinancialOfficer  + "\n" +
-                "Constitutional And Legal Affairs: " + ConstitutionalAndLegalAffairs  + "\n" +
-                "Sports Officer: " + SportsOfficer  + "\n" +
-                "Public Relations Officer: " + PublicRelationsOfficer  + "\n" +
-                "HealthAnd Welfare Officer: " + HealthAndWelfareOfficer  + "\n" +
-                "Projects And Campaign Officer: " + ProjectsAndCampaignOfficer  + "\n" +
-                "Student Affairs: " + StudentAffairs  + "\n" +
-                "Equity And Diversity Officer: " + EquityAndDiversityOfficer  + "\n" +
+                "PartyName: " + PartyName + "\n" +
+                "PartyID: " + PartyID + "\n" +
+                "President: " + President + "\n" +
+                "Deputy President: " + DeputyPresident + "\n" +
+                "Secretary General: " + SecretaryGeneral + "\n" +
+                "Financial Officer: " + FinancialOfficer + "\n" +
+                "Constitutional And Legal Affairs: " + ConstitutionalAndLegalAffairs + "\n" +
+                "Sports Officer: " + SportsOfficer + "\n" +
+                "Public Relations Officer: " + PublicRelationsOfficer + "\n" +
+                "HealthAnd Welfare Officer: " + HealthAndWelfareOfficer + "\n" +
+                "Projects And Campaign Officer: " + ProjectsAndCampaignOfficer + "\n" +
+                "Student Affairs: " + StudentAffairs + "\n" +
+                "Equity And Diversity Officer: " + EquityAndDiversityOfficer + "\n" +
                 "Transformation Officer: " + TransformationOfficer;
     }
 
-    public String getCandidateByPosition(int position){
+    public String getCandidateByPosition(int position) {
         String candidate = "Not set, Not set";
         switch (position) {
 
@@ -218,48 +230,48 @@ public class Party {
 
             case 1:
 
-                candidate =getDeputyPresident();
+                candidate = getDeputyPresident();
                 break;
 
             case 2:
 
-                candidate =getSecretaryGeneral();
+                candidate = getSecretaryGeneral();
                 break;
 
             case 3:
-                candidate =getFinancialOfficer();
+                candidate = getFinancialOfficer();
                 break;
 
             case 4:
-                candidate =getConstitutionalAndLegalAffairs();
+                candidate = getConstitutionalAndLegalAffairs();
                 break;
 
             case 5:
-                candidate =getSportsOfficer();
+                candidate = getSportsOfficer();
                 break;
 
             case 6:
-                candidate =getPublicRelationsOfficer();
+                candidate = getPublicRelationsOfficer();
                 break;
 
             case 7:
-                candidate =getHealthAndWelfareOfficer();
+                candidate = getHealthAndWelfareOfficer();
                 break;
 
             case 8:
-                candidate =getProjectsAndCampaignOfficer();
+                candidate = getProjectsAndCampaignOfficer();
                 break;
 
             case 9:
-                candidate =getStudentAffairs();
+                candidate = getStudentAffairs();
                 break;
 
             case 10:
-                candidate =getEquityAndDiversityOfficer();
+                candidate = getEquityAndDiversityOfficer();
                 break;
 
             case 11:
-                candidate =getTransformationOfficer();
+                candidate = getTransformationOfficer();
                 break;
 
         }

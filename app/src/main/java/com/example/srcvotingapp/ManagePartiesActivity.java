@@ -35,6 +35,7 @@ import static com.example.srcvotingapp.ApplicationClass.selectCheckBoxes;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
+import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 
@@ -58,6 +59,20 @@ public class ManagePartiesActivity extends AppCompatActivity {
                     getUserFullName(sessionUser));
 
         initViews();
+
+        Backendless.Data.of(Party.class).find(selectAllQuery("partyName"),
+                new AsyncCallback<List<Party>>() {
+                    @Override
+                    public void handleResponse(List<Party> response) {
+                        partyList.clear();
+                        partyList.addAll(response);
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+
+                    }
+                });
 
         hideViews(fabResetParty, fabAddCandidate);
 
@@ -144,14 +159,11 @@ public class ManagePartiesActivity extends AppCompatActivity {
 
         partyList.clear();
 
-        partyList.add(new Party("Economic Freedom Fighters Students' Command",
-                "EFFSC"));
+        partyList.add(new Party("Economic Freedom Fighters Students' Command", "EFFSC"));
 
-        partyList.add(new Party("Democratic Alliance Student Organisation",
-                "DASO"));
+        partyList.add(new Party("Democratic Alliance Student Organisation", "DASO"));
 
-        partyList.add(new Party("South African Student Congress",
-                "SASCO"));
+        partyList.add(new Party("South African Student Congress", "SASCO"));
 
         showProgressDialog(ManagePartiesActivity.this, "Registering Parties",
                 "Please wait while we register selected Party(s)...", false);
@@ -160,7 +172,8 @@ public class ManagePartiesActivity extends AppCompatActivity {
             @Override
             public void handleResponse(List<String> response) {
                 progressDialog.dismiss();
-                showMessageDialog("Registering Successful", "Party(s) registered successfully.");
+                showMessageDialog("Registering Successful",
+                        "Party(s) registered successfully.");
             }
 
             @Override
@@ -207,7 +220,6 @@ public class ManagePartiesActivity extends AppCompatActivity {
     public void onClick_ResetParty(View view) {
 
 
-
         AlertDialog.Builder builder = buildAlertDialog(ManagePartiesActivity.this,
                 "Reset Party", "Restore selected Parties to their default values?" +
                         "\n\nThis cannot be undone!");
@@ -216,32 +228,49 @@ public class ManagePartiesActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
 
-                partyList.clear();
+                if (chkEFFSC.isChecked())
+                    partyList.add(new Party("Economic Freedom Fighters Students' Command",
+                            "EFFSC"));
+                if (chkDASO.isChecked())
+                    partyList.add(new Party("Democratic Alliance Student Organisation",
+                            "DASO"));
+                if (chkSASCO.isChecked())
+                    partyList.add(new Party("South African Student Congress",
+                            "SASCO"));
 
-                partyList.add(new Party("Economic Freedom Fighters Students' Command",
-                        "EFFSC"));
+                if (!partyList.isEmpty()) {
 
-                partyList.add(new Party("Democratic Alliance Student Organisation",
-                        "DASO"));
+                    for (int i = 0; i < partyList.size(); i++) {
 
-                partyList.add(new Party("South African Student Congress",
-                        "SASCO"));
+                        Party party = partyList.get(i);
 
-                showProgressDialog(ManagePartiesActivity.this, "Restore Parties",
-                        "Restoring selected Parties, please wait...", false);
-                Backendless.Data.of(Party.class).create(partyList, new AsyncCallback<List<String>>() {
-                    @Override
-                    public void handleResponse(List<String> response) {
+                        showProgressDialog(ManagePartiesActivity.this, "Restore Parties",
+                                "Restoring " + party.getPartyName() + ", please wait...",
+                                true);
+
+                        Backendless.Persistence.save(party, new AsyncCallback<Party>() {
+                            @Override
+                            public void handleResponse(Party response) {
+                                progressDialog.dismiss();
+                                showCustomToast(ManagePartiesActivity.this, toastView,
+                                        response.getPartyName() + " restored successfully");
+
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                progressDialog.dismiss();
+                                showCustomToast(ManagePartiesActivity.this, toastView,
+                                        fault.getMessage());
+                            }
+                        });
                         progressDialog.dismiss();
-                        showMessageDialog("Reset Successful", "Party(s) reset successfully.");
-                    }
 
-                    @Override
-                    public void handleFault(BackendlessFault fault) {
-                        progressDialog.dismiss();
-                        showMessageDialog("Registering Error", fault.getMessage());
                     }
-                });
+                } else {
+                    showCustomToast(ManagePartiesActivity.this, toastView,
+                            "No Party selected");
+                }
             }
         });
 

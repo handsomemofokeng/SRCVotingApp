@@ -189,7 +189,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     public void onClick_ManageParties(View view) {
-        startActivity(new Intent(AdminActivity.this, ManagePartiesActivity.class));
+        startActivity(new Intent(AdminActivity.this, AddCandidateActivity.class));
     }
 
     public void onClick_SendResetLink(View view) {

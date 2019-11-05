@@ -18,6 +18,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.example.srcvotingapp.BL.Party;
 import com.example.srcvotingapp.BL.PartyAdapter;
@@ -25,19 +28,25 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
+import static com.example.srcvotingapp.ApplicationClass.disableViews;
+import static com.example.srcvotingapp.ApplicationClass.enableViews;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.isEmailValid;
+import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.scanStudentCard;
+import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
 import static com.example.srcvotingapp.ApplicationClass.selectQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
+import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
 import static com.example.srcvotingapp.ApplicationClass.switchViews;
 import static com.example.srcvotingapp.ApplicationClass.uncheckRadioButton;
@@ -60,11 +69,14 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> candidates;
 
+    List<Party> partyList;
+
     private Party selectedParty;
     private DataQueryBuilder queryParty;
     private String selectedPortfolio = "";
+    private String selectedPartyID = "";
     private int selectedPosition = -1;
-    private String selectedCandidate =",";
+    private String selectedCandidate = ",";
     String foundCandidate = ",";
 
     @Override
@@ -80,11 +92,14 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         initViews();
 
         resetForm();
+
+//        partyList = new ArrayList<>();
+//        getParties();
+
 //        hideViews(frmCandidateDetails);//frmParty,
 //
 //        etEmail.setError(null);
 
-        // TODO: 2019/10/18 Get Party from Backendless
         rgCandidatePartyRegCan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -101,7 +116,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
                     case R.id.rbEFFSCRegCan:
 
-                        selectedPortfolio = "EFFSC";
+                        selectedPartyID = "EFFSC";
                         // TODO: 2019/10/24 Remove Below!
                         selectedParty = new Party("Economic Freedom Fighters Students' Command",
                                 "EFFSC");
@@ -110,7 +125,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
                     case R.id.rbDASORegCan:
 
-                        selectedPortfolio = "DASO";
+                        selectedPartyID = "DASO";
                         // TODO: 2019/10/24 Remove Below!
                         selectedParty = new Party("Democratic Alliance Student Organisation",
                                 "DASO");
@@ -119,7 +134,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
                     case R.id.rbSASCORegCan:
 
-                        selectedPortfolio = "SASCO";
+                        selectedPartyID = "SASCO";
                         // TODO: 2019/10/24 Remove Below!
                         selectedParty = new Party("South African Student Congress",
                                 "SASCO");
@@ -127,37 +142,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                         break;
                 }
 
-                if (selectedParty != null) {
-
-                    queryParty = selectQuery(PARTY_ID, selectedParty.getPartyID(), PARTY_ID);
-
-                    layoutManager = new LinearLayoutManager(AddCandidateActivity.this,
-                            LinearLayout.VERTICAL, false);
-
-                    rvCandidates.setLayoutManager(layoutManager);
-
-                    candidates = new ArrayList<>();
-
-                    candidates.add(selectedParty.getPresident());
-                    candidates.add(selectedParty.getDeputyPresident());
-                    candidates.add(selectedParty.getSecretaryGeneral());
-                    candidates.add(selectedParty.getFinancialOfficer());
-                    candidates.add(selectedParty.getConstitutionalAndLegalAffairs());
-                    candidates.add(selectedParty.getSportsOfficer());
-                    candidates.add(selectedParty.getPublicRelationsOfficer());
-                    candidates.add(selectedParty.getHealthAndWelfareOfficer());
-                    candidates.add(selectedParty.getProjectsAndCampaignOfficer());
-                    candidates.add(selectedParty.getStudentAffairs());
-                    candidates.add(selectedParty.getEquityAndDiversityOfficer());
-                    candidates.add(selectedParty.getTransformationOfficer());
-
-                    myAdapter = new PartyAdapter(AddCandidateActivity.this, candidates);
-                    rvCandidates.setAdapter(myAdapter);
-
-                    // TODO: 2019/09/11 Get Selected Party from Backendless
-//                    tvPartyDetails.setText(selectedParty.toString());
-
-                }
+                getSelectedPartyFromBackendless(selectedPartyID);
 
             }
         });
@@ -253,6 +238,81 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 //        });
 
     }
+
+    private void getSelectedPartyFromBackendless(String selectedPartyID) {
+
+        queryParty = selectQuery(PARTY_ID, selectedPartyID, PARTY_ID);
+
+        showProgressDialog(AddCandidateActivity.this, "Getting Party",
+                "Getting " + selectedPartyID + " Party details, please wait...",
+                false);
+        Backendless.Data.of(Party.class).find(queryParty, new AsyncCallback<List<Party>>() {
+            @Override
+            public void handleResponse(List<Party> response) {
+                progressDialog.dismiss();
+                if (!response.isEmpty()) {
+                    selectedParty = response.get(0);
+
+                    if (selectedParty != null) {
+
+                        layoutManager = new LinearLayoutManager(AddCandidateActivity.this,
+                                LinearLayout.VERTICAL, false);
+
+                        rvCandidates.setLayoutManager(layoutManager);
+
+                        candidates = new ArrayList<>();
+
+                        candidates.add(selectedParty.getPresident());
+                        candidates.add(selectedParty.getDeputyPresident());
+                        candidates.add(selectedParty.getSecretaryGeneral());
+                        candidates.add(selectedParty.getFinancialOfficer());
+                        candidates.add(selectedParty.getConstitutionalAndLegalAffairs());
+                        candidates.add(selectedParty.getSportsOfficer());
+                        candidates.add(selectedParty.getPublicRelationsOfficer());
+                        candidates.add(selectedParty.getHealthAndWelfareOfficer());
+                        candidates.add(selectedParty.getProjectsAndCampaignOfficer());
+                        candidates.add(selectedParty.getStudentAffairs());
+                        candidates.add(selectedParty.getEquityAndDiversityOfficer());
+                        candidates.add(selectedParty.getTransformationOfficer());
+
+                        myAdapter = new PartyAdapter(AddCandidateActivity.this, candidates);
+                        rvCandidates.setAdapter(myAdapter);
+                    }
+
+                }
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                progressDialog.dismiss();
+                showMessageDialog("Error loading", fault.getMessage());
+            }
+        });
+    }
+
+//    private void getParties() {
+//        showProgressDialog(AddCandidateActivity.this, "Getting Parties",
+//                "Please wait while we load Parties....", false);
+//        Backendless.Data.of(Party.class).find(selectAllQuery("partyID"),
+//                new AsyncCallback<List<Party>>() {
+//                    @Override
+//                    public void handleResponse(List<Party> response) {
+//                        progressDialog.dismiss();
+//                        partyList.clear();
+//                        partyList.addAll(response);
+//                        showCustomToast(AddCandidateActivity.this, toastView,
+//                                "Parties loaded successfully");
+//                        enableViews(rbDASO,rbEFFSC,rbSASCO);
+//                    }
+//
+//                    @Override
+//                    public void handleFault(BackendlessFault fault) {
+//                        progressDialog.dismiss();
+//                        showMessageDialog("Error loading Parties", fault.getMessage());
+//                        disableViews(rbDASO,rbEFFSC,rbSASCO);
+//                    }
+//                });
+//    }
 
     private void initViews() {
 
@@ -371,7 +431,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
 
 // TODO: 2019/10/24 REMOVE
-        selectedParty.assignPortfolio(selectedPortfolio, etEmail.getText().toString().trim() );// getUserString(foundCandidate)
+        selectedParty.assignPortfolio(selectedPortfolio, etEmail.getText().toString().trim());// getUserString(foundCandidate)
 
 
         switchViews(rvCandidates, frmCandidateDetails);
@@ -398,6 +458,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     }
 
     private void showMessageDialog(String title, String message) {
+
         AlertDialog.Builder builder = buildAlertDialog(
                 AddCandidateActivity.this, title, message);
         builder.setPositiveButton("OK",
@@ -408,5 +469,6 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                     }
                 });
         builder.create().show();
+
     }
 }
