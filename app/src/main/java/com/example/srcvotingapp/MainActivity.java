@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // TODO: 2019/10/06 Offline Authenticate Admin
 //        ivSignIn.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override
 //            public boolean onLongClick(View v) {
@@ -310,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick_SignIn(View view) {
-        // TODO: 2019/10/23 startActivity(new Intent(MainActivity.this, VoteActivity.class)); //Offine
+        // startActivity(new Intent(MainActivity.this, VoteActivity.class)); //Offine
         attemptLogIn();
 
     }

@@ -210,7 +210,6 @@ public class ManagePartiesActivity extends AppCompatActivity {
 //            myAdapter = new PartyAdapter(AddCandidateActivity.this, candidates);
 //            rvCandidates.setAdapter(myAdapter);
 //
-//            // TODO: 2019/09/11 Get Selected Party from Backendless
 ////                    tvPartyDetails.setText(selectedParty.toString());
 //
 //        }

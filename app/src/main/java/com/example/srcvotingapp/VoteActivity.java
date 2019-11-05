@@ -185,7 +185,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                // TODO: 2019/10/10 Register Votes to Backendless and Set hasVoted for User to True
+
                 showProgressDialog(VoteActivity.this, "Submitting Votes",
                         "Please wait while we submit your selections...", false);
                 Backendless.Data.of(Vote.class).save(studentVote, new AsyncCallback<Vote>() {

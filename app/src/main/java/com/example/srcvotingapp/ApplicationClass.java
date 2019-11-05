@@ -107,7 +107,6 @@ public class ApplicationClass extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // TODO: 2019/08/29 Initialize Backendless
 
         Backendless.setUrl(SERVER_URL);
         Backendless.initApp(getApplicationContext(),
@@ -301,7 +300,6 @@ public class ApplicationClass extends Application {
             etEmail.requestFocus();
         }
 
-        // TODO: 2019/09/13 Comment Out for Testing Purposes
         else {
             if (!email.endsWith("cut.ac.za")) {
                 isValid = false;
@@ -321,7 +319,6 @@ public class ApplicationClass extends Application {
      * @return true if password matches the criteria
      */
     public static boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
