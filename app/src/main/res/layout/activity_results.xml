@@ -9,7 +9,6 @@
     android:weightSum="10"
     tools:context=".ResultsActivity">
 
-
     <TextView
         android:id="@+id/tvNumVotes"
         android:layout_width="match_parent"
@@ -19,6 +18,13 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:visibility="gone"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
@@ -39,12 +45,12 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:drawablePadding="15dp"
             android:gravity="end"
-            android:onClick="onClick_GoHome"
+            android:onClick="onClick_SwitchGraphs"
             android:paddingStart="15dp"
             android:paddingTop="15dp"
             android:paddingEnd="15dp"
             android:paddingBottom="15dp"
-            android:src="@drawable/ic_back"
+            android:src="@drawable/ic_show_chart"
             android:text="@string/action_go_home"
             android:textColor="@color/colorButtonForeground"
             android:textStyle="bold"

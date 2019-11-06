@@ -562,18 +562,18 @@ public class ApplicationClass extends Application {
 
     }
 
-    public static PieData setPieData(String label) {
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            pieEntries.add(new PieEntry(20.0f));
-            pieEntries.get(i).setLabel(label);
-        }
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, label);
-        pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        return new PieData(pieDataSet);
-    }
+//    public static PieData setPieData(String label) {
+//
+//        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+//
+//        for (int i = 0; i < 5; i++) {
+//            pieEntries.add(new PieEntry(20.0f));
+//            pieEntries.get(i).setLabel(label);
+//        }
+//        PieDataSet pieDataSet = new PieDataSet(pieEntries, label);
+//        pieDataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+//        return new PieData(pieDataSet);
+//    }
 
     /**
      * Checks validity of the email as user types it
@@ -893,4 +893,18 @@ public class ApplicationClass extends Application {
         }
         return isChecked;
     }
+
+    public static PieData setPieData(String label, int val){
+
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            pieEntries.add(new PieEntry(val));
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, label);
+        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        return new PieData(pieDataSet);
+    }
+
 }

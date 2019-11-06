@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
@@ -26,8 +25,6 @@ import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
@@ -41,7 +38,6 @@ import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
-import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
 
 public class VoteActivity extends AppCompatActivity implements VoteFragment.SetCandidateListener {
 

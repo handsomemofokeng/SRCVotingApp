@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.srcvotingapp.BL.Vote;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -26,28 +28,13 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
-
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_DeputyPresident;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_EquityAndDiversityOfficer;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_FinancialOfficer;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_HealthAndWelfareOfficer;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_President;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_ProjectsAndCampaignOfficer;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_PublicRelationsOfficer;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_SecretaryGeneral;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_SportsOfficer;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_StudentAffairs;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_TransformationOfficer;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
+import static com.example.srcvotingapp.ApplicationClass.setPieData;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
@@ -60,8 +47,12 @@ public class ResultsActivity extends AppCompatActivity {
     View toastView;
     TextView tvNumVotes;
 
-    BarChart chart;
+    BarChart barChart;
+    PieChart pieChart;
+
     List<Vote> currentVotes;
+
+    boolean isChart = true;
 
     //    Button btnNext, btnPrevious;
     //    Spinner spnPortfolio;
@@ -81,8 +72,11 @@ public class ResultsActivity extends AppCompatActivity {
 
         getCurrentVotes();
 
+        pieChart.setData(setPieData("Overall Votes", 22));
+        pieChart.setRotationEnabled(false);
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutBounce);
 
-//        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
 //            @Override
 //            public void onValueSelected(Entry e, Highlight h) {
 //                showCustomToast(getApplicationContext(), toastView, e.getX() +"");
@@ -116,7 +110,8 @@ public class ResultsActivity extends AppCompatActivity {
 
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
-        chart = findViewById(R.id.barChart);
+        barChart = findViewById(R.id.barChart);
+        pieChart =findViewById(R.id.pieChart);
         tvNumVotes = findViewById(R.id.tvNumVotes);
     }
 
@@ -141,9 +136,9 @@ public class ResultsActivity extends AppCompatActivity {
             setSASCO.setColor(Color.YELLOW);
 
             BarData barData = new BarData(setDASO, setEFFSC, setSASCO);
-            chart.setData(barData);
+            barChart.setData(barData);
 
-            XAxis xAxis = chart.getXAxis();
+            XAxis xAxis = barChart.getXAxis();
             xAxis.setValueFormatter(new IndexAxisValueFormatter(Portfolios));
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
             xAxis.setGranularity(1f);
@@ -156,31 +151,31 @@ public class ResultsActivity extends AppCompatActivity {
             xAxis.setAxisLineColor(Color.WHITE);
             xAxis.setAxisMinimum(1f);
 
-            chart.setDragEnabled(true);
+            barChart.setDragEnabled(true);
 
             Configuration configuration = this.getResources().getConfiguration();
             if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                chart.setVisibleXRangeMaximum(1);
+                barChart.setVisibleXRangeMaximum(1);
             } else {
-                chart.setVisibleXRangeMaximum(2);
+                barChart.setVisibleXRangeMaximum(2);
             }
 
-            chart.getDescription().setPosition(0f, 1000f);
+            barChart.getDescription().setPosition(0f, 1000f);
 
             float barSpace = 0.02f, groupSpace = 0.1f, barWidth = 0.28f;
             int numBars = 12;
             barData.setBarWidth(barWidth);
 
-            chart.getXAxis().setAxisMinimum(0);
+            barChart.getXAxis().setAxisMinimum(0);
 
-            chart.getXAxis().setAxisMaximum(0 + chart.getBarData().getGroupWidth(groupSpace,
+            barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace,
                     barWidth) * numBars);
-            chart.getAxisLeft().setAxisMinimum(0);
+            barChart.getAxisLeft().setAxisMinimum(0);
 
-            chart.groupBars(0, groupSpace, barSpace);
+            barChart.groupBars(0, groupSpace, barSpace);
 
-            chart.animateY(2000);
-            chart.invalidate();
+            barChart.animateY(2000);
+            barChart.invalidate();
         } else {
             showMessageDialog("No Data", "Votes are empty, no data to display yet.");
         }
@@ -195,7 +190,7 @@ public class ResultsActivity extends AppCompatActivity {
         if (!voteList.isEmpty()) {
 
             for (Vote vote : voteList) {
-                switch (portfolioPosition){
+                switch (portfolioPosition) {
                     case 1:
                         if (vote.getSelectedPresident().contains(partyID)) {
                             voteCount++;
@@ -360,5 +355,21 @@ public class ResultsActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
+    }
+
+    public void onClick_SwitchGraphs(View view) {
+        FloatingActionButton fabSwitchGraphs = (FloatingActionButton) view;
+        if (isChart){
+            fabSwitchGraphs.setImageDrawable(getDrawable(R.drawable.ic_poll));
+            isChart = false;
+            switchViews(pieChart, barChart);
+            pieChart.animateY(2000);
+        }
+        else {
+            fabSwitchGraphs.setImageDrawable(getDrawable(R.drawable.ic_show_chart));
+            isChart = true;
+            switchViews(barChart, pieChart);
+            barChart.animateY(2000);
+        }
     }
 }
