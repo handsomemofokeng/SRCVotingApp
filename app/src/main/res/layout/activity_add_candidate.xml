@@ -238,6 +238,18 @@
 
                         </android.support.design.widget.TextInputLayout>
 
+                        <TextView
+                            android:id="@+id/tvAssignPortfolio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center"
+                            tools:text="Constitutional And Legal Affairs"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold" />
+
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -263,7 +275,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-     <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
             android:id="@+id/rvCandidates"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

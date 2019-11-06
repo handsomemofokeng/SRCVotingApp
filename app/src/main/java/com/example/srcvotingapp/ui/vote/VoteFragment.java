@@ -15,9 +15,23 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.example.srcvotingapp.BL.Party;
 import com.example.srcvotingapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingDeque;
+
+import static com.example.srcvotingapp.ApplicationClass.disableViews;
+import static com.example.srcvotingapp.ApplicationClass.enableViews;
 import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
+import static com.example.srcvotingapp.ApplicationClass.progressDialog;
+import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
+import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
+import static com.example.srcvotingapp.VoteActivity.partyList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -29,6 +43,7 @@ public class VoteFragment extends Fragment {
     RadioButton rbEFFSC, rbDASO, rbSASCO;
     RadioGroup rgCandidateParty;
     TextView tvSection;
+
 
     private PageViewModel pageViewModel;
 
@@ -51,6 +66,20 @@ public class VoteFragment extends Fragment {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         pageViewModel.setIndex(index);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (partyList != null) {
+            if (!partyList.isEmpty()) {
+                rbDASO.setText(partyList.get(0).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER) - 1));
+                rbEFFSC.setText(partyList.get(1).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+                rbSASCO.setText(partyList.get(2).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+            }
+        }
     }
 
     @Override
@@ -59,18 +88,29 @@ public class VoteFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_vote, container, false);
 
+        rgCandidateParty = root.findViewById(R.id.rgCandidate);
+
+        rbDASO = root.findViewById(R.id.rbDASO);
+        rbEFFSC = root.findViewById(R.id.rbEFFSC);
+        rbSASCO = root.findViewById(R.id.rbSASCO);
         tvSection = root.findViewById(R.id.section_label);
+
         pageViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 tvSection.setText(s);
+
+//                if (partyList != null) {
+//                    if (!partyList.isEmpty()) {
+//                        rbDASO.setText(partyList.get(0).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER) - 1));
+//                        rbEFFSC.setText(partyList.get(1).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+//                        rbSASCO.setText(partyList.get(2).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+//                    }
+//                }
+
             }
         });
 
-        rgCandidateParty = root.findViewById(R.id.rgCandidate);
-        rbDASO = root.findViewById(R.id.rbDASO);
-        rbEFFSC = root.findViewById(R.id.rbEFFSC);
-        rbSASCO = root.findViewById(R.id.rbSASCO);
 
         rgCandidateParty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -91,6 +131,15 @@ public class VoteFragment extends Fragment {
                         selectedPartyID = "SASCO";
                         break;
                 }
+
+
+//                if (partyList != null) {
+//                    if (!partyList.isEmpty()) {
+//                        rbDASO.setText(partyList.get(0).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER) - 1));
+//                        rbEFFSC.setText(partyList.get(1).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+//                        rbSASCO.setText(partyList.get(2).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+//                    }
+//                }
 
                 setCandidateListener.onSetCandidate(selectedPartyID,
                         tvSection.getText().toString().trim());
@@ -114,4 +163,5 @@ public class VoteFragment extends Fragment {
                     + " SetCandidateListener");
         }
     }
+
 }

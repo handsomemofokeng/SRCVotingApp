@@ -59,7 +59,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     //UI references
     View toastView;
     EditText etEmail, etFoundCandidateName, etFoundCandidateCourse;
-    TextView tvSelectedPortfolio;
+    TextView tvSelectedPortfolio, tvAssignPortfolio;
     ImageView ivScanCard, ivSearch, ivResetParty;
     RadioGroup rgCandidatePartyRegCan;
     RadioButton rbEFFSC, rbDASO, rbSASCO;
@@ -273,6 +273,8 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
         ivResetParty = findViewById(R.id.ivResetParty);
 
         tvSelectedPortfolio = findViewById(R.id.tvSelectedPortfolio);
+        tvAssignPortfolio = findViewById(R.id.tvAssignPortfolio);
+
         frmParty = findViewById(R.id.frmPartyRegCan);
         frmCandidateDetails = findViewById(R.id.frmCandidateDetails);
         frmSearchEmail = findViewById(R.id.frmSearchEmailRegCan);
@@ -375,17 +377,21 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                         public void handleResponse(List<BackendlessUser> response) {
                             progressDialog.dismiss();
 
-                            BackendlessUser foundUser = response.get(0);
+                            if (response.size()>0) {
+                                BackendlessUser foundUser = response.get(0);
 
-                            if (foundUser.getProperty(ROLE).toString().contains("Student")) {
-                                foundCandidate = getUserString(foundUser);
+                                if (foundUser.getProperty(ROLE).toString().contains("Student")) {
+                                    foundCandidate = getUserString(foundUser);
 
-                                showViews(frmFoundCandidate);
-                                etFoundCandidateName.setText(getUserFullName(foundUser));
-                                etFoundCandidateCourse.setText(foundUser.getProperty("course").toString());
-                            } else {
-                                showMessageDialog("Not Student", getUserFullName(foundUser) +
-                                        " not registered as Student.\n\nPlease try again.");
+                                    showViews(frmFoundCandidate);
+                                    etFoundCandidateName.setText(getUserFullName(foundUser));
+                                    etFoundCandidateCourse.setText(foundUser.getProperty("course").toString());
+                                } else {
+                                    showMessageDialog("Not Student", getUserFullName(foundUser) +
+                                            " not registered as Student.\n\nPlease try again.");
+                                }
+                            }else{
+                                showMessageDialog("Not Found", "Specified user not found, please try again.");
                             }
                         }
 
@@ -480,6 +486,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                 + selectedCandidate.split(",")[0].trim() + " (current)";
 
         tvSelectedPortfolio.setText(strCandidate);
+        tvAssignPortfolio.setText(selectedPortfolio);
     }
 
     private void showMessageDialog(String title, String message) {

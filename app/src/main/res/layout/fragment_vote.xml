@@ -40,8 +40,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="@dimen/dimen_edges"
                     android:background="@drawable/spinner"
-                    android:drawableStart="@mipmap/ic_launcher_round"
-                    android:drawableEnd="@mipmap/ic_daso_round"
+                    android:drawableStart="@mipmap/ic_daso_round"
                     android:padding="15dp"
                     android:text="Honorable Member\nmember@daso.com" />
 
@@ -53,8 +52,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="@dimen/dimen_edges"
                     android:background="@drawable/spinner"
-                    android:drawableStart="@mipmap/ic_launcher_round"
-                    android:drawableEnd="@mipmap/ic_effsc_round"
+                    android:drawableStart="@mipmap/ic_effsc_round"
                     android:padding="15dp"
                     android:text="Candidate Comrade\nmember@effsc.com" />
 
@@ -66,8 +64,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="@dimen/dimen_edges"
                     android:background="@drawable/spinner"
-                    android:drawableStart="@mipmap/ic_launcher_round"
-                    android:drawableEnd="@mipmap/ic_sasco_round"
+                    android:drawableStart="@mipmap/ic_sasco_round"
                     android:padding="15dp"
                     android:text="Jacob Ramaphosa\nmember@sasco.com" />
 

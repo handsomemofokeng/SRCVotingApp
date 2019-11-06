@@ -51,9 +51,9 @@
                     android:gravity="center"
                     android:paddingStart="@dimen/appbar_padding"
                     android:paddingEnd="@dimen/appbar_padding"
-                    tools:text="Student Name"
                     android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    tools:text="Student Name" />
 
             </LinearLayout>
 
@@ -71,7 +71,6 @@
 
         </HorizontalScrollView>
 
-
         <TextView
             android:id="@+id/tvTimer"
             android:layout_width="wrap_content"
@@ -83,6 +82,7 @@
             android:textAlignment="center"
             android:textColor="@color/colorButtonForeground"
             android:textSize="@dimen/text_size"
+            android:visibility="gone"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="bottom|center"
             tools:text="00:00" />
@@ -93,7 +93,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
     </android.support.v4.view.ViewPager>
@@ -129,7 +129,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="2dp"
-            android:layout_weight="6"/>
+            android:layout_weight="6" />
 
         <Button
             android:id="@+id/btnNavigateNextVote"
@@ -157,33 +157,32 @@
         android:max="12"
         android:progress="0"
         app:layout_anchor="@+id/view_pager"
-        app:layout_anchorGravity="top" />
+        app:layout_anchorGravity="bottom" />
 
-            <Button
-                android:id="@+id/btnSubmitVotes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_margin="8dp"
-                android:background="@drawable/button"
-                android:contentDescription="@string/prompt_email"
-                android:drawableEnd="@drawable/ic_send"
-                android:drawablePadding="15dp"
-                android:onClick="onClick_SubmitVotes"
-                android:padding="15dp"
-                android:text="@string/submit_vote"
-                android:textColor="@color/colorButtonForeground"
-                android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnSubmitVotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="8dp"
+        android:background="@drawable/button"
+        android:contentDescription="@string/prompt_email"
+        android:drawableEnd="@drawable/ic_send"
+        android:drawablePadding="15dp"
+        android:onClick="onClick_SubmitVotes"
+        android:padding="15dp"
+        android:text="@string/submit_vote"
+        android:textColor="@color/colorButtonForeground"
+        android:textStyle="bold" />
 
-
-<!--    <android.support.design.widget.FloatingActionButton-->
-<!--        android:id="@+id/fabSubmitVotes"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|center"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        android:backgroundTint="@color/colorPrimaryDark"-->
-<!--        app:srcCompat="@drawable/ic_send"-->
-<!--        android:onClick="onClick_SubmitVotes"/>-->
+    <!--    <android.support.design.widget.FloatingActionButton-->
+    <!--        android:id="@+id/fabSubmitVotes"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="bottom|center"-->
+    <!--        android:layout_margin="@dimen/fab_margin"-->
+    <!--        android:backgroundTint="@color/colorPrimaryDark"-->
+    <!--        app:srcCompat="@drawable/ic_send"-->
+    <!--        android:onClick="onClick_SubmitVotes"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

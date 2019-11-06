@@ -213,7 +213,7 @@ public class Party {
                 "Constitutional And Legal Affairs: " + ConstitutionalAndLegalAffairs + "\n" +
                 "Sports Officer: " + SportsOfficer + "\n" +
                 "Public Relations Officer: " + PublicRelationsOfficer + "\n" +
-                "HealthAnd Welfare Officer: " + HealthAndWelfareOfficer + "\n" +
+                "Health And Welfare Officer: " + HealthAndWelfareOfficer + "\n" +
                 "Projects And Campaign Officer: " + ProjectsAndCampaignOfficer + "\n" +
                 "Student Affairs: " + StudentAffairs + "\n" +
                 "Equity And Diversity Officer: " + EquityAndDiversityOfficer + "\n" +
@@ -271,6 +271,65 @@ public class Party {
                 break;
 
             case 11:
+                candidate = getTransformationOfficer();
+                break;
+
+        }
+
+        return candidate;
+    }
+
+    public String getCandidateByPortfolio(String portfolio) {
+        String candidate = "Not set, Not set";
+        switch (portfolio.trim().toLowerCase()) {
+
+            case "President":
+                candidate = getPresident();
+                break;
+
+            case "Deputy President":
+
+                candidate = getDeputyPresident();
+                break;
+
+            case "Secretary General":
+
+                candidate = getSecretaryGeneral();
+                break;
+
+            case "Financial Officer":
+                candidate = getFinancialOfficer();
+                break;
+
+            case "Constitutional And Legal Affairs":
+                candidate = getConstitutionalAndLegalAffairs();
+                break;
+
+            case "Sports Officer":
+                candidate = getSportsOfficer();
+                break;
+
+            case "Public Relations Officer":
+                candidate = getPublicRelationsOfficer();
+                break;
+
+            case "Health And Welfare Officer":
+                candidate = getHealthAndWelfareOfficer();
+                break;
+
+            case "Projects And Campaign Officer":
+                candidate = getProjectsAndCampaignOfficer();
+                break;
+
+            case "Student Affairs":
+                candidate = getStudentAffairs();
+                break;
+
+            case "Equity And Diversity Officer":
+                candidate = getEquityAndDiversityOfficer();
+                break;
+
+            case "Transformation Officer":
                 candidate = getTransformationOfficer();
                 break;
 

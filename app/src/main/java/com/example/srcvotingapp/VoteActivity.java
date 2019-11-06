@@ -4,23 +4,30 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.example.srcvotingapp.BL.Party;
 import com.example.srcvotingapp.BL.Vote;
 import com.example.srcvotingapp.ui.vote.SectionsPagerAdapter;
 import com.example.srcvotingapp.ui.vote.VoteFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
@@ -29,10 +36,12 @@ import static com.example.srcvotingapp.ApplicationClass.hideViews;
 import static com.example.srcvotingapp.ApplicationClass.navigateTabs;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.reverseTimer;
+import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.ApplicationClass.showViews;
+import static com.example.srcvotingapp.ApplicationClass.validatePasswordInput;
 
 public class VoteActivity extends AppCompatActivity implements VoteFragment.SetCandidateListener {
 
@@ -43,7 +52,12 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     private TextView tvTimer, tvSubtitle;
     private ProgressBar pbVotes;
 
-//    FloatingActionButton fabSubmitVotes;
+//    RadioButton rbDASO, rbEFFSC, rbSASCO;
+//    String candidateDASO, candidateEFFSC, candidateSASCO;
+
+    public static List<Party> partyList;
+
+    //    FloatingActionButton fabSubmitVotes;
     private Button btnSubmitVotes;
 
     int numVotesSoFar = 0;
@@ -56,7 +70,6 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
-
 
         studentVote = new Vote();
 
@@ -73,15 +86,14 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         studentVote.setSelectedEquityAndDiversityOfficer("Not selected");
         studentVote.setSelectedTransformationOfficer("Not selected");
 
-
         initViews();
 //      28800s = 8h
         reverseTimer(600, tvTimer);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this,
                 getSupportFragmentManager());
-        viewPager.setAdapter(sectionsPagerAdapter);
 
+        viewPager.setAdapter(sectionsPagerAdapter);
 
         tvSubtitle.setText(getUserFullName(sessionUser));
 
@@ -93,6 +105,40 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 //        pieChart.setRotationEnabled(false);
 //        pieChart.animateY(1000, Easing.EasingOption.EaseInOutBounce);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        fetchParties();
+    }
+
+    private void fetchParties() {
+        partyList = new ArrayList<>();
+        showProgressDialog(VoteActivity.this, "Getting Parties",
+                "Please wait while we load Parties....", false);
+        Backendless.Data.of(Party.class).find(selectAllQuery("partyID"),
+                new AsyncCallback<List<Party>>() {
+                    @Override
+                    public void handleResponse(List<Party> response) {
+                        progressDialog.dismiss();
+
+                        partyList.clear();
+                        partyList.addAll(response);
+                        showCustomToast(VoteActivity.this, toastView,
+                                "Parties loaded successfully");
+                        viewPager.setCurrentItem(viewPager.getAdapter().getCount());
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        progressDialog.dismiss();
+                        showMessageDialog("Error loading Parties", fault.getMessage());
+                    }
+
+                });
     }
 
     private void initViews() {
@@ -113,6 +159,10 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         pbVotes = findViewById(R.id.pbVotes);
 
 //        pieChart = findViewById(R.id.pieReview);
+
+//        rbDASO = findViewById(R.id.rbDASO);
+//        rbEFFSC = findViewById(R.id.rbEFFSC);
+//        rbSASCO = findViewById(R.id.rbSASCO);
 
     }
 
@@ -184,7 +234,6 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
         builder.setPositiveButton("Yes, Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
 
                 showProgressDialog(VoteActivity.this, "Submitting Votes",
                         "Please wait while we submit your selections...", false);
@@ -270,5 +319,11 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                     }
                 });
         builder.create().show();
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+
     }
 }
