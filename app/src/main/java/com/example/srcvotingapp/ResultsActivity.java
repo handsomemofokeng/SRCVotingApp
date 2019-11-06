@@ -436,7 +436,7 @@ public class ResultsActivity extends AppCompatActivity {
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < 3 ; i++) {
-            String[] parties = {"DASO", "SASCO","EEFS"};     //3 = range
+            String[] parties = {"DASO", "SASCO","EFFSC"};     //3 = range
             entries.add(new PieEntry((float) ((Math.random() * 3) + 3 / 3),
                     parties[i % parties.length],
                     getDrawable(R.drawable.ic_thumb_up)));
