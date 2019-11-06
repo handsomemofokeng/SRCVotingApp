@@ -16,7 +16,6 @@ import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.srcvotingapp.BL.Vote;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -40,7 +39,6 @@ import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
 import static com.example.srcvotingapp.ApplicationClass.progressDialog;
 import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
 import static com.example.srcvotingapp.ApplicationClass.sessionUser;
-import static com.example.srcvotingapp.ApplicationClass.setPieData;
 import static com.example.srcvotingapp.ApplicationClass.setupActionBar;
 import static com.example.srcvotingapp.ApplicationClass.showCustomToast;
 import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
@@ -382,7 +380,6 @@ public class ResultsActivity extends AppCompatActivity {
         }
     }
 
-
     public  void setPieData(PieChart chart){
 
         chart.setUsePercentValues(true);
@@ -439,7 +436,7 @@ public class ResultsActivity extends AppCompatActivity {
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < 3 ; i++) {
-            String[] parties = {"DASO", "SASCO","EEFS"};
+            String[] parties = {"DASO", "SASCO","EEFS"};     //3 = range
             entries.add(new PieEntry((float) ((Math.random() * 3) + 3 / 3),
                     parties[i % parties.length],
                     getDrawable(R.drawable.ic_thumb_up)));
