@@ -442,7 +442,7 @@ public class ResultsActivity extends AppCompatActivity {
                     getDrawable(R.drawable.ic_thumb_up)));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+        PieDataSet dataSet = new PieDataSet(entries, "Overall Election Results");
 
         dataSet.setDrawIcons(false);
 

@@ -124,9 +124,15 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
 
                         partyList.clear();
                         partyList.addAll(response);
-                        showCustomToast(VoteActivity.this, toastView,
-                                "Parties loaded successfully");
                         viewPager.setCurrentItem(Objects.requireNonNull(viewPager.getAdapter()).getCount());
+                        AlertDialog.Builder builder = buildAlertDialog(VoteActivity.this,
+                                "Start Voting", "Candidates loaded successfully, start casting your votes!");
+                        builder.setPositiveButton("Let's do this!", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                viewPager.setCurrentItem(0, true);
+                            }
+                        }).create().show();
                     }
 
                     @Override
