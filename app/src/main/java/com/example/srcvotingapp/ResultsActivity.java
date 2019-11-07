@@ -134,11 +134,11 @@ public class ResultsActivity extends AppCompatActivity {
             }
 
             BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
-            setDASO.setColor(Color.BLUE);
+            setDASO.setColor(ColorTemplate.MATERIAL_COLORS[3]);
             BarDataSet setEFFSC = new BarDataSet(entriesEFFSC, "EFFSC");
-            setEFFSC.setColor(Color.RED);
+            setEFFSC.setColor(ColorTemplate.MATERIAL_COLORS[2]);
             BarDataSet setSASCO = new BarDataSet(entriesSASCO, "SASCO");
-            setSASCO.setColor(Color.YELLOW);
+            setSASCO.setColor(ColorTemplate.MATERIAL_COLORS[1]);
 
             BarData barData = new BarData(setDASO, setEFFSC, setSASCO);
             barChart.setData(barData);
@@ -436,7 +436,7 @@ public class ResultsActivity extends AppCompatActivity {
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < 3 ; i++) {
-            String[] parties = {"DASO", "SASCO","EFFSC"};     //3 = range
+            String[] parties = {"DASO", "SASCO","EFFSC"};    //3 = range
             entries.add(new PieEntry((float) ((Math.random() * 3) + 3 / 3),
                     parties[i % parties.length],
                     getDrawable(R.drawable.ic_thumb_up)));
@@ -465,9 +465,14 @@ public class ResultsActivity extends AppCompatActivity {
 //
 //        for (int c : ColorTemplate.LIBERTY_COLORS)
 //            colors.add(c);
+//
+//        for (int c : ColorTemplate.MATERIAL_COLORS)
+//            colors.add(c);
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);
+        //Order corresponds to each Party's primary color
+        colors.add(ColorTemplate.MATERIAL_COLORS[3]);
+        colors.add(ColorTemplate.MATERIAL_COLORS[1]);
+        colors.add(ColorTemplate.MATERIAL_COLORS[2]);
 
         colors.add(ColorTemplate.getHoloBlue());
 

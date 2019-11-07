@@ -157,7 +157,7 @@ public class ManagePartiesActivity extends AppCompatActivity {
 
         view.setVisibility(View.GONE);
 
-        partyList.clear();
+        List<Party> partyList = new ArrayList<>();
 
         partyList.add(new Party("Economic Freedom Fighters Students' Command", "EFFSC"));
 
