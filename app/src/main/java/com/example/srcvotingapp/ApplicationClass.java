@@ -1,5 +1,6 @@
 package com.example.srcvotingapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -800,6 +801,7 @@ public class ApplicationClass extends Application {
 
         new CountDownTimer(Seconds * 1000 + 1000, 1000) {
 
+            @SuppressLint("DefaultLocale")
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);
 
