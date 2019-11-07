@@ -25,6 +25,7 @@ import com.example.srcvotingapp.ui.vote.VoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.srcvotingapp.ApplicationClass.HAS_VOTED;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
@@ -125,7 +126,7 @@ public class VoteActivity extends AppCompatActivity implements VoteFragment.SetC
                         partyList.addAll(response);
                         showCustomToast(VoteActivity.this, toastView,
                                 "Parties loaded successfully");
-                        viewPager.setCurrentItem(viewPager.getAdapter().getCount());
+                        viewPager.setCurrentItem(Objects.requireNonNull(viewPager.getAdapter()).getCount());
                     }
 
                     @Override

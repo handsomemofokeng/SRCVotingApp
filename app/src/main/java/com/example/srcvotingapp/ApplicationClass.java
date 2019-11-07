@@ -6,7 +6,6 @@ import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
@@ -18,9 +17,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,21 +29,13 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.persistence.DataQueryBuilder;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.google.zxing.integration.android.IntentIntegrator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import static java.lang.String.*;
 
 public class ApplicationClass extends Application {
 
@@ -55,7 +43,7 @@ public class ApplicationClass extends Application {
     public static final String API_KEY = "C5C2CAA7-B896-58DB-FF65-BA29DCA69600";
     public static final String SERVER_URL = "https://api.backendless.com",
             MY_SHARED_PREFERENCES_NAME = "com.example.srcvotingapp";
-    public static final int REQUEST_PHONE = 123;
+//    public static final int REQUEST_PHONE = 123;
 
     public static String[] Portfolios = {
             "President",
@@ -97,7 +85,7 @@ public class ApplicationClass extends Application {
 
     //Party Property Constants
     public static final String PARTY_ID = "partyID";
-    public static final String PARTY_NAME = "partyName";
+//    public static final String PARTY_NAME = "partyName";
     public static ProgressDialog progressDialog;
 
     //SharedPreferences used to save User data
@@ -410,7 +398,7 @@ public class ApplicationClass extends Application {
 
         String userStr = "Unidentified User";
         if (user != null)
-            userStr = String.format("%s %s, %s", user.getProperty(NAME),
+            userStr = format("%s %s, %s", user.getProperty(NAME),
                     user.getProperty(SURNAME), user.getEmail());
         return userStr;
     }
@@ -481,18 +469,18 @@ public class ApplicationClass extends Application {
         return isConnected;
     }
 
-    /**
-     * This method populates a spinner with items on a list parameter
-     *
-     * @param context in which the spinner is at
-     * @param spinner to be populated with string items
-     * @param list    that contains items to be added to the spinner
-     */
-    public static void loadSpinnerValues(Context context, Spinner spinner, List<String> list) {
-        spinner.setAdapter((new ArrayAdapter<>(context,
-                android.R.layout.simple_spinner_dropdown_item, list)));
-        spinner.setGravity(View.TEXT_ALIGNMENT_CENTER);
-    }
+//    /**
+//     * This method populates a spinner with items on a list parameter
+//     *
+//     * @param context in which the spinner is at
+//     * @param spinner to be populated with string items
+//     * @param list    that contains items to be added to the spinner
+//     */
+//    public static void loadSpinnerValues(Context context, Spinner spinner, List<String> list) {
+//        spinner.setAdapter((new ArrayAdapter<>(context,
+//                android.R.layout.simple_spinner_dropdown_item, list)));
+//        spinner.setGravity(View.TEXT_ALIGNMENT_CENTER);
+//    }
 
     /**
      * Sets preset Spinner selection
@@ -730,77 +718,77 @@ public class ApplicationClass extends Application {
 
     }
 
-    /**
-     * This method uses buttons to navigate through the Spinner
-     *
-     * @param next     button navigate to the following entry
-     * @param previous button navigates to the previous entry
-     * @param spinner  to be navigated
-     */
-    public static void navigateSpinner(@NonNull final Button next, @NonNull final Button previous,
-                                       @NonNull final Spinner spinner) {
-
-        hideViews(previous);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (position > 0 && position < (spinner.getAdapter().getCount() - 1))
-                    showViews(next, previous);
-
-                if (position <= 0) {
-
-                    switchViews(next, previous);
-
-                } else {
-
-                    showViews(previous, next);
-                }
-
-                if (position >= (spinner.getAdapter().getCount() - 1)) {
-
-                    switchViews(previous, next);
-
-                } else {
-
-                    showViews(next, previous);
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (spinner.getSelectedItemPosition() < (spinner.getAdapter().getCount() - 1)) {
-                    spinner.setSelection(spinner.getSelectedItemPosition() + 1, true);
-                    showViews(previous);
-                } else {
-                    switchViews(previous, next);
-                }
-            }
-        });
-
-        previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (spinner.getSelectedItemPosition() > 1) {
-                    spinner.setSelection(spinner.getSelectedItemPosition() - 1, true);
-                    showViews(next);
-                } else {
-                    switchViews(next, previous);
-                }
-            }
-        });
-
-    }
+//    /**
+//     * This method uses buttons to navigate through the Spinner
+//     *
+//     * @param next     button navigate to the following entry
+//     * @param previous button navigates to the previous entry
+//     * @param spinner  to be navigated
+//     */
+//    public static void navigateSpinner(@NonNull final Button next, @NonNull final Button previous,
+//                                       @NonNull final Spinner spinner) {
+//
+//        hideViews(previous);
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                if (position > 0 && position < (spinner.getAdapter().getCount() - 1))
+//                    showViews(next, previous);
+//
+//                if (position <= 0) {
+//
+//                    switchViews(next, previous);
+//
+//                } else {
+//
+//                    showViews(previous, next);
+//                }
+//
+//                if (position >= (spinner.getAdapter().getCount() - 1)) {
+//
+//                    switchViews(previous, next);
+//
+//                } else {
+//
+//                    showViews(next, previous);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (spinner.getSelectedItemPosition() < (spinner.getAdapter().getCount() - 1)) {
+//                    spinner.setSelection(spinner.getSelectedItemPosition() + 1, true);
+//                    showViews(previous);
+//                } else {
+//                    switchViews(previous, next);
+//                }
+//            }
+//        });
+//
+//        previous.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (spinner.getSelectedItemPosition() > 1) {
+//                    spinner.setSelection(spinner.getSelectedItemPosition() - 1, true);
+//                    showViews(next);
+//                } else {
+//                    switchViews(next, previous);
+//                }
+//            }
+//        });
+//
+//    }
 
     /**
      * Creates a Count Down Timer
@@ -820,11 +808,9 @@ public class ApplicationClass extends Application {
                 int minutes = tempMint / 60;
                 seconds = tempMint - (minutes * 60);
 
-                tv.setText(new StringBuilder()
-//                        .append("TIME : ")
-                        .append(String.format("%02d", hours))
-                        .append(":").append(String.format("%02d", minutes))
-                        .append(":").append(String.format("%02d", seconds)).toString());
+                tv.setText(//                        .append("TIME : ")
+                        MessageFormat.format("{0}:{1}:{2}", String.format("%02d", hours),
+                                String.format("%02d", minutes), String.format("%02d", seconds)));
             }
 
             public void onFinish() {
@@ -898,19 +884,6 @@ public class ApplicationClass extends Application {
             }
         }
         return isChecked;
-    }
-
-    public static PieData setPieData(String label, int val){
-
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            pieEntries.add(new PieEntry(val));
-        }
-
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, label);
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        return new PieData(pieDataSet);
     }
 
 

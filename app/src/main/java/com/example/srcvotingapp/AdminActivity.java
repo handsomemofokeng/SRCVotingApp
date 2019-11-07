@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
@@ -23,7 +22,6 @@ import static com.example.srcvotingapp.ApplicationClass.NAME;
 import static com.example.srcvotingapp.ApplicationClass.SURNAME;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearErrors;
-import static com.example.srcvotingapp.ApplicationClass.commitMyPrefs;
 import static com.example.srcvotingapp.ApplicationClass.disableViews;
 import static com.example.srcvotingapp.ApplicationClass.enableViews;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
@@ -42,8 +40,8 @@ public class AdminActivity extends AppCompatActivity {
 
     View toastView;
     private EditText etEmail, etName, etSurname;
-    FloatingActionButton fabSave, fabEdit, fabResults, fabRestore, fabCancel, fabManageParties,
-            fabStartElections;
+    FloatingActionButton fabSave, fabEdit, fabResults, fabRestore, fabCancel, fabManageParties;//,
+            //fabStartElections;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +59,32 @@ public class AdminActivity extends AppCompatActivity {
 
         populateForm();
 
+        //Register Parties
+//        List<Party> partyList = new ArrayList<>();
+//
+//        partyList.add(new Party("Economic Freedom Fighters Students' Command", "EFFSC"));
+//
+//        partyList.add(new Party("Democratic Alliance Student Organisation", "DASO"));
+//
+//        partyList.add(new Party("South African Student Congress", "SASCO"));
+//
+//        showProgressDialog(AdminActivity.this, "Registering Parties",
+//                "Please wait while we register selected Party(s)...", false);
+//
+//        Backendless.Data.of(Party.class).create(partyList, new AsyncCallback<List<String>>() {
+//            @Override
+//            public void handleResponse(List<String> response) {
+//                progressDialog.dismiss();
+//                showMessageDialog("Registering Successful",
+//                        "Party(s) registered successfully.");
+//            }
+//
+//            @Override
+//            public void handleFault(BackendlessFault fault) {
+//                progressDialog.dismiss();
+//                showMessageDialog("Registering Error", fault.getMessage());
+//            }
+//        });
     }
 
     private void initViews() {
@@ -176,17 +200,17 @@ public class AdminActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_StartElections(View view) {
-        // TODO: 2019/09/25 send notifications to students and set the timer
-        TimePicker timePicker = new TimePicker(AdminActivity.this);
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-
-            }
-        });
-
-    }
+//    public void onClick_StartElections(View view) {
+//        // TODO: 2019/09/25 send notifications to students and set the timer
+//        TimePicker timePicker = new TimePicker(AdminActivity.this);
+//        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//            @Override
+//            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+//
+//            }
+//        });
+//
+//    }
 
     public void onClick_ManageParties(View view) {
         startActivity(new Intent(AdminActivity.this, AddCandidateActivity.class));

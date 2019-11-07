@@ -62,7 +62,7 @@ public class StudentActivity extends AppCompatActivity {
     private Spinner spnEthnicity, spnCourse;
     private RadioButton rbMale, rbFemale;
     private Button btnRegister, btnGoBack;
-    private ImageView ivScanCard, ivCorrect, ivAddPhoto;
+    private ImageView ivScanCard, ivCorrect;//, ivAddPhoto;
 //    private LinearLayout frmStatisticalDetails;// frmPersonalDetails,
 
     FloatingActionButton fabSave, fabEdit, fabVote, fabRestore, fabCancel;
@@ -326,9 +326,9 @@ public class StudentActivity extends AppCompatActivity {
         showViews(fabVote, fabRestore);
     }
 
-    public void onClick_AddPicture(View view) {
-        showCustomToast(this, toastView, "Show Picture Dialog");
-    }
+//    public void onClick_AddPicture(View view) {
+//        showCustomToast(this, toastView, "Show Picture Dialog");
+//    }
 
     @Override
     public void onBackPressed() {

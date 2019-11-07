@@ -324,7 +324,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (!isPasswordsMatching(etPassword, etConfirm)) {
 
                     isValid = false;
-                    showCustomToast(getApplicationContext(), toastView,
+                    showMessageDialog("Passwords mismatch",
                             "Please make sure passwords match!");
                     etConfirm.requestFocus();
                 }
@@ -395,9 +395,9 @@ public class RegisterActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    public void onClick_AddPicture(View view) {
-        showCustomToast(this, toastView, "Show Picture Dialog... to be implemented");
-    }
+//    public void onClick_AddPicture(View view) {
+//        showCustomToast(this, toastView, "Show Picture Dialog... to be implemented");
+//    }
 
     private void showMessageDialog(String title, String message) {
         AlertDialog.Builder builder = buildAlertDialog(

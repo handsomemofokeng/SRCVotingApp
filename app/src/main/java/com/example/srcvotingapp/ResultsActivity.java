@@ -29,10 +29,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
@@ -437,7 +437,7 @@ public class ResultsActivity extends AppCompatActivity {
         // the chart.
         for (int i = 0; i < 3 ; i++) {
             String[] parties = {"DASO", "SASCO","EFFSC"};    //3 = range
-            entries.add(new PieEntry((float) ((Math.random() * 3) + 3 / 3),
+            entries.add(new PieEntry((float) ((Math.random() * 3) + 2 / 3),
                     parties[i % parties.length],
                     getDrawable(R.drawable.ic_thumb_up)));
         }
@@ -491,4 +491,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         chart.invalidate();
     }
+
+
 }

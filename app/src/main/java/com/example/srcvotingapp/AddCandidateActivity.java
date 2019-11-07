@@ -35,7 +35,6 @@ import static com.example.srcvotingapp.ApplicationClass.EMAIL;
 import static com.example.srcvotingapp.ApplicationClass.PARTY_ID;
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 import static com.example.srcvotingapp.ApplicationClass.ROLE;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
 import static com.example.srcvotingapp.ApplicationClass.buildAlertDialog;
 import static com.example.srcvotingapp.ApplicationClass.clearFields;
 import static com.example.srcvotingapp.ApplicationClass.getUserFullName;
@@ -71,10 +70,9 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
     RecyclerView.LayoutManager layoutManager;
     ArrayList<String> candidates;
 
-    List<Party> partyList;
+//    List<Party> partyList;
 
     private Party selectedParty;
-    private DataQueryBuilder queryParty;
     private String selectedPortfolio = "";
     private String selectedPartyID = "";
     private int selectedPosition = -1;
@@ -314,7 +312,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
 
     private void getSelectedPartyFromBackendless(String selectedPartyID) {
 
-        queryParty = selectQuery(PARTY_ID, selectedPartyID, PARTY_ID);
+        DataQueryBuilder queryParty = selectQuery(PARTY_ID, selectedPartyID, PARTY_ID);
 
         showProgressDialog(AddCandidateActivity.this, "Getting Party",
                 "Getting " + selectedPartyID + " Party details, please wait...",
