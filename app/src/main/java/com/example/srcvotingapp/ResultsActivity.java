@@ -29,6 +29,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +117,7 @@ public class ResultsActivity extends AppCompatActivity {
         toastView = getLayoutInflater().inflate(R.layout.custom_toast,
                 (ViewGroup) findViewById(R.id.toast_layout));
         barChart = findViewById(R.id.barChart);
-        pieChart =findViewById(R.id.pieChart);
+        pieChart = findViewById(R.id.pieChart);
         tvNumVotes = findViewById(R.id.tvNumVotes);
     }
 
@@ -128,9 +129,9 @@ public class ResultsActivity extends AppCompatActivity {
             ArrayList<BarEntry> entriesSASCO = new ArrayList<>();
 
             for (int i = 1; i <= 12; i++) {
-                entriesDASO.add(new BarEntry(i, calcNumVotes("DASO", i, voteList)));
-                entriesEFFSC.add(new BarEntry(i, calcNumVotes("EFFSC", i, voteList)));
-                entriesSASCO.add(new BarEntry(i, calcNumVotes("SASCO", i, voteList)));
+                entriesDASO.add(new BarEntry(i, calcVotesPerPortfolio("DASO", i, voteList)));
+                entriesEFFSC.add(new BarEntry(i, calcVotesPerPortfolio("EFFSC", i, voteList)));
+                entriesSASCO.add(new BarEntry(i, calcVotesPerPortfolio("SASCO", i, voteList)));
             }
 
             BarDataSet setDASO = new BarDataSet(entriesDASO, "DASO");
@@ -187,9 +188,10 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
-    private int calcNumVotes(String partyID, int portfolioPosition, List<Vote> voteList) {
+    private int calcVotesPerPortfolio(String partyID, int portfolioPosition, List<Vote> voteList) {
 
         tvNumVotes.setText(MessageFormat.format("Vote/s so far: {0}", currentVotes.size()));
+
         int voteCount = 0;
 
         if (!voteList.isEmpty()) {
@@ -364,15 +366,14 @@ public class ResultsActivity extends AppCompatActivity {
 
     public void onClick_SwitchGraphs(View view) {
         FloatingActionButton fabSwitchGraphs = (FloatingActionButton) view;
-        if (isChart){
+        if (isChart) {
             fabSwitchGraphs.setImageDrawable(getDrawable(R.drawable.ic_poll));
             isChart = false;
             switchViews(pieChart, barChart);
             pieChart.animateY(2000);
 
             setPieData(pieChart);
-        }
-        else {
+        } else {
             fabSwitchGraphs.setImageDrawable(getDrawable(R.drawable.ic_show_chart));
             isChart = true;
             switchViews(barChart, pieChart);
@@ -380,7 +381,7 @@ public class ResultsActivity extends AppCompatActivity {
         }
     }
 
-    public  void setPieData(PieChart chart){
+    public void setPieData(PieChart chart) {
 
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
@@ -433,13 +434,23 @@ public class ResultsActivity extends AppCompatActivity {
 
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (int i = 0; i < 3 ; i++) {
-            String[] parties = {"DASO", "SASCO","EFFSC"};    //3 = range
-            entries.add(new PieEntry((float) ((Math.random() * 3) + 2 / 3),
-                    parties[i % parties.length],
-                    getDrawable(R.drawable.ic_thumb_up)));
+        // NOTE: The order of the entries when being added to the entries array determines their
+        // position around the center of the chart.
+        String[] parties = {"DASO", "SASCO", "EFFSC"};
+        for (int i = 0; i < 3; i++) {   //3 = range
+            if (i == 0)//DASO
+                entries.add(new PieEntry((7) * 1.00f,
+                        parties[i % parties.length],
+                        getDrawable(R.drawable.ic_thumb_up)));
+            if (i == 1)//SASCO
+                entries.add(new PieEntry((25) * 1.00f,
+                        parties[i % parties.length],
+                        getDrawable(R.drawable.ic_thumb_up)));
+            if (i == 2)//EFFSC
+                entries.add(new PieEntry((32) * 1.00f,
+                        parties[i % parties.length],
+                        getDrawable(R.drawable.ic_thumb_up)));
+
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Overall Election Results");
