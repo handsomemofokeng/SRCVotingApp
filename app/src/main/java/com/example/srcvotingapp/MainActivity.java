@@ -110,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (rememberMe && isPhoneConnected(MainActivity.this)) {
-            if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
-
-                attemptLogIn();
-            }
-        }
+//        if (rememberMe && isPhoneConnected(MainActivity.this)) {
+//            if (!(currentUsername.isEmpty() || currentUserPassword.isEmpty())) {
+//
+//                attemptLogIn();
+//            }
+//        }
 
 //        ivSignIn.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override

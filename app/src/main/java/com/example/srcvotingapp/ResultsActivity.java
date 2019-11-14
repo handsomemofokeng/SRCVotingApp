@@ -268,6 +268,18 @@ public class ResultsActivity extends AppCompatActivity {
         return voteCount;
     }
 
+    public static int calcOverrallVotes(String target, List<Vote> voteList) {
+
+        int num = 0;
+
+        for (Vote vote : voteList) {
+            num += vote.toString().split(target, -1).length -1;
+        }
+
+
+        return num;
+    }
+
     private void getCurrentVotes() {
 
         showProgressDialog(ResultsActivity.this, "Retrieving Votes",
@@ -436,18 +448,20 @@ public class ResultsActivity extends AppCompatActivity {
 
         // NOTE: The order of the entries when being added to the entries array determines their
         // position around the center of the chart.
-        String[] parties = {"DASO", "SASCO", "EFFSC"};
+        String[] parties = {"DASO: "+ calcOverrallVotes("DASO", currentVotes),
+                "SASCO: "+calcOverrallVotes("SASCO", currentVotes),
+                "EFFSC: " +calcOverrallVotes("EFFSC", currentVotes)};
         for (int i = 0; i < 3; i++) {   //3 = range
             if (i == 0)//DASO
-                entries.add(new PieEntry((7) * 1.00f,
+                entries.add(new PieEntry((calcOverrallVotes("DASO", currentVotes)) * 1f,
                         parties[i % parties.length],
                         getDrawable(R.drawable.ic_thumb_up)));
             if (i == 1)//SASCO
-                entries.add(new PieEntry((25) * 1.00f,
+                entries.add(new PieEntry((calcOverrallVotes("SASCO", currentVotes)) * 1f,
                         parties[i % parties.length],
                         getDrawable(R.drawable.ic_thumb_up)));
             if (i == 2)//EFFSC
-                entries.add(new PieEntry((32) * 1.00f,
+                entries.add(new PieEntry((calcOverrallVotes("EFFSC", currentVotes)) * 1f,
                         parties[i % parties.length],
                         getDrawable(R.drawable.ic_thumb_up)));
 
