@@ -375,7 +375,7 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                         public void handleResponse(List<BackendlessUser> response) {
                             progressDialog.dismiss();
 
-                            if (response.size()>0) {
+                            if (response.size() > 0) {
                                 BackendlessUser foundUser = response.get(0);
 
                                 if (foundUser.getProperty(ROLE).toString().contains("Student")) {
@@ -384,11 +384,12 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
                                     showViews(frmFoundCandidate);
                                     etFoundCandidateName.setText(getUserFullName(foundUser));
                                     etFoundCandidateCourse.setText(foundUser.getProperty("course").toString());
+                                    etFoundCandidateName.requestFocus();
                                 } else {
                                     showMessageDialog("Not Student", getUserFullName(foundUser) +
                                             " not registered as Student.\n\nPlease try again.");
                                 }
-                            }else{
+                            } else {
                                 showMessageDialog("Not Found", "Specified user not found, please try again.");
                             }
                         }
@@ -450,9 +451,12 @@ public class AddCandidateActivity extends AppCompatActivity implements PartyAdap
             @Override
             public void handleResponse(Party response) {
                 progressDialog.dismiss();
-                showCustomToast(getApplicationContext(), toastView,
-                        etEmail.getText().toString().trim() + " assigned to Portfolio: "
-                                + "CHECK!!");
+                showMessageDialog("Candidate Assigned",
+                        etFoundCandidateName.getText().toString().trim()
+                                + " assigned to Portfolio: " + selectedPortfolio);
+//                showCustomToast(getApplicationContext(), toastView,
+//                        etEmail.getText().toString().trim() + " assigned to Portfolio: "
+//                                + selectedPortfolio);
                 switchViews(rvCandidates, frmCandidateDetails);
                 candidates.set(selectedPosition, selectedParty.getCandidateByPosition(selectedPosition));
                 myAdapter.notifyDataSetChanged();
