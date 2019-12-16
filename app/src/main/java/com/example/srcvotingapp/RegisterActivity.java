@@ -259,14 +259,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
                     showCustomToast(getApplicationContext(), toastView,
-                            "Please make sure all required fields are correct.");
+                            getString(R.string.verify_fields));
                 }
             } else {
                 registerNewUser();
             }
         } else {
             showCustomToast(getApplicationContext(), toastView,
-                    "Please make sure all required fields are correct.");
+                    getString(R.string.verify_fields));
         }
 
     }

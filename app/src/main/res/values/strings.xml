@@ -83,5 +83,6 @@
     <string name="register_party">Register Party/s</string>
     <string name="reset_party">Reset Party/s</string>
     <string name="voted">Voted:</string>
+    <string name="verify_fields">Please make sure all required fields are correct.</string>
 
 </resources>
