@@ -411,4 +411,7 @@ public class RegisterActivity extends AppCompatActivity {
                 });
         builder.create().show();
     }
+
+    public void onClick_AddPicture(View view) {
+    }
 }
