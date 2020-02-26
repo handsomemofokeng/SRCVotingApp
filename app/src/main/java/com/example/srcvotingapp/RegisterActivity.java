@@ -413,5 +413,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClick_AddPicture(View view) {
+        showCustomToast(this, toastView, "To do: Take a picture or choose from directory");
     }
 }
