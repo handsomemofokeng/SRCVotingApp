@@ -16,7 +16,7 @@
         <activity
             android:name=".StudentActivity"
             android:label="@string/title_activity_student"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ManagePartiesActivity" />
         <activity android:name=".ResultsActivity" />
         <activity

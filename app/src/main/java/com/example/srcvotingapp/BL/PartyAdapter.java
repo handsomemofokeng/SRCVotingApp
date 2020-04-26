@@ -17,7 +17,7 @@ import static com.example.srcvotingapp.ApplicationClass.Portfolios;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> {
     private ArrayList<String> candidates;
-    ItemClicked activity;
+    private ItemClicked activity;
 
     public interface ItemClicked {
         void onItemClicked(int index);
@@ -28,11 +28,11 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
         activity = (ItemClicked) context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPref;
         TextView tvName, tvEmail, tvPortfolio;
 
-        public ViewHolder(@NonNull final View itemView) {
+        ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             tvPortfolio = itemView.findViewById(R.id.tvCandidatePortfolioRow);
