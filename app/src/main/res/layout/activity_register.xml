@@ -26,17 +26,18 @@
 <!--                android:background="@drawable/spinner"-->
 <!--                android:contentDescription="@string/app_name"-->
 <!--                android:src="@mipmap/ic_launcher_foreground" />-->
-            <ImageView
-                android:id="@+id/ivAddPicture"
-                android:layout_width="@dimen/dimen_175dp"
-                android:layout_height="@dimen/dimen_175dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/appbar_padding_top"
-                android:layout_marginBottom="@dimen/appbar_padding_top"
-                android:background="@drawable/button"
-                android:padding="@dimen/default_gap"
-                android:src="@drawable/ic_add_photo"
-                android:contentDescription="@string/app_name"/>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivAddPicture"-->
+<!--                android:layout_width="@dimen/dimen_175dp"-->
+<!--                android:layout_height="@dimen/dimen_175dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="@dimen/appbar_padding_top"-->
+<!--                android:layout_marginBottom="@dimen/appbar_padding_top"-->
+<!--                android:background="@drawable/button"-->
+<!--                android:padding="@dimen/default_gap"-->
+<!--                android:src="@drawable/ic_add_photo"-->
+<!--                android:contentDescription="@string/app_name"/>-->
 
             <LinearLayout
                 android:id="@+id/frmPersonalDetails"

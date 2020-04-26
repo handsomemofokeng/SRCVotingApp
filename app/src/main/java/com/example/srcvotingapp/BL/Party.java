@@ -3,7 +3,6 @@ package com.example.srcvotingapp.BL;
 import weborb.service.MapToProperty;
 
 import static com.example.srcvotingapp.ApplicationClass.Portfolios;
-import static com.example.srcvotingapp.ApplicationClass.SELECTED_ConstitutionalAndLegalAffairs;
 
 public class Party {
 
