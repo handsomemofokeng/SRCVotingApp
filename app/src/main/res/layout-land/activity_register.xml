@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".RegisterActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_175dp"
+                android:layout_height="@dimen/dimen_175dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/appbar_padding_top"
+                android:layout_marginBottom="@dimen/appbar_padding_top"
+                android:background="@drawable/spinner"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_launcher_foreground" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivAddPicture"-->
+<!--                android:layout_width="@dimen/dimen_175dp"-->
+<!--                android:layout_height="@dimen/dimen_175dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="@dimen/appbar_padding_top"-->
+<!--                android:layout_marginBottom="@dimen/appbar_padding_top"-->
+<!--                android:background="@drawable/button"-->
+<!--                android:padding="@dimen/default_gap"-->
+<!--                android:src="@drawable/ic_add_photo"-->
+<!--                android:contentDescription="@string/app_name"-->
+<!--                android:onClick="onClick_AddPicture"/>-->
+
+            <LinearLayout
+                android:id="@+id/frmPersonalDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!--Divider-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etNameReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_name"
+                        android:imeActionId="6"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etSurnameReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_surname"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:orientation="horizontal">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_weight="7">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/etEmailReg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="9"
+                            android:drawableStart="@drawable/ic_email"
+                            android:drawablePadding="5dp"
+                            android:hint="@string/prompt_email"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:singleLine="true"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivScanCardRegUser"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/button"
+                        android:contentDescription="@string/prompt_email"
+                        android:onClick="onClick_ScanCard"
+                        android:padding="5sp"
+                        android:src="@drawable/ic_card" />
+
+                    <ImageView
+                        android:id="@+id/ivCorrectRegUser"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/prompt_email"
+                        android:padding="5sp"
+                        android:src="@drawable/ic_thumb_up"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilPasswordReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etPasswordReg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_password"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:passwordToggleEnabled="true">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/etConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/prompt_password_confirm"
+                        android:imeActionId="6"
+                        android:imeActionLabel="@string/action_sign_in_short"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/frmStatisticalDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/statistic_details"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!--Divider-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:id="@+id/rgGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/spinner"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvGenderReg"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="0.5"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:gravity="center|end"
+                        android:maxLines="1"
+                        android:text="@string/prompt_gender"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size" />
+
+                    <RadioButton
+                        android:id="@+id/rbMale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:text="@string/male" />
+
+                    <RadioButton
+                        android:id="@+id/rbFemale"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:text="@string/female" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/spinner"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvEthnicity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="0.5"
+                        android:drawableStart="@drawable/ic_group"
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:gravity="center|end"
+                        android:maxLines="1"
+                        android:text="@string/prompt_ethnicity"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size"/>
+
+                    <Spinner
+                        android:id="@+id/spnEthnicityReg"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:entries="@array/ethnicity"
+                        android:textAlignment="center"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/spinner"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvCourse"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="0.5"
+                        android:drawableStart="@drawable/ic_school"
+                        android:drawablePadding="5dp"
+                        android:enabled="false"
+                        android:gravity="center|end"
+                        android:maxLines="1"
+                        android:text="@string/course"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size"/>
+
+                    <Spinner
+                        android:id="@+id/spnCourseReg"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:entries="@array/course"
+                        android:textAlignment="center"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/btnGoBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableStart="@drawable/ic_back"
+                    android:drawablePadding="15dp"
+                    android:onClick="onClick_GoBack"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/action_go_back"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnRegisterUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button"
+                    android:drawableEnd="@drawable/ic_done"
+                    android:drawablePadding="15dp"
+                    android:onClick="onClick_RegisterUser"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/action_register"
+                    android:textColor="@color/colorButtonForeground"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
