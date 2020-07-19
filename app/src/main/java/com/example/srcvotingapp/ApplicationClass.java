@@ -879,7 +879,7 @@ public class ApplicationClass extends Application {
 
     public static boolean isCheckBoxSelected(CheckBox... checkBoxes){
         boolean isChecked = false;
-        for (CheckBox box: checkBoxes             ) {
+        for (CheckBox box: checkBoxes) {
             if (box.isChecked()){
                 isChecked = true;
                 break;
@@ -887,6 +887,5 @@ public class ApplicationClass extends Application {
         }
         return isChecked;
     }
-
 
 }
