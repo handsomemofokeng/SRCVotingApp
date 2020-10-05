@@ -40,8 +40,8 @@ import static java.lang.String.*;
 
 public class ApplicationClass extends Application {
 
-    public static final String APPLICATION_ID = "5F1830F4-0981-DA83-FFE7-4B5B8C74CE00";
-    public static final String API_KEY = "C5C2CAA7-B896-58DB-FF65-BA29DCA69600";
+    public static final String APPLICATION_ID = "MY_APP_ID";
+    public static final String API_KEY = "API_KEY";
     public static final String SERVER_URL = "https://api.backendless.com",
             MY_SHARED_PREFERENCES_NAME = "com.example.srcvotingapp";
 //    public static final int REQUEST_PHONE = 123;
