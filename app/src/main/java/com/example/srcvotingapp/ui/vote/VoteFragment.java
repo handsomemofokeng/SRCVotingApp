@@ -1,36 +1,21 @@
 package com.example.srcvotingapp.ui.vote;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.support.annotation.Nullable;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.widget.Toast;
 
-import com.backendless.Backendless;
-import com.backendless.async.callback.AsyncCallback;
-import com.backendless.exceptions.BackendlessFault;
-import com.example.srcvotingapp.BL.Party;
 import com.example.srcvotingapp.R;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingDeque;
-
-import static com.example.srcvotingapp.ApplicationClass.disableViews;
-import static com.example.srcvotingapp.ApplicationClass.enableViews;
-import static com.example.srcvotingapp.ApplicationClass.getSelectedRadio;
-import static com.example.srcvotingapp.ApplicationClass.progressDialog;
-import static com.example.srcvotingapp.ApplicationClass.selectAllQuery;
-import static com.example.srcvotingapp.ApplicationClass.showProgressDialog;
 import static com.example.srcvotingapp.VoteActivity.partyList;
 
 /**
@@ -75,9 +60,10 @@ public class VoteFragment extends Fragment {
 
         if (partyList != null) {
             if (!partyList.isEmpty()) {
+                assert getArguments() != null;
                 rbDASO.setText(partyList.get(0).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER) - 1));
-                rbEFFSC.setText(partyList.get(1).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
-                rbSASCO.setText(partyList.get(2).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER)- 1));
+                rbEFFSC.setText(partyList.get(1).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER) - 1));
+                rbSASCO.setText(partyList.get(2).getCandidateByPosition(getArguments().getInt(ARG_SECTION_NUMBER) - 1));
             }
         }
     }
