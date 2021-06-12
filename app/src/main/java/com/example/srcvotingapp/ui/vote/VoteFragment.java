@@ -98,25 +98,23 @@ public class VoteFragment extends Fragment {
         });
 
 
-        rgCandidateParty.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+        rgCandidateParty.setOnCheckedChangeListener((group, checkedId) -> {
 
-                String selectedPartyID = "";
+            String selectedPartyID = "";
 
-                switch (checkedId) {
-                    case R.id.rbDASO:
-                        selectedPartyID = "DASO";
-                        break;
+            switch (checkedId) {
+                case R.id.rbDASO:
+                    selectedPartyID = "DASO";
+                    break;
 
-                    case R.id.rbEFFSC:
-                        selectedPartyID = "EFFSC";
-                        break;
+                case R.id.rbEFFSC:
+                    selectedPartyID = "EFFSC";
+                    break;
 
-                    case R.id.rbSASCO:
-                        selectedPartyID = "SASCO";
-                        break;
-                }
+                case R.id.rbSASCO:
+                    selectedPartyID = "SASCO";
+                    break;
+            }
 
 
 //                if (partyList != null) {
@@ -127,9 +125,8 @@ public class VoteFragment extends Fragment {
 //                    }
 //                }
 
-                setCandidateListener.onSetCandidate(selectedPartyID,
-                        tvSection.getText().toString().trim());
-            }
+            setCandidateListener.onSetCandidate(selectedPartyID,
+                    tvSection.getText().toString().trim());
         });
         return root;
     }
